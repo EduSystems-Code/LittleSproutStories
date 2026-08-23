@@ -1,0 +1,268 @@
+{
+  "book_id": "Book7_Maya_James_Bakery",
+  "title": "Maya & James Visit the Bakery",
+  "book_title": "Maya & James Visit the Bakery",
+  "book_badge": "Bakery Explorer",
+  "cover": {
+    "h1_html": "Maya &amp; James<br>Visit the Bakery",
+    "stage": {
+      "backdrop": "backdrop-bakery",
+      "elements": [
+        {
+          "type": "img",
+          "sprite": "maya_happy_waving.png",
+          "alt": "Maya"
+        },
+        {
+          "type": "img",
+          "sprite": "james_happy_waving.png",
+          "alt": "James"
+        }
+      ]
+    }
+  },
+  "pages": [
+    {
+      "index": 1,
+      "stage": {
+        "backdrop": "backdrop-bakery",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "maya_happy_walking.png",
+            "alt": "Maya"
+          },
+          {
+            "type": "img",
+            "sprite": "james_happy_walking.png",
+            "alt": "James"
+          },
+          {
+            "type": "helper",
+            "name": "Keisha",
+            "emoji": "&#128105;&#8205;&#127859;"
+          },
+          {
+            "type": "hotspot",
+            "position": "right",
+            "effect": "pulse",
+            "aria_label": "Tap to play",
+            "emoji": "&#129384;"
+          }
+        ]
+      },
+      "text_a": "Maya and James visited Keisha&rsquo;s bakery to help make cookies for the weekend market.",
+      "text_b": "Maya and James bake.",
+      "quiz": null
+    },
+    {
+      "index": 2,
+      "stage": {
+        "backdrop": "backdrop-bakery",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "james_neutral_kneeling.png",
+            "alt": "James"
+          },
+          {
+            "type": "img",
+            "sprite": "maya_happy_standing.png",
+            "alt": "Maya"
+          },
+          {
+            "type": "hotspot",
+            "position": "left",
+            "effect": "pulse",
+            "aria_label": "Tap to play",
+            "emoji": "&#129474;"
+          }
+        ]
+      },
+      "text_a": "James carefully measured every scoop of flour, leveling it perfectly each time.",
+      "text_b": "James gets the flour.",
+      "quiz": null
+    },
+    {
+      "index": 3,
+      "stage": {
+        "backdrop": "backdrop-bakery",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "maya_surprised_reaching.png",
+            "alt": "Maya"
+          },
+          {
+            "type": "img",
+            "sprite": "james_surprised_standing.png",
+            "alt": "James"
+          },
+          {
+            "type": "hotspot",
+            "position": "mid",
+            "effect": "pulse",
+            "aria_label": "Tap to play",
+            "emoji": "&#10052;&#65039;"
+          }
+        ]
+      },
+      "text_a": "Maya reached for the flour bag and &mdash; poof! &mdash; a cloud of white dust puffed into the air and everywhere.",
+      "text_b": "Flour goes on James!",
+      "quiz": null
+    },
+    {
+      "index": 4,
+      "stage": {
+        "backdrop": "backdrop-bakery",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "maya_sad_standing.png",
+            "alt": "Maya"
+          },
+          {
+            "type": "img",
+            "sprite": "james_neutral_looking.png",
+            "alt": "James"
+          }
+        ]
+      },
+      "text_a": "&ldquo;I ruined it,&rdquo; Maya said, her eyes filling with worry.",
+      "text_b": "Maya feels bad.",
+      "quiz": {
+        "question": "How does Maya feel?",
+        "options": [
+          "Proud",
+          "Worried",
+          "Silly"
+        ],
+        "answer": 1
+      }
+    },
+    {
+      "index": 5,
+      "stage": {
+        "backdrop": "backdrop-bakery",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "maya_sad_looking.png",
+            "alt": "Maya"
+          },
+          {
+            "type": "helper",
+            "name": "Keisha",
+            "emoji": "&#128105;&#8205;&#127859;"
+          },
+          {
+            "type": "hotspot",
+            "position": "right",
+            "effect": "pulse",
+            "aria_label": "Tap to play",
+            "emoji": "&#10052;&#65039;"
+          }
+        ]
+      },
+      "text_a": "Keisha laughed warmly. &ldquo;Watch this,&rdquo; she said, and gently patted a bit of the spilled flour onto the cookie dough like snow.",
+      "text_b": "Flour looks like snow.",
+      "quiz": null
+    },
+    {
+      "index": 6,
+      "stage": {
+        "backdrop": "backdrop-bakery",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "maya_happy_standing.png",
+            "alt": "Maya"
+          },
+          {
+            "type": "helper",
+            "name": "Keisha",
+            "emoji": "&#128105;&#8205;&#127859;"
+          },
+          {
+            "type": "img",
+            "sprite": "james_happy_pointing.png",
+            "alt": "James"
+          }
+        ]
+      },
+      "text_a": "&ldquo;Now these are Maya&rsquo;s Snowy Cookies,&rdquo; Keisha announced, and Maya couldn&rsquo;t help but smile.",
+      "text_b": "Maya&rsquo;s cookies are the best.",
+      "quiz": null
+    },
+    {
+      "index": 7,
+      "stage": {
+        "backdrop": "backdrop-bakery",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "james_happy_giving.png",
+            "alt": "James"
+          },
+          {
+            "type": "img",
+            "sprite": "maya_happy_giving.png",
+            "alt": "Maya"
+          },
+          {
+            "type": "hotspot",
+            "position": "mid",
+            "effect": "pulse",
+            "aria_label": "Tap to play",
+            "emoji": "&#127850;"
+          }
+        ]
+      },
+      "text_a": "James realized his perfectly measured cookies and Maya&rsquo;s snowy ones both turned out delicious.",
+      "text_b": "Both cookies are good.",
+      "quiz": {
+        "question": "What did Maya learn about mistakes?",
+        "options": [
+          "They ruin everything",
+          "They can turn into something new",
+          "They should be hidden"
+        ],
+        "answer": 1
+      }
+    },
+    {
+      "index": 8,
+      "stage": {
+        "backdrop": "backdrop-bakery",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "maya_happy_waving.png",
+            "alt": "Maya"
+          },
+          {
+            "type": "img",
+            "sprite": "james_happy_waving.png",
+            "alt": "James"
+          },
+          {
+            "type": "helper",
+            "name": "Keisha",
+            "emoji": "&#128105;&#8205;&#127859;"
+          }
+        ]
+      },
+      "text_a": "They boxed up cookies together, and Maya&rsquo;s snowy ones were the first to sell out at the market.",
+      "text_b": "The cookies sell out.",
+      "quiz": null
+    }
+  ],
+  "end_screen": {
+    "badge_emoji": "&#127941;",
+    "badge_label_html": "Bakery<br>Explorer",
+    "feeling": "Fear of mistakes eases when a mistake becomes something new.",
+    "ask": "Tell me about a mistake that turned into something good.",
+    "try_this": "Bake something together and let a &ldquo;mistake&rdquo; become part of the recipe.",
+    "standards": "W.K.3"
+  }
+}

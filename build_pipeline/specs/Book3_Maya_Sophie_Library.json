@@ -1,0 +1,247 @@
+{
+  "book_id": "Book3_Maya_Sophie_Library",
+  "title": "Maya & Sophie Visit the Library",
+  "book_title": "Maya & Sophie Visit the Library",
+  "book_badge": "Library Explorer",
+  "cover": {
+    "h1_html": "Maya &amp; Sophie<br>Visit the Library",
+    "stage": {
+      "backdrop": "backdrop-library",
+      "elements": [
+        {
+          "type": "img",
+          "sprite": "maya_happy_waving.png",
+          "alt": "Maya"
+        },
+        {
+          "type": "img",
+          "sprite": "sophie_happy_waving.png",
+          "alt": "Sophie"
+        }
+      ]
+    }
+  },
+  "pages": [
+    {
+      "index": 1,
+      "stage": {
+        "backdrop": "backdrop-library",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "maya_happy_walking.png",
+            "alt": "Maya"
+          },
+          {
+            "type": "img",
+            "sprite": "sophie_happy_jumping.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "hotspot",
+            "position": "right",
+            "effect": "pulse",
+            "aria_label": "Tap to play",
+            "emoji": "&#128218;"
+          }
+        ]
+      },
+      "text_a": "Maya loved the library&rsquo;s quiet corners. Sophie loved the library too &mdash; but sitting still was hard for her.",
+      "text_b": "Maya and Sophie go in.",
+      "quiz": null
+    },
+    {
+      "index": 2,
+      "stage": {
+        "backdrop": "backdrop-library",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "maya_happy_sitting.png",
+            "alt": "Maya"
+          },
+          {
+            "type": "img",
+            "sprite": "sophie_neutral_sitting.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "helper",
+            "name": "Ms. Chen",
+            "emoji": "&#128105;&#8205;&#128218;"
+          }
+        ]
+      },
+      "text_a": "Ms. Chen welcomed them and invited everyone to story time on the rug.",
+      "text_b": "Ms. Chen reads.",
+      "quiz": null
+    },
+    {
+      "index": 3,
+      "stage": {
+        "backdrop": "backdrop-library",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "sophie_sad_standing.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "img",
+            "sprite": "maya_neutral_looking.png",
+            "alt": "Maya"
+          }
+        ]
+      },
+      "text_a": "Partway through, Sophie&rsquo;s legs just had to wiggle. A few kids looked over. Sophie felt her cheeks get hot.",
+      "text_b": "Sophie feels sad.",
+      "quiz": {
+        "question": "How does Sophie feel?",
+        "options": [
+          "Proud",
+          "Embarrassed",
+          "Bored"
+        ],
+        "answer": 1
+      }
+    },
+    {
+      "index": 4,
+      "stage": {
+        "backdrop": "backdrop-library",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "sophie_sad_sitting.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "img",
+            "sprite": "maya_neutral_sitting.png",
+            "alt": "Maya"
+          }
+        ]
+      },
+      "text_a": "&ldquo;I think I&rsquo;m bad at library,&rdquo; Sophie whispered to Maya.",
+      "text_b": "Sophie is not glad.",
+      "quiz": null
+    },
+    {
+      "index": 5,
+      "stage": {
+        "backdrop": "backdrop-library",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "maya_neutral_pointing.png",
+            "alt": "Maya"
+          },
+          {
+            "type": "img",
+            "sprite": "sophie_neutral_looking.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "hotspot",
+            "position": "left",
+            "effect": "pulse",
+            "aria_label": "Tap to play",
+            "emoji": "&#128214;"
+          }
+        ]
+      },
+      "text_a": "Maya took her hand and showed her a comic-book display in the corner. &ldquo;Look &mdash; you can read standing up here.&rdquo;",
+      "text_b": "Maya shows a book.",
+      "quiz": null
+    },
+    {
+      "index": 6,
+      "stage": {
+        "backdrop": "backdrop-library",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "sophie_neutral_standing.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "img",
+            "sprite": "maya_neutral_standing.png",
+            "alt": "Maya"
+          },
+          {
+            "type": "helper",
+            "name": "Ms. Chen",
+            "emoji": "&#128105;&#8205;&#128218;"
+          }
+        ]
+      },
+      "text_a": "Ms. Chen came over. &ldquo;There&rsquo;s no one right way to enjoy a book,&rdquo; she said. &ldquo;Some readers wiggle, some sit still &mdash; both are real readers.&rdquo;",
+      "text_b": "Reading is fun for all.",
+      "quiz": null
+    },
+    {
+      "index": 7,
+      "stage": {
+        "backdrop": "backdrop-library",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "sophie_happy_reaching.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "img",
+            "sprite": "maya_happy_giving.png",
+            "alt": "Maya"
+          }
+        ]
+      },
+      "text_a": "Sophie picked a comic and read it standing on her tiptoes, completely happy.",
+      "text_b": "Sophie is a big reader.",
+      "quiz": {
+        "question": "What did Sophie learn?",
+        "options": [
+          "There is one right way to read",
+          "Readers can enjoy books differently",
+          "Reading is boring"
+        ],
+        "answer": 1
+      }
+    },
+    {
+      "index": 8,
+      "stage": {
+        "backdrop": "backdrop-library",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "maya_happy_waving.png",
+            "alt": "Maya"
+          },
+          {
+            "type": "img",
+            "sprite": "sophie_happy_waving.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "helper",
+            "name": "Ms. Chen",
+            "emoji": "&#128105;&#8205;&#128218;"
+          }
+        ]
+      },
+      "text_a": "Maya and Sophie checked out their books together and promised to come back next week.",
+      "text_b": "They check out books.",
+      "quiz": null
+    }
+  ],
+  "end_screen": {
+    "badge_emoji": "&#127941;",
+    "badge_label_html": "Library<br>Explorer",
+    "feeling": "Embarrassment eases with self-acceptance and a friend&rsquo;s help.",
+    "ask": "Is there a way you like to do something that is different from your friends?",
+    "try_this": "Let your child choose how they sit and read tonight.",
+    "standards": "RL.K.5, RL.K.6"
+  }
+}

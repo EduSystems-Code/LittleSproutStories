@@ -1,0 +1,244 @@
+{
+  "book_id": "Book6_Marcus_Sophie_Barbershop",
+  "title": "Marcus & Sophie Visit the Barbershop",
+  "book_title": "Marcus & Sophie Visit the Barbershop",
+  "book_badge": "Barbershop Explorer",
+  "cover": {
+    "h1_html": "Marcus &amp; Sophie<br>Visit the Barbershop",
+    "stage": {
+      "backdrop": "backdrop-barbershop",
+      "elements": [
+        {
+          "type": "img",
+          "sprite": "marcus_happy_waving.png",
+          "alt": "Marcus"
+        },
+        {
+          "type": "img",
+          "sprite": "sophie_happy_waving.png",
+          "alt": "Sophie"
+        }
+      ]
+    }
+  },
+  "pages": [
+    {
+      "index": 1,
+      "stage": {
+        "backdrop": "backdrop-street",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "sophie_neutral_walking.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "img",
+            "sprite": "marcus_happy_walking.png",
+            "alt": "Marcus"
+          }
+        ]
+      },
+      "text_a": "Sophie was getting her very first haircut, and Marcus came along because he already knew what to expect.",
+      "text_b": "Sophie gets a haircut.",
+      "quiz": null
+    },
+    {
+      "index": 2,
+      "stage": {
+        "backdrop": "backdrop-barbershop",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "sophie_surprised_standing.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "img",
+            "sprite": "marcus_neutral_standing.png",
+            "alt": "Marcus"
+          },
+          {
+            "type": "helper",
+            "name": "Mr. Smith",
+            "emoji": "&#128135;"
+          },
+          {
+            "type": "hotspot",
+            "position": "right",
+            "effect": "ding",
+            "aria_label": "Tap to play",
+            "emoji": "&#9986;"
+          }
+        ]
+      },
+      "text_a": "Mr. Smith greeted them with clippers buzzing softly in the background. Sophie froze at the sound.",
+      "text_b": "Buzz! The tool is on.",
+      "quiz": null
+    },
+    {
+      "index": 3,
+      "stage": {
+        "backdrop": "backdrop-barbershop",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "sophie_surprised_hands.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "img",
+            "sprite": "marcus_neutral_looking.png",
+            "alt": "Marcus"
+          }
+        ]
+      },
+      "text_a": "&ldquo;That buzzing sound is scary,&rdquo; Sophie whispered.",
+      "text_b": "Sophie feels bad.",
+      "quiz": {
+        "question": "How does Sophie feel?",
+        "options": [
+          "Excited",
+          "Scared",
+          "Sleepy"
+        ],
+        "answer": 1
+      }
+    },
+    {
+      "index": 4,
+      "stage": {
+        "backdrop": "backdrop-barbershop",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "sophie_neutral_looking.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "img",
+            "sprite": "marcus_neutral_pointing.png",
+            "alt": "Marcus"
+          }
+        ]
+      },
+      "text_a": "Marcus remembered feeling that way once too. &ldquo;Want me to go first so you can watch?&rdquo; he offered.",
+      "text_b": "Marcus goes first.",
+      "quiz": null
+    },
+    {
+      "index": 5,
+      "stage": {
+        "backdrop": "backdrop-barbershop",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "marcus_neutral_sitting.png",
+            "alt": "Marcus"
+          },
+          {
+            "type": "img",
+            "sprite": "sophie_neutral_standing.png",
+            "alt": "Sophie"
+          }
+        ]
+      },
+      "text_a": "Sophie watched closely as Marcus sat calmly through his trim, giggling at the ticklish parts.",
+      "text_b": "Marcus sits still.",
+      "quiz": null
+    },
+    {
+      "index": 6,
+      "stage": {
+        "backdrop": "backdrop-barbershop",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "sophie_neutral_reaching.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "img",
+            "sprite": "marcus_happy_giving.png",
+            "alt": "Marcus"
+          },
+          {
+            "type": "hotspot",
+            "position": "left",
+            "effect": "pulse",
+            "aria_label": "Tap to play",
+            "emoji": "&#9986;"
+          }
+        ]
+      },
+      "text_a": "Mr. Smith let Sophie hold the clippers, turned off, so she could feel they weren&rsquo;t scary at all.",
+      "text_b": "Sophie holds the tool.",
+      "quiz": null
+    },
+    {
+      "index": 7,
+      "stage": {
+        "backdrop": "backdrop-barbershop",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "sophie_happy_standing.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "img",
+            "sprite": "marcus_happy_giving.png",
+            "alt": "Marcus"
+          }
+        ]
+      },
+      "text_a": "Sophie climbed into the chair, brave and ready.",
+      "text_b": "Sophie is not sad now.",
+      "quiz": {
+        "question": "What helped Sophie feel brave?",
+        "options": [
+          "Ignoring the clippers",
+          "Watching a friend go first",
+          "Running away"
+        ],
+        "answer": 1
+      }
+    },
+    {
+      "index": 8,
+      "stage": {
+        "backdrop": "backdrop-barbershop",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "sophie_happy_jumping.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "img",
+            "sprite": "marcus_happy_waving.png",
+            "alt": "Marcus"
+          },
+          {
+            "type": "hotspot",
+            "position": "mid",
+            "effect": "pulse",
+            "aria_label": "Tap to play",
+            "emoji": "&#129517;"
+          }
+        ]
+      },
+      "text_a": "Her haircut was finished before she knew it, and she loved seeing herself in the big mirror.",
+      "text_b": "Sophie sees her new haircut.",
+      "quiz": null
+    }
+  ],
+  "end_screen": {
+    "badge_emoji": "&#127941;",
+    "badge_label_html": "Barbershop<br>Explorer",
+    "feeling": "Fear of the unknown eases when a trusted peer goes first.",
+    "ask": "Has a friend ever helped you feel brave about something new?",
+    "try_this": "Let an older sibling or friend &ldquo;go first&rdquo; for a new experience this week.",
+    "standards": "L.K.1.b, L.K.5.b"
+  }
+}

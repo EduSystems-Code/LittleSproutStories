@@ -1,0 +1,249 @@
+{
+  "book_id": "Book10_Sophie_James_RepairShop",
+  "title": "Sophie & James Visit the Repair Shop",
+  "book_title": "Sophie & James Visit the Repair Shop",
+  "book_badge": "Repair Shop Explorer",
+  "cover": {
+    "h1_html": "Sophie &amp; James<br>Visit the Repair Shop",
+    "stage": {
+      "backdrop": "backdrop-repair",
+      "elements": [
+        {
+          "type": "img",
+          "sprite": "sophie_happy_waving.png",
+          "alt": "Sophie"
+        },
+        {
+          "type": "img",
+          "sprite": "james_happy_waving.png",
+          "alt": "James"
+        }
+      ]
+    }
+  },
+  "pages": [
+    {
+      "index": 1,
+      "stage": {
+        "backdrop": "backdrop-repair",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "james_sad_standing.png",
+            "alt": "James"
+          },
+          {
+            "type": "img",
+            "sprite": "sophie_neutral_walking.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "hotspot",
+            "position": "right",
+            "effect": "pulse",
+            "aria_label": "Tap to play",
+            "emoji": "&#129302;"
+          }
+        ]
+      },
+      "text_a": "James&rsquo;s favorite toy robot had a broken arm, and today David the repair helper would try to fix it.",
+      "text_b": "James&rsquo;s robot will not go.",
+      "quiz": null
+    },
+    {
+      "index": 2,
+      "stage": {
+        "backdrop": "backdrop-repair",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "james_sad_looking.png",
+            "alt": "James"
+          },
+          {
+            "type": "helper",
+            "name": "David",
+            "emoji": "&#128104;&#8205;&#128295;"
+          }
+        ]
+      },
+      "text_a": "&ldquo;Will it be exactly like before?&rdquo; James asked, worried.",
+      "text_b": "James is sad.",
+      "quiz": null
+    },
+    {
+      "index": 3,
+      "stage": {
+        "backdrop": "backdrop-repair",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "james_sad_standing.png",
+            "alt": "James"
+          },
+          {
+            "type": "helper",
+            "name": "David",
+            "emoji": "&#128104;&#8205;&#128295;"
+          },
+          {
+            "type": "img",
+            "sprite": "sophie_neutral_looking.png",
+            "alt": "Sophie"
+          }
+        ]
+      },
+      "text_a": "David looked closely at the robot. &ldquo;I can fix it, but you might still see the repair line,&rdquo; he said honestly.",
+      "text_b": "James feels bad too.",
+      "quiz": {
+        "question": "How does James feel?",
+        "options": [
+          "Happy",
+          "Sad",
+          "Excited"
+        ],
+        "answer": 1
+      }
+    },
+    {
+      "index": 4,
+      "stage": {
+        "backdrop": "backdrop-repair",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "sophie_neutral_reaching.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "img",
+            "sprite": "james_sad_standing.png",
+            "alt": "James"
+          }
+        ]
+      },
+      "text_a": "Sophie squeezed his hand. &ldquo;Sometimes fixed things get a new kind of special,&rdquo; she said.",
+      "text_b": "Fixed things feel good.",
+      "quiz": null
+    },
+    {
+      "index": 5,
+      "stage": {
+        "backdrop": "backdrop-repair",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "james_neutral_kneeling.png",
+            "alt": "James"
+          },
+          {
+            "type": "helper",
+            "name": "David",
+            "emoji": "&#128104;&#8205;&#128295;"
+          },
+          {
+            "type": "hotspot",
+            "position": "right2",
+            "effect": "pulse",
+            "aria_label": "Tap to play",
+            "emoji": "&#128295;"
+          }
+        ]
+      },
+      "text_a": "David carefully glued and reinforced the little arm while James watched every step.",
+      "text_b": "David fixes the arm.",
+      "quiz": null
+    },
+    {
+      "index": 6,
+      "stage": {
+        "backdrop": "backdrop-repair",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "james_neutral_looking.png",
+            "alt": "James"
+          },
+          {
+            "type": "img",
+            "sprite": "sophie_neutral_pointing.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "hotspot",
+            "position": "mid",
+            "effect": "pulse",
+            "aria_label": "Tap to play",
+            "emoji": "&#129302;"
+          }
+        ]
+      },
+      "text_a": "When it was done, a thin seam ran across the robot&rsquo;s shoulder &mdash; but the arm moved just fine.",
+      "text_b": "David can fix it.",
+      "quiz": null
+    },
+    {
+      "index": 7,
+      "stage": {
+        "backdrop": "backdrop-repair",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "james_happy_standing.png",
+            "alt": "James"
+          },
+          {
+            "type": "img",
+            "sprite": "sophie_happy_giving.png",
+            "alt": "Sophie"
+          }
+        ]
+      },
+      "text_a": "James looked at the seam for a long moment, then grinned. &ldquo;That&rsquo;s his battle scar now,&rdquo; he said proudly.",
+      "text_b": "James feels glad.",
+      "quiz": {
+        "question": "How does James feel about the seam by the end?",
+        "options": [
+          "Upset",
+          "Proud",
+          "Confused"
+        ],
+        "answer": 1
+      }
+    },
+    {
+      "index": 8,
+      "stage": {
+        "backdrop": "backdrop-repair",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "sophie_happy_waving.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "img",
+            "sprite": "james_happy_waving.png",
+            "alt": "James"
+          },
+          {
+            "type": "helper",
+            "name": "David",
+            "emoji": "&#128104;&#8205;&#128295;"
+          }
+        ]
+      },
+      "text_a": "Sophie and James thanked David and promised to bring anything else that broke straight to him.",
+      "text_b": "They thank David.",
+      "quiz": null
+    }
+  ],
+  "end_screen": {
+    "badge_emoji": "&#127941;",
+    "badge_label_html": "Repair Shop<br>Explorer",
+    "feeling": "Small grief eases when a repaired thing is seen as changed, not ruined.",
+    "ask": "Has something you loved ever broken and gotten fixed?",
+    "try_this": "Fix something small together and talk about its new marks.",
+    "standards": "RI.K.8, L.K.4.a"
+  }
+}

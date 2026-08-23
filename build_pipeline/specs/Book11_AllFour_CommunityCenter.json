@@ -1,0 +1,277 @@
+{
+  "book_id": "Book11_AllFour_CommunityCenter",
+  "title": "All Four Visit the Community Center",
+  "book_title": "All Four Visit the Community Center",
+  "book_badge": "Community Center Explorer",
+  "cover": {
+    "h1_html": "All Four Friends<br>Visit the Community Center",
+    "stage": {
+      "backdrop": "backdrop-center",
+      "elements": [
+        {
+          "type": "img",
+          "sprite": "maya_happy_waving.png",
+          "alt": "Maya"
+        },
+        {
+          "type": "img",
+          "sprite": "marcus_happy_waving.png",
+          "alt": "Marcus"
+        },
+        {
+          "type": "img",
+          "sprite": "sophie_happy_waving.png",
+          "alt": "Sophie"
+        },
+        {
+          "type": "img",
+          "sprite": "james_happy_waving.png",
+          "alt": "James"
+        }
+      ]
+    }
+  },
+  "pages": [
+    {
+      "index": 1,
+      "stage": {
+        "backdrop": "backdrop-center",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "maya_happy_walking.png",
+            "alt": "Maya"
+          },
+          {
+            "type": "img",
+            "sprite": "marcus_happy_walking.png",
+            "alt": "Marcus"
+          },
+          {
+            "type": "img",
+            "sprite": "sophie_happy_running.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "img",
+            "sprite": "james_happy_walking.png",
+            "alt": "James"
+          }
+        ]
+      },
+      "text_a": "All four friends came to the community center for a favorite group game.",
+      "text_b": "Four friends play a game.",
+      "quiz": null
+    },
+    {
+      "index": 2,
+      "stage": {
+        "backdrop": "backdrop-center",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "sophie_happy_standing.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "helper",
+            "name": "Nurse Aisha",
+            "emoji": "&#128105;&#8205;&#9877;&#65039;"
+          },
+          {
+            "type": "img",
+            "sprite": "james_happy_standing.png",
+            "alt": "James"
+          }
+        ]
+      },
+      "text_a": "Nurse Aisha explained the rules &mdash; everyone would get a turn, one at a time.",
+      "text_b": "Each kid gets a turn.",
+      "quiz": null
+    },
+    {
+      "index": 3,
+      "stage": {
+        "backdrop": "backdrop-center",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "james_happy_jumping.png",
+            "alt": "James"
+          },
+          {
+            "type": "img",
+            "sprite": "sophie_frustrated_hands.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "img",
+            "sprite": "marcus_neutral_standing.png",
+            "alt": "Marcus"
+          }
+        ]
+      },
+      "text_a": "James went first, and it was hard for Sophie to wait for her turn to come.",
+      "text_b": "Sophie feels mad.",
+      "quiz": {
+        "question": "How does Sophie feel waiting?",
+        "options": [
+          "Patient",
+          "Impatient",
+          "Sleepy"
+        ],
+        "answer": 1
+      }
+    },
+    {
+      "index": 4,
+      "stage": {
+        "backdrop": "backdrop-center",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "sophie_frustrated_jumping.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "img",
+            "sprite": "maya_neutral_looking.png",
+            "alt": "Maya"
+          }
+        ]
+      },
+      "text_a": "&ldquo;It feels like forever,&rdquo; Sophie said, bouncing on her toes.",
+      "text_b": "Waiting feels long.",
+      "quiz": null
+    },
+    {
+      "index": 5,
+      "stage": {
+        "backdrop": "backdrop-center",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "sophie_neutral_looking.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "helper",
+            "name": "Nurse Aisha",
+            "emoji": "&#128105;&#8205;&#9877;&#65039;"
+          },
+          {
+            "type": "hotspot",
+            "position": "right",
+            "effect": "pulse",
+            "aria_label": "Tap to play",
+            "emoji": "&#8987;"
+          }
+        ]
+      },
+      "text_a": "Nurse Aisha brought out a big sand timer everyone could watch trickle down together.",
+      "text_b": "The timer ticks.",
+      "quiz": null
+    },
+    {
+      "index": 6,
+      "stage": {
+        "backdrop": "backdrop-center",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "sophie_neutral_sitting.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "img",
+            "sprite": "marcus_neutral_sitting.png",
+            "alt": "Marcus"
+          },
+          {
+            "type": "hotspot",
+            "position": "mid",
+            "effect": "pulse",
+            "aria_label": "Tap to play",
+            "emoji": "&#8987;"
+          }
+        ]
+      },
+      "text_a": "Now Sophie could see exactly how long her wait would be, and watching the sand helped the time pass.",
+      "text_b": "Sophie watches the timer.",
+      "quiz": null
+    },
+    {
+      "index": 7,
+      "stage": {
+        "backdrop": "backdrop-center",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "sophie_happy_jumping.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "img",
+            "sprite": "maya_happy_giving.png",
+            "alt": "Maya"
+          },
+          {
+            "type": "img",
+            "sprite": "marcus_happy_giving.png",
+            "alt": "Marcus"
+          }
+        ]
+      },
+      "text_a": "When her turn finally came, Sophie played her best round yet.",
+      "text_b": "Sophie takes her turn.",
+      "quiz": {
+        "question": "What helped Sophie wait?",
+        "options": [
+          "A visible timer",
+          "Ignoring the wait",
+          "Skipping her turn"
+        ],
+        "answer": 0
+      }
+    },
+    {
+      "index": 8,
+      "stage": {
+        "backdrop": "backdrop-center",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "maya_happy_waving.png",
+            "alt": "Maya"
+          },
+          {
+            "type": "img",
+            "sprite": "marcus_happy_hands.png",
+            "alt": "Marcus"
+          },
+          {
+            "type": "img",
+            "sprite": "sophie_happy_waving.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "img",
+            "sprite": "james_happy_giving.png",
+            "alt": "James"
+          }
+        ]
+      },
+      "text_a": "All four friends cheered for each other&rsquo;s turns, win or not.",
+      "text_b": "Friends clap for Sophie.",
+      "quiz": null
+    }
+  ],
+  "end_screen": {
+    "badge_emoji": "&#127941;",
+    "badge_label_html": "Community Center<br>Explorer",
+    "feeling": "Impatience eases when waiting is made visible and fair.",
+    "ask": "What helps you wait for your turn?",
+    "try_this": "Use a visible timer for turn-taking at home this week.",
+    "standards": "SL.K.1.a"
+  }
+}

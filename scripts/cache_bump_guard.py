@@ -89,7 +89,7 @@ def main() -> int:
         return 0
 
     # Ignore files that don't affect what the service worker serves.
-    IGNORE_PREFIXES = ("scripts/", ".git", "README.md", "CLAUDE.md")
+    IGNORE_PREFIXES = ("scripts/", "build_pipeline/", ".git", "README.md", "CLAUDE.md")
     site_files_changed = [
         f for f in files
         if not f.startswith(IGNORE_PREFIXES) and f != "sw.js"

@@ -1,0 +1,284 @@
+{
+  "book_id": "Book15_AllFour_Finale",
+  "title": "We Are Community Helpers Too",
+  "book_title": "We Are Community Helpers Too",
+  "book_badge": "Community Helper Series Complete!",
+  "cover": {
+    "h1_html": "We Are<br>Community Helpers Too",
+    "stage": {
+      "backdrop": "backdrop-school",
+      "elements": [
+        {
+          "type": "img",
+          "sprite": "maya_happy_waving.png",
+          "alt": "Maya"
+        },
+        {
+          "type": "img",
+          "sprite": "marcus_happy_waving.png",
+          "alt": "Marcus"
+        },
+        {
+          "type": "img",
+          "sprite": "sophie_happy_waving.png",
+          "alt": "Sophie"
+        },
+        {
+          "type": "img",
+          "sprite": "james_happy_waving.png",
+          "alt": "James"
+        }
+      ]
+    }
+  },
+  "pages": [
+    {
+      "index": 1,
+      "stage": {
+        "backdrop": "backdrop-school",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "maya_happy_sitting.png",
+            "alt": "Maya"
+          },
+          {
+            "type": "img",
+            "sprite": "marcus_happy_sitting.png",
+            "alt": "Marcus"
+          },
+          {
+            "type": "img",
+            "sprite": "sophie_happy_sitting.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "img",
+            "sprite": "james_happy_sitting.png",
+            "alt": "James"
+          }
+        ]
+      },
+      "text_a": "Looking back on all their visits, the four friends realized they&rsquo;d learned a little bit from every helper they had met.",
+      "text_b": "They think of each visit.",
+      "quiz": null
+    },
+    {
+      "index": 2,
+      "stage": {
+        "backdrop": "backdrop-school",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "marcus_happy_hands.png",
+            "alt": "Marcus"
+          },
+          {
+            "type": "hotspot",
+            "position": "right",
+            "effect": "pulse",
+            "aria_label": "Tap to play",
+            "emoji": "&#128658;"
+          }
+        ]
+      },
+      "text_a": "&ldquo;I loved being like Alex, brave and ready to help,&rdquo; said Marcus.",
+      "text_b": "Marcus felt like Alex.",
+      "quiz": null
+    },
+    {
+      "index": 3,
+      "stage": {
+        "backdrop": "backdrop-school",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "maya_happy_giving.png",
+            "alt": "Maya"
+          },
+          {
+            "type": "hotspot",
+            "position": "left",
+            "effect": "pulse",
+            "aria_label": "Tap to play",
+            "emoji": "&#128218;"
+          }
+        ]
+      },
+      "text_a": "&ldquo;I loved being like Ms. Chen, sharing stories,&rdquo; said Maya.",
+      "text_b": "Maya felt like Ms. Chen.",
+      "quiz": null
+    },
+    {
+      "index": 4,
+      "stage": {
+        "backdrop": "backdrop-school",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "sophie_happy_kneeling.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "img",
+            "sprite": "james_happy_pointing.png",
+            "alt": "James"
+          },
+          {
+            "type": "hotspot",
+            "position": "mid",
+            "effect": "pulse",
+            "aria_label": "Tap to play",
+            "emoji": "&#127793;"
+          }
+        ]
+      },
+      "text_a": "Sophie and James remembered Tom&rsquo;s patience and Rose&rsquo;s careful sorting, and every other helper along the way.",
+      "text_b": "Each kid thinks of a helper.",
+      "quiz": null
+    },
+    {
+      "index": 5,
+      "stage": {
+        "backdrop": "backdrop-school",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "sophie_happy_jumping.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "img",
+            "sprite": "maya_happy_standing.png",
+            "alt": "Maya"
+          },
+          {
+            "type": "img",
+            "sprite": "marcus_happy_standing.png",
+            "alt": "Marcus"
+          }
+        ]
+      },
+      "text_a": "&ldquo;Let&rsquo;s make our own pretend town at school!&rdquo; Sophie said, and everyone lit up with the idea.",
+      "text_b": "They plan a play town.",
+      "quiz": null
+    },
+    {
+      "index": 6,
+      "stage": {
+        "backdrop": "backdrop-school",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "marcus_happy_hands.png",
+            "alt": "Marcus"
+          },
+          {
+            "type": "img",
+            "sprite": "maya_happy_reaching.png",
+            "alt": "Maya"
+          },
+          {
+            "type": "img",
+            "sprite": "sophie_happy_kneeling.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "img",
+            "sprite": "james_happy_pointing.png",
+            "alt": "James"
+          }
+        ]
+      },
+      "text_a": "Each friend picked the helper role that fit them best &mdash; Marcus as firefighter, Maya as librarian, Sophie as gardener, James as officer.",
+      "text_b": "Each kid picks a job.",
+      "quiz": {
+        "question": "What is each friend doing?",
+        "options": [
+          "Copying each other exactly",
+          "Picking their own favorite role",
+          "Doing nothing"
+        ],
+        "answer": 1
+      }
+    },
+    {
+      "index": 7,
+      "stage": {
+        "backdrop": "backdrop-school",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "maya_happy_walking.png",
+            "alt": "Maya"
+          },
+          {
+            "type": "img",
+            "sprite": "marcus_happy_running.png",
+            "alt": "Marcus"
+          },
+          {
+            "type": "img",
+            "sprite": "sophie_happy_running.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "img",
+            "sprite": "james_happy_walking.png",
+            "alt": "James"
+          }
+        ]
+      },
+      "text_a": "For one whole day, their classroom became a bustling little town, full of pretend helpers doing real good.",
+      "text_b": "Their classroom is a town.",
+      "quiz": null
+    },
+    {
+      "index": 8,
+      "stage": {
+        "backdrop": "backdrop-school",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "maya_happy_giving.png",
+            "alt": "Maya"
+          },
+          {
+            "type": "img",
+            "sprite": "marcus_happy_giving.png",
+            "alt": "Marcus"
+          },
+          {
+            "type": "img",
+            "sprite": "sophie_happy_giving.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "img",
+            "sprite": "james_happy_giving.png",
+            "alt": "James"
+          }
+        ]
+      },
+      "text_a": "At the end of the day, they all agreed: everyone can be a helper, in their own way.",
+      "text_b": "Each kid can help.",
+      "quiz": {
+        "question": "What did the friends learn?",
+        "options": [
+          "Only grown-ups can help",
+          "Everyone can be a helper",
+          "Helping is too hard"
+        ],
+        "answer": 1
+      }
+    }
+  ],
+  "end_screen": {
+    "badge_emoji": "&#127941;",
+    "badge_label_html": "Community Helper<br>Series Complete!",
+    "feeling": "Pride in recognizing personal growth across many experiences.",
+    "ask": "Which community helper did you like being the most, and why?",
+    "try_this": "Let your child set up their own pretend-helper day at home.",
+    "standards": "W.K.8, RL.K.2"
+  }
+}

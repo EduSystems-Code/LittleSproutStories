@@ -1,0 +1,256 @@
+{
+  "book_id": "Book1_Maya_Marcus_FireStation",
+  "title": "Maya & Marcus Visit the Fire Station",
+  "book_title": "Maya & Marcus Visit the Fire Station",
+  "book_badge": "Fire Station Explorer",
+  "cover": {
+    "h1_html": "Maya &amp; Marcus<br>Visit the Fire Station",
+    "stage": {
+      "backdrop": "backdrop-firestation",
+      "elements": [
+        {
+          "type": "img",
+          "sprite": "maya_happy_waving.png",
+          "alt": "Maya"
+        },
+        {
+          "type": "img",
+          "sprite": "marcus_happy_waving.png",
+          "alt": "Marcus"
+        }
+      ]
+    }
+  },
+  "pages": [
+    {
+      "index": 1,
+      "stage": {
+        "backdrop": "backdrop-street",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "maya_happy_pointing.png",
+            "alt": "Maya"
+          },
+          {
+            "type": "img",
+            "sprite": "marcus_surprised_looking.png",
+            "alt": "Marcus"
+          },
+          {
+            "type": "hotspot",
+            "position": "left",
+            "effect": "pulse",
+            "aria_label": "Tap to play",
+            "emoji": "&#128658;"
+          }
+        ]
+      },
+      "text_a": "Maya and Marcus were walking to school when they saw something exciting &mdash; a big red fire truck parked outside the fire station!",
+      "text_b": "Maya and Marcus see a big red truck.",
+      "quiz": null
+    },
+    {
+      "index": 2,
+      "stage": {
+        "backdrop": "backdrop-firestation",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "maya_happy_standing.png",
+            "alt": "Maya"
+          },
+          {
+            "type": "img",
+            "sprite": "marcus_happy_standing.png",
+            "alt": "Marcus"
+          },
+          {
+            "type": "helper",
+            "name": "Alex",
+            "emoji": "&#128658;&#8205;"
+          }
+        ]
+      },
+      "text_a": "&ldquo;Can we go look?&rdquo; asked Marcus. A firefighter named Alex waved them over with a big smile.",
+      "text_b": "Alex claps. &ldquo;Come in!&rdquo; said Alex.",
+      "quiz": null
+    },
+    {
+      "index": 3,
+      "stage": {
+        "backdrop": "backdrop-firestation",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "maya_happy_reaching.png",
+            "alt": "Maya"
+          },
+          {
+            "type": "img",
+            "sprite": "marcus_happy_pointing.png",
+            "alt": "Marcus"
+          },
+          {
+            "type": "hotspot",
+            "position": "right",
+            "effect": "pulse",
+            "aria_label": "Tap to play",
+            "emoji": "&#9937;"
+          },
+          {
+            "type": "hotspot",
+            "position": "right2",
+            "effect": "pulse",
+            "aria_label": "Tap to play",
+            "emoji": "&#129519;"
+          }
+        ]
+      },
+      "text_a": "Alex showed them the fire truck, the big hose, and the shiny helmets. &ldquo;I help keep our town safe,&rdquo; said Alex.",
+      "text_b": "Alex has a hat. Alex has a bag.",
+      "quiz": null
+    },
+    {
+      "index": 4,
+      "stage": {
+        "backdrop": "backdrop-firestation",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "maya_neutral_looking.png",
+            "alt": "Maya"
+          },
+          {
+            "type": "img",
+            "sprite": "marcus_surprised_hands.png",
+            "alt": "Marcus"
+          }
+        ]
+      },
+      "text_a": "&ldquo;Want to hear what the fire alarm sounds like?&rdquo; asked Alex. Marcus&rsquo;s tummy felt jumpy. &ldquo;It&rsquo;s loud,&rdquo; he whispered. &ldquo;I don&rsquo;t know if I like loud.&rdquo;",
+      "text_b": "The bell rings. Marcus feels bad.",
+      "quiz": {
+        "question": "How does Marcus feel?",
+        "options": [
+          "Excited",
+          "Nervous",
+          "Sleepy"
+        ],
+        "answer": 1
+      }
+    },
+    {
+      "index": 5,
+      "stage": {
+        "backdrop": "backdrop-firestation",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "maya_neutral_pointing.png",
+            "alt": "Maya"
+          },
+          {
+            "type": "img",
+            "sprite": "marcus_surprised_standing.png",
+            "alt": "Marcus"
+          }
+        ]
+      },
+      "text_a": "Maya took Marcus&rsquo;s hand. &ldquo;It&rsquo;s okay to feel nervous,&rdquo; she said. Alex nodded. &ldquo;You can cover your ears first, and we&rsquo;ll count to three together.&rdquo;",
+      "text_b": "Maya holds Marcus&rsquo;s hand. Maya helps Marcus.",
+      "quiz": null
+    },
+    {
+      "index": 6,
+      "stage": {
+        "backdrop": "backdrop-firestation",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "maya_neutral_standing.png",
+            "alt": "Maya"
+          },
+          {
+            "type": "img",
+            "sprite": "marcus_surprised_hands.png",
+            "alt": "Marcus"
+          },
+          {
+            "type": "hotspot",
+            "position": "mid",
+            "effect": "ding",
+            "aria_label": "Tap to play",
+            "emoji": "&#128276;"
+          }
+        ]
+      },
+      "text_a": "Alex counted, &ldquo;One, two, three!&rdquo; The alarm rang &mdash; loud, but only for a second. Marcus covered his ears and grinned. &ldquo;That wasn&rsquo;t so bad!&rdquo;",
+      "text_b": "One, two, three! Marcus did it.",
+      "quiz": null
+    },
+    {
+      "index": 7,
+      "stage": {
+        "backdrop": "backdrop-firestation",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "maya_happy_giving.png",
+            "alt": "Maya"
+          },
+          {
+            "type": "img",
+            "sprite": "marcus_happy_jumping.png",
+            "alt": "Marcus"
+          }
+        ]
+      },
+      "text_a": "&ldquo;I did it!&rdquo; said Marcus. &ldquo;Being a little nervous first is okay,&rdquo; said Alex, &ldquo;as long as you have a friend and a helper nearby.&rdquo;",
+      "text_b": "Marcus did it! Marcus feels glad.",
+      "quiz": {
+        "question": "What helped Marcus feel brave?",
+        "options": [
+          "A friend and a plan",
+          "A snack",
+          "Running away"
+        ],
+        "answer": 0
+      }
+    },
+    {
+      "index": 8,
+      "stage": {
+        "backdrop": "backdrop-firestation",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "maya_happy_waving.png",
+            "alt": "Maya"
+          },
+          {
+            "type": "img",
+            "sprite": "marcus_happy_sitting.png",
+            "alt": "Marcus"
+          },
+          {
+            "type": "helper",
+            "name": "Alex",
+            "emoji": "&#128658;&#8205;"
+          }
+        ]
+      },
+      "text_a": "Before they left, Alex let them sit in the driver&rsquo;s seat of the fire truck. Maya and Marcus waved goodbye, promising to visit again soon.",
+      "text_b": "Maya and Marcus clap. &ldquo;Bye, Alex!&rdquo;",
+      "quiz": null
+    }
+  ],
+  "end_screen": {
+    "badge_emoji": "&#127941;",
+    "badge_label_html": "Fire Station<br>Explorer",
+    "feeling": "Naming nervousness and using a friend + a plan to move through it.",
+    "ask": "Has a loud sound ever surprised you? What helped you feel okay again?",
+    "try_this": "Practice a &ldquo;count to three&rdquo; calming breath together before a loud or new experience this week.",
+    "standards": "RL.K.1, SL.K.3"
+  }
+}

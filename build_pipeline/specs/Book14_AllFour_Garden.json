@@ -1,0 +1,304 @@
+{
+  "book_id": "Book14_AllFour_Garden",
+  "title": "All Four Help in the Garden",
+  "book_title": "All Four Help in the Garden",
+  "book_badge": "Garden Helper",
+  "cover": {
+    "h1_html": "All Four Friends<br>Help in the Garden",
+    "stage": {
+      "backdrop": "backdrop-garden",
+      "elements": [
+        {
+          "type": "img",
+          "sprite": "maya_happy_waving.png",
+          "alt": "Maya"
+        },
+        {
+          "type": "img",
+          "sprite": "marcus_happy_waving.png",
+          "alt": "Marcus"
+        },
+        {
+          "type": "img",
+          "sprite": "sophie_happy_waving.png",
+          "alt": "Sophie"
+        },
+        {
+          "type": "img",
+          "sprite": "james_happy_waving.png",
+          "alt": "James"
+        }
+      ]
+    }
+  },
+  "pages": [
+    {
+      "index": 1,
+      "stage": {
+        "backdrop": "backdrop-garden",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "maya_happy_walking.png",
+            "alt": "Maya"
+          },
+          {
+            "type": "img",
+            "sprite": "marcus_happy_walking.png",
+            "alt": "Marcus"
+          },
+          {
+            "type": "img",
+            "sprite": "sophie_happy_walking.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "img",
+            "sprite": "james_happy_walking.png",
+            "alt": "James"
+          }
+        ]
+      },
+      "text_a": "The four friends came to help Tom plant a new row of vegetables.",
+      "text_b": "Four friends help plant.",
+      "quiz": null
+    },
+    {
+      "index": 2,
+      "stage": {
+        "backdrop": "backdrop-garden",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "sophie_happy_pointing.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "helper",
+            "name": "Tom",
+            "emoji": "&#129333;"
+          },
+          {
+            "type": "img",
+            "sprite": "marcus_happy_pointing.png",
+            "alt": "Marcus"
+          },
+          {
+            "type": "hotspot",
+            "position": "right",
+            "effect": "pulse",
+            "aria_label": "Tap to play",
+            "emoji": "&#129717;"
+          }
+        ]
+      },
+      "text_a": "Everyone wanted the same job &mdash; digging the holes &mdash; and nobody wanted to water or plant seeds.",
+      "text_b": "Each kid wants one job.",
+      "quiz": null
+    },
+    {
+      "index": 3,
+      "stage": {
+        "backdrop": "backdrop-garden",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "sophie_frustrated_hands.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "img",
+            "sprite": "marcus_frustrated_hands.png",
+            "alt": "Marcus"
+          },
+          {
+            "type": "img",
+            "sprite": "maya_frustrated_standing.png",
+            "alt": "Maya"
+          }
+        ]
+      },
+      "text_a": "&ldquo;I called digging first!&rdquo; said Sophie. &ldquo;No, I did!&rdquo; said Marcus. Voices got louder.",
+      "text_b": "The friends want the same job.",
+      "quiz": {
+        "question": "What is happening?",
+        "options": [
+          "Everyone agrees",
+          "A disagreement over jobs",
+          "Nobody wants to help"
+        ],
+        "answer": 1
+      }
+    },
+    {
+      "index": 4,
+      "stage": {
+        "backdrop": "backdrop-garden",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "james_frustrated_looking.png",
+            "alt": "James"
+          },
+          {
+            "type": "helper",
+            "name": "Tom",
+            "emoji": "&#129333;"
+          },
+          {
+            "type": "img",
+            "sprite": "maya_neutral_looking.png",
+            "alt": "Maya"
+          }
+        ]
+      },
+      "text_a": "Tom raised a calm hand. &ldquo;What if everyone tries every job, just for a little while each?&rdquo;",
+      "text_b": "Each kid tries a job.",
+      "quiz": null
+    },
+    {
+      "index": 5,
+      "stage": {
+        "backdrop": "backdrop-garden",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "maya_neutral_pointing.png",
+            "alt": "Maya"
+          },
+          {
+            "type": "img",
+            "sprite": "sophie_neutral_standing.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "img",
+            "sprite": "james_neutral_standing.png",
+            "alt": "James"
+          }
+        ]
+      },
+      "text_a": "Maya set up a simple rotation &mdash; dig, plant, water, repeat &mdash; so each friend got a turn at all three.",
+      "text_b": "They take turns.",
+      "quiz": null
+    },
+    {
+      "index": 6,
+      "stage": {
+        "backdrop": "backdrop-garden",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "james_happy_reaching.png",
+            "alt": "James"
+          },
+          {
+            "type": "img",
+            "sprite": "sophie_happy_kneeling.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "img",
+            "sprite": "marcus_happy_kneeling.png",
+            "alt": "Marcus"
+          },
+          {
+            "type": "hotspot",
+            "position": "left",
+            "effect": "pulse",
+            "aria_label": "Tap to play",
+            "emoji": "&#128167;"
+          }
+        ]
+      },
+      "text_a": "By the end, James loved watering most, Sophie loved digging, Marcus loved planting seeds, and Maya loved watching it all grow.",
+      "text_b": "Each kid finds a job they like.",
+      "quiz": null
+    },
+    {
+      "index": 7,
+      "stage": {
+        "backdrop": "backdrop-garden",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "maya_happy_giving.png",
+            "alt": "Maya"
+          },
+          {
+            "type": "img",
+            "sprite": "marcus_happy_standing.png",
+            "alt": "Marcus"
+          },
+          {
+            "type": "img",
+            "sprite": "sophie_happy_standing.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "hotspot",
+            "position": "mid",
+            "effect": "pulse",
+            "aria_label": "Tap to play",
+            "emoji": "&#127793;"
+          }
+        ]
+      },
+      "text_a": "The new row of vegetables stood in a neat, proud line, planted by all four pairs of hands.",
+      "text_b": "The garden job is done.",
+      "quiz": {
+        "question": "What helped solve the disagreement?",
+        "options": [
+          "One person deciding for everyone",
+          "A fair rotation",
+          "Giving up on planting"
+        ],
+        "answer": 1
+      }
+    },
+    {
+      "index": 8,
+      "stage": {
+        "backdrop": "backdrop-garden",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "maya_happy_waving.png",
+            "alt": "Maya"
+          },
+          {
+            "type": "img",
+            "sprite": "marcus_happy_waving.png",
+            "alt": "Marcus"
+          },
+          {
+            "type": "img",
+            "sprite": "sophie_happy_waving.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "img",
+            "sprite": "james_happy_waving.png",
+            "alt": "James"
+          },
+          {
+            "type": "helper",
+            "name": "Tom",
+            "emoji": "&#129333;"
+          }
+        ]
+      },
+      "text_a": "They promised Tom they&rsquo;d come back to watch the vegetables grow.",
+      "text_b": "They will come back.",
+      "quiz": null
+    }
+  ],
+  "end_screen": {
+    "badge_emoji": "&#127941;",
+    "badge_label_html": "Garden<br>Helper",
+    "feeling": "Conflict over roles eases through a fair rotation everyone can see.",
+    "ask": "What is a fair way to share jobs with friends or family?",
+    "try_this": "Rotate a chore at home the same way this week.",
+    "standards": "W.K.7"
+  }
+}

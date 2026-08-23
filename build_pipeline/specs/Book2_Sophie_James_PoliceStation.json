@@ -1,0 +1,261 @@
+{
+  "book_id": "Book2_Sophie_James_PoliceStation",
+  "title": "Sophie & James Visit the Police Station",
+  "book_title": "Sophie & James Visit the Police Station",
+  "book_badge": "Police Station Explorer",
+  "cover": {
+    "h1_html": "Sophie &amp; James<br>Visit the Police Station",
+    "stage": {
+      "backdrop": "backdrop-police",
+      "elements": [
+        {
+          "type": "img",
+          "sprite": "sophie_happy_waving.png",
+          "alt": "Sophie"
+        },
+        {
+          "type": "img",
+          "sprite": "james_happy_waving.png",
+          "alt": "James"
+        }
+      ]
+    }
+  },
+  "pages": [
+    {
+      "index": 1,
+      "stage": {
+        "backdrop": "backdrop-street",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "sophie_happy_running.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "img",
+            "sprite": "james_happy_walking.png",
+            "alt": "James"
+          }
+        ]
+      },
+      "text_a": "Sophie and James couldn&rsquo;t wait to visit the police station &mdash; Sophie wanted to see everything at once!",
+      "text_b": "Sophie and James go in.",
+      "quiz": null
+    },
+    {
+      "index": 2,
+      "stage": {
+        "backdrop": "backdrop-police",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "sophie_happy_standing.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "img",
+            "sprite": "james_happy_standing.png",
+            "alt": "James"
+          },
+          {
+            "type": "helper",
+            "name": "Jasmine",
+            "emoji": "&#128110;&#8205;&#9792;&#65039;"
+          },
+          {
+            "type": "hotspot",
+            "position": "right",
+            "effect": "pulse",
+            "aria_label": "Tap to play",
+            "emoji": "&#11088;"
+          }
+        ]
+      },
+      "text_a": "Officer Jasmine greeted them with a big smile and a shiny badge. &ldquo;Welcome, friends!&rdquo;",
+      "text_b": "Jasmine has a pin.",
+      "quiz": null
+    },
+    {
+      "index": 3,
+      "stage": {
+        "backdrop": "backdrop-police",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "james_neutral_pointing.png",
+            "alt": "James"
+          },
+          {
+            "type": "img",
+            "sprite": "sophie_happy_jumping.png",
+            "alt": "Sophie"
+          }
+        ]
+      },
+      "text_a": "James pulled out a checklist. &ldquo;First the police car, then the radio, then the map wall,&rdquo; he said.",
+      "text_b": "James has a list.",
+      "quiz": null
+    },
+    {
+      "index": 4,
+      "stage": {
+        "backdrop": "backdrop-police",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "sophie_happy_pointing.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "img",
+            "sprite": "james_frustrated_hands.png",
+            "alt": "James"
+          },
+          {
+            "type": "hotspot",
+            "position": "left",
+            "effect": "pulse",
+            "aria_label": "Tap to play",
+            "emoji": "&#128660;"
+          }
+        ]
+      },
+      "text_a": "But Sophie was already at the police car, pressing every button she could find! James felt his plan slipping away.",
+      "text_b": "James feels mad.",
+      "quiz": {
+        "question": "How does James feel?",
+        "options": [
+          "Excited",
+          "Frustrated",
+          "Sleepy"
+        ],
+        "answer": 1
+      }
+    },
+    {
+      "index": 5,
+      "stage": {
+        "backdrop": "backdrop-police",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "james_frustrated_standing.png",
+            "alt": "James"
+          },
+          {
+            "type": "img",
+            "sprite": "sophie_neutral_looking.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "helper",
+            "name": "Jasmine",
+            "emoji": "&#128110;&#8205;&#9792;&#65039;"
+          }
+        ]
+      },
+      "text_a": "&ldquo;My list is getting all mixed up,&rdquo; James said quietly. Jasmine knelt down. &ldquo;Plans can bend a little and still work.&rdquo;",
+      "text_b": "The list can wait.",
+      "quiz": null
+    },
+    {
+      "index": 6,
+      "stage": {
+        "backdrop": "backdrop-police",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "james_neutral_looking.png",
+            "alt": "James"
+          },
+          {
+            "type": "img",
+            "sprite": "sophie_neutral_standing.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "hotspot",
+            "position": "mid",
+            "effect": "pulse",
+            "aria_label": "Tap to play",
+            "emoji": "&#128506;&#65039;"
+          }
+        ]
+      },
+      "text_a": "Jasmine showed them the real patrol schedule for the day. &ldquo;You can each pick one thing you want to see most.&rdquo;",
+      "text_b": "Pick one thing.",
+      "quiz": null
+    },
+    {
+      "index": 7,
+      "stage": {
+        "backdrop": "backdrop-police",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "sophie_happy_jumping.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "img",
+            "sprite": "james_happy_pointing.png",
+            "alt": "James"
+          },
+          {
+            "type": "hotspot",
+            "position": "right",
+            "effect": "ding",
+            "aria_label": "Tap to play",
+            "emoji": "&#128680;"
+          }
+        ]
+      },
+      "text_a": "Sophie picked the siren button. James picked the map wall. Both got exactly what they wanted.",
+      "text_b": "Sophie and James are glad.",
+      "quiz": {
+        "question": "What helped fix the problem?",
+        "options": [
+          "Sharing a plan",
+          "Giving up",
+          "Yelling"
+        ],
+        "answer": 0
+      }
+    },
+    {
+      "index": 8,
+      "stage": {
+        "backdrop": "backdrop-police",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "sophie_happy_waving.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "img",
+            "sprite": "james_happy_waving.png",
+            "alt": "James"
+          },
+          {
+            "type": "helper",
+            "name": "Jasmine",
+            "emoji": "&#128110;&#8205;&#9792;&#65039;"
+          }
+        ]
+      },
+      "text_a": "They waved goodbye to Jasmine, promising to be careful crossing streets just like she showed them.",
+      "text_b": "Bye, Jasmine!",
+      "quiz": null
+    }
+  ],
+  "end_screen": {
+    "badge_emoji": "&#127941;",
+    "badge_label_html": "Police Station<br>Explorer",
+    "feeling": "Frustration eases when a plan is allowed to flex.",
+    "ask": "What do you do when your plan does not go the way you hoped?",
+    "try_this": "Let your child help set tonight&rsquo;s plan, then bend it together if something changes.",
+    "standards": "RI.K.3, W.K.2"
+  }
+}

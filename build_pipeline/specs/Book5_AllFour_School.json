@@ -1,0 +1,289 @@
+{
+  "book_id": "Book5_AllFour_School",
+  "title": "All Four Visit the Elementary School",
+  "book_title": "All Four Visit the Elementary School",
+  "book_badge": "School Explorer",
+  "cover": {
+    "h1_html": "All Four Friends<br>Visit the Elementary School",
+    "stage": {
+      "backdrop": "backdrop-school",
+      "elements": [
+        {
+          "type": "img",
+          "sprite": "maya_happy_waving.png",
+          "alt": "Maya"
+        },
+        {
+          "type": "img",
+          "sprite": "marcus_happy_waving.png",
+          "alt": "Marcus"
+        },
+        {
+          "type": "img",
+          "sprite": "sophie_happy_waving.png",
+          "alt": "Sophie"
+        },
+        {
+          "type": "img",
+          "sprite": "james_happy_waving.png",
+          "alt": "James"
+        }
+      ]
+    }
+  },
+  "pages": [
+    {
+      "index": 1,
+      "stage": {
+        "backdrop": "backdrop-street",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "maya_happy_walking.png",
+            "alt": "Maya"
+          },
+          {
+            "type": "img",
+            "sprite": "marcus_happy_walking.png",
+            "alt": "Marcus"
+          },
+          {
+            "type": "img",
+            "sprite": "sophie_happy_jumping.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "img",
+            "sprite": "james_happy_walking.png",
+            "alt": "James"
+          }
+        ]
+      },
+      "text_a": "The four friends visited the big elementary school for a special sample day.",
+      "text_b": "Four friends visit school.",
+      "quiz": null
+    },
+    {
+      "index": 2,
+      "stage": {
+        "backdrop": "backdrop-school",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "maya_neutral_standing.png",
+            "alt": "Maya"
+          },
+          {
+            "type": "helper",
+            "name": "Mr. Rodriguez",
+            "emoji": "&#128104;&#8205;&#127979;"
+          },
+          {
+            "type": "img",
+            "sprite": "james_neutral_standing.png",
+            "alt": "James"
+          }
+        ]
+      },
+      "text_a": "Mr. Rodriguez explained they would each try a different sample classroom for a little while.",
+      "text_b": "Each friend picks a room.",
+      "quiz": null
+    },
+    {
+      "index": 3,
+      "stage": {
+        "backdrop": "backdrop-school",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "maya_neutral_walking.png",
+            "alt": "Maya"
+          },
+          {
+            "type": "img",
+            "sprite": "marcus_happy_pointing.png",
+            "alt": "Marcus"
+          },
+          {
+            "type": "img",
+            "sprite": "sophie_happy_running.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "img",
+            "sprite": "james_happy_walking.png",
+            "alt": "James"
+          }
+        ]
+      },
+      "text_a": "Maya went to the art room, Marcus to the science room, Sophie to the gym, and James to the library corner.",
+      "text_b": "Each friend goes to a new spot.",
+      "quiz": null
+    },
+    {
+      "index": 4,
+      "stage": {
+        "backdrop": "backdrop-school",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "maya_sad_sitting.png",
+            "alt": "Maya"
+          },
+          {
+            "type": "hotspot",
+            "position": "right",
+            "effect": "pulse",
+            "aria_label": "Tap to play",
+            "emoji": "&#127912;"
+          }
+        ]
+      },
+      "text_a": "Alone in the art room, Maya wondered if her friends were having more fun without her.",
+      "text_b": "Maya feels sad.",
+      "quiz": {
+        "question": "How does Maya feel at first?",
+        "options": [
+          "Excited",
+          "Worried",
+          "Angry"
+        ],
+        "answer": 1
+      }
+    },
+    {
+      "index": 5,
+      "stage": {
+        "backdrop": "backdrop-school",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "maya_neutral_sitting.png",
+            "alt": "Maya"
+          },
+          {
+            "type": "hotspot",
+            "position": "left",
+            "effect": "pulse",
+            "aria_label": "Tap to play",
+            "emoji": "&#128035;"
+          },
+          {
+            "type": "hotspot",
+            "position": "right",
+            "effect": "pulse",
+            "aria_label": "Tap to play",
+            "emoji": "&#127912;"
+          }
+        ]
+      },
+      "text_a": "But soon she was busy painting a bird she had seen that morning, and the worry faded.",
+      "text_b": "Maya paints a red sun.",
+      "quiz": null
+    },
+    {
+      "index": 6,
+      "stage": {
+        "backdrop": "backdrop-school",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "maya_happy_sitting.png",
+            "alt": "Maya"
+          },
+          {
+            "type": "img",
+            "sprite": "marcus_happy_sitting.png",
+            "alt": "Marcus"
+          },
+          {
+            "type": "img",
+            "sprite": "sophie_happy_sitting.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "img",
+            "sprite": "james_happy_sitting.png",
+            "alt": "James"
+          }
+        ]
+      },
+      "text_a": "At lunchtime, all four friends met at one big table, bursting with stories to share.",
+      "text_b": "Friends tell about their day.",
+      "quiz": null
+    },
+    {
+      "index": 7,
+      "stage": {
+        "backdrop": "backdrop-school",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "marcus_happy_pointing.png",
+            "alt": "Marcus"
+          },
+          {
+            "type": "img",
+            "sprite": "maya_happy_giving.png",
+            "alt": "Maya"
+          },
+          {
+            "type": "img",
+            "sprite": "sophie_happy_hands.png",
+            "alt": "Sophie"
+          }
+        ]
+      },
+      "text_a": "&ldquo;I missed you, but the science room was so fun!&rdquo; said Marcus. Everyone agreed being apart for a little while was okay.",
+      "text_b": "It is OK to miss a friend.",
+      "quiz": {
+        "question": "What did the friends learn?",
+        "options": [
+          "Being apart is scary forever",
+          "They can be apart and still come back together",
+          "School is boring"
+        ],
+        "answer": 1
+      }
+    },
+    {
+      "index": 8,
+      "stage": {
+        "backdrop": "backdrop-school",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "maya_happy_walking.png",
+            "alt": "Maya"
+          },
+          {
+            "type": "img",
+            "sprite": "marcus_happy_walking.png",
+            "alt": "Marcus"
+          },
+          {
+            "type": "img",
+            "sprite": "sophie_happy_waving.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "img",
+            "sprite": "james_happy_pointing.png",
+            "alt": "James"
+          }
+        ]
+      },
+      "text_a": "They compared their favorite parts of the day all the way to the bus.",
+      "text_b": "They talk about the day.",
+      "quiz": null
+    }
+  ],
+  "end_screen": {
+    "badge_emoji": "&#127941;",
+    "badge_label_html": "School<br>Explorer",
+    "feeling": "Separation worry eases with the certainty of reuniting.",
+    "ask": "What is something fun that happened when we were apart today?",
+    "try_this": "Talk through the day&rsquo;s schedule together before drop-off.",
+    "standards": "RL.K.9, SL.K.4"
+  }
+}

@@ -1,0 +1,235 @@
+{
+  "book_id": "Book4_Marcus_James_Doctor",
+  "title": "Marcus & James Visit the Doctor",
+  "book_title": "Marcus & James Visit the Doctor",
+  "book_badge": "Healthy Helper",
+  "cover": {
+    "h1_html": "Marcus &amp; James<br>Visit the Doctor",
+    "stage": {
+      "backdrop": "backdrop-doctor",
+      "elements": [
+        {
+          "type": "img",
+          "sprite": "marcus_happy_waving.png",
+          "alt": "Marcus"
+        },
+        {
+          "type": "img",
+          "sprite": "james_happy_waving.png",
+          "alt": "James"
+        }
+      ]
+    }
+  },
+  "pages": [
+    {
+      "index": 1,
+      "stage": {
+        "backdrop": "backdrop-street",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "marcus_surprised_walking.png",
+            "alt": "Marcus"
+          },
+          {
+            "type": "img",
+            "sprite": "james_happy_walking.png",
+            "alt": "James"
+          }
+        ]
+      },
+      "text_a": "Marcus had a checkup today, and his tummy felt fluttery just thinking about it.",
+      "text_b": "Marcus goes to the doctor.",
+      "quiz": null
+    },
+    {
+      "index": 2,
+      "stage": {
+        "backdrop": "backdrop-doctor",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "james_neutral_pointing.png",
+            "alt": "James"
+          },
+          {
+            "type": "img",
+            "sprite": "marcus_surprised_standing.png",
+            "alt": "Marcus"
+          },
+          {
+            "type": "helper",
+            "name": "Dr. Patel",
+            "emoji": "&#128105;&#8205;&#9877;&#65039;"
+          }
+        ]
+      },
+      "text_a": "James, who loved facts, started explaining every single step out loud.",
+      "text_b": "James knows facts.",
+      "quiz": null
+    },
+    {
+      "index": 3,
+      "stage": {
+        "backdrop": "backdrop-doctor",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "james_neutral_hands.png",
+            "alt": "James"
+          },
+          {
+            "type": "img",
+            "sprite": "marcus_surprised_hands.png",
+            "alt": "Marcus"
+          }
+        ]
+      },
+      "text_a": "&ldquo;First they&rsquo;ll check your ears, then your heart, then&mdash;&rdquo; James went on and on. Marcus&rsquo;s flutter grew bigger.",
+      "text_b": "Marcus feels bad.",
+      "quiz": {
+        "question": "How does Marcus feel?",
+        "options": [
+          "Calm",
+          "Anxious",
+          "Silly"
+        ],
+        "answer": 1
+      }
+    },
+    {
+      "index": 4,
+      "stage": {
+        "backdrop": "backdrop-doctor",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "marcus_neutral_looking.png",
+            "alt": "Marcus"
+          },
+          {
+            "type": "helper",
+            "name": "Dr. Patel",
+            "emoji": "&#128105;&#8205;&#9877;&#65039;"
+          },
+          {
+            "type": "img",
+            "sprite": "james_neutral_standing.png",
+            "alt": "James"
+          }
+        ]
+      },
+      "text_a": "Dr. Patel noticed. &ldquo;Would it help if you picked the order we do things in?&rdquo; she asked Marcus.",
+      "text_b": "Marcus can pick.",
+      "quiz": null
+    },
+    {
+      "index": 5,
+      "stage": {
+        "backdrop": "backdrop-doctor",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "marcus_neutral_pointing.png",
+            "alt": "Marcus"
+          },
+          {
+            "type": "img",
+            "sprite": "james_neutral_looking.png",
+            "alt": "James"
+          }
+        ]
+      },
+      "text_a": "Marcus thought. &ldquo;Ears first. Heart last.&rdquo; Just deciding made the flutter feel smaller.",
+      "text_b": "Marcus picks ears first.",
+      "quiz": null
+    },
+    {
+      "index": 6,
+      "stage": {
+        "backdrop": "backdrop-doctor",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "marcus_happy_sitting.png",
+            "alt": "Marcus"
+          },
+          {
+            "type": "helper",
+            "name": "Dr. Patel",
+            "emoji": "&#128105;&#8205;&#9877;&#65039;"
+          },
+          {
+            "type": "hotspot",
+            "position": "right",
+            "effect": "pulse",
+            "aria_label": "Tap to play",
+            "emoji": "&#129658;"
+          }
+        ]
+      },
+      "text_a": "Dr. Patel used the stethoscope gently, and Marcus listened to his own heartbeat too.",
+      "text_b": "Marcus taps his chest.",
+      "quiz": null
+    },
+    {
+      "index": 7,
+      "stage": {
+        "backdrop": "backdrop-doctor",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "marcus_happy_giving.png",
+            "alt": "Marcus"
+          },
+          {
+            "type": "img",
+            "sprite": "james_happy_standing.png",
+            "alt": "James"
+          }
+        ]
+      },
+      "text_a": "&ldquo;That wasn&rsquo;t so bad when I got to choose,&rdquo; Marcus said.",
+      "text_b": "Marcus is not mad now.",
+      "quiz": {
+        "question": "What helped Marcus feel calm?",
+        "options": [
+          "Having no plan",
+          "Having a choice",
+          "Being told to hurry"
+        ],
+        "answer": 1
+      }
+    },
+    {
+      "index": 8,
+      "stage": {
+        "backdrop": "backdrop-doctor",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "james_happy_giving.png",
+            "alt": "James"
+          },
+          {
+            "type": "img",
+            "sprite": "marcus_happy_waving.png",
+            "alt": "Marcus"
+          }
+        ]
+      },
+      "text_a": "James promised to ask before explaining next time, and Marcus said that would help a lot.",
+      "text_b": "James will ask first.",
+      "quiz": null
+    }
+  ],
+  "end_screen": {
+    "badge_emoji": "&#127941;",
+    "badge_label_html": "Healthy<br>Helper",
+    "feeling": "Anxiety eases when a child is offered a small, real choice.",
+    "ask": "What is one choice that would help you feel ready for something new?",
+    "try_this": "Offer two small choices before your child&rsquo;s next appointment.",
+    "standards": "L.K.1.d, SL.K.2"
+  }
+}

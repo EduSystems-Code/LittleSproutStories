@@ -1,0 +1,251 @@
+{
+  "book_id": "Book8_Sophie_Marcus_Garden",
+  "title": "Sophie & Marcus Visit the Garden",
+  "book_title": "Sophie & Marcus Visit the Garden",
+  "book_badge": "Garden Explorer",
+  "cover": {
+    "h1_html": "Sophie &amp; Marcus<br>Visit the Garden",
+    "stage": {
+      "backdrop": "backdrop-garden",
+      "elements": [
+        {
+          "type": "img",
+          "sprite": "sophie_happy_waving.png",
+          "alt": "Sophie"
+        },
+        {
+          "type": "img",
+          "sprite": "marcus_happy_waving.png",
+          "alt": "Marcus"
+        }
+      ]
+    }
+  },
+  "pages": [
+    {
+      "index": 1,
+      "stage": {
+        "backdrop": "backdrop-garden",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "sophie_happy_running.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "img",
+            "sprite": "marcus_happy_walking.png",
+            "alt": "Marcus"
+          },
+          {
+            "type": "hotspot",
+            "position": "right",
+            "effect": "pulse",
+            "aria_label": "Tap to play",
+            "emoji": "&#127804;"
+          }
+        ]
+      },
+      "text_a": "Sophie ran straight for the flower beds, ready to pick every bloom she saw.",
+      "text_b": "Sophie wants flowers.",
+      "quiz": null
+    },
+    {
+      "index": 2,
+      "stage": {
+        "backdrop": "backdrop-garden",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "sophie_neutral_standing.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "helper",
+            "name": "Tom",
+            "emoji": "&#129333;"
+          },
+          {
+            "type": "img",
+            "sprite": "marcus_neutral_looking.png",
+            "alt": "Marcus"
+          }
+        ]
+      },
+      "text_a": "Tom the gardener gently stopped her. &ldquo;Some flowers are ready, and some need more time,&rdquo; he explained.",
+      "text_b": "Some flowers wait.",
+      "quiz": null
+    },
+    {
+      "index": 3,
+      "stage": {
+        "backdrop": "backdrop-garden",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "sophie_frustrated_hands.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "img",
+            "sprite": "marcus_neutral_standing.png",
+            "alt": "Marcus"
+          },
+          {
+            "type": "hotspot",
+            "position": "left",
+            "effect": "pulse",
+            "aria_label": "Tap to play",
+            "emoji": "&#127793;"
+          }
+        ]
+      },
+      "text_a": "&ldquo;But I want one now!&rdquo; Sophie said, reaching for a tightly closed bud.",
+      "text_b": "Sophie feels mad.",
+      "quiz": {
+        "question": "How does Sophie feel?",
+        "options": [
+          "Patient",
+          "Impatient",
+          "Tired"
+        ],
+        "answer": 1
+      }
+    },
+    {
+      "index": 4,
+      "stage": {
+        "backdrop": "backdrop-garden",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "marcus_neutral_kneeling.png",
+            "alt": "Marcus"
+          },
+          {
+            "type": "img",
+            "sprite": "sophie_frustrated_standing.png",
+            "alt": "Sophie"
+          }
+        ]
+      },
+      "text_a": "Marcus knelt beside a fully open flower nearby. &ldquo;This one looks ready to me,&rdquo; he said calmly.",
+      "text_b": "Marcus looks at each one.",
+      "quiz": null
+    },
+    {
+      "index": 5,
+      "stage": {
+        "backdrop": "backdrop-garden",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "sophie_neutral_looking.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "helper",
+            "name": "Tom",
+            "emoji": "&#129333;"
+          },
+          {
+            "type": "hotspot",
+            "position": "right2",
+            "effect": "pulse",
+            "aria_label": "Tap to play",
+            "emoji": "&#127799;"
+          }
+        ]
+      },
+      "text_a": "Tom showed Sophie how to tell &mdash; soft, open petals mean ready; tight, green buds mean &ldquo;not yet.&rdquo;",
+      "text_b": "Open petals mean ready.",
+      "quiz": null
+    },
+    {
+      "index": 6,
+      "stage": {
+        "backdrop": "backdrop-garden",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "sophie_surprised_pointing.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "img",
+            "sprite": "marcus_happy_standing.png",
+            "alt": "Marcus"
+          },
+          {
+            "type": "hotspot",
+            "position": "mid",
+            "effect": "pulse",
+            "aria_label": "Tap to play",
+            "emoji": "&#127804;"
+          }
+        ]
+      },
+      "text_a": "Sophie searched and searched, and then she spotted one bright, wide-open flower of her very own.",
+      "text_b": "Sophie finds a ready flower.",
+      "quiz": null
+    },
+    {
+      "index": 7,
+      "stage": {
+        "backdrop": "backdrop-garden",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "sophie_happy_kneeling.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "img",
+            "sprite": "marcus_happy_giving.png",
+            "alt": "Marcus"
+          }
+        ]
+      },
+      "text_a": "She picked it carefully, and it felt even better than if she&rsquo;d grabbed the very first one.",
+      "text_b": "Sophie is glad she waited.",
+      "quiz": {
+        "question": "What did Sophie learn?",
+        "options": [
+          "Waiting can lead to something better",
+          "Waiting is always bad",
+          "Flowers do not need time"
+        ],
+        "answer": 0
+      }
+    },
+    {
+      "index": 8,
+      "stage": {
+        "backdrop": "backdrop-garden",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "sophie_happy_walking.png",
+            "alt": "Sophie"
+          },
+          {
+            "type": "img",
+            "sprite": "marcus_happy_walking.png",
+            "alt": "Marcus"
+          }
+        ]
+      },
+      "text_a": "Marcus and Sophie carried their flowers home, already planning to visit the garden again.",
+      "text_b": "They take the flowers home.",
+      "quiz": null
+    }
+  ],
+  "end_screen": {
+    "badge_emoji": "&#127941;",
+    "badge_label_html": "Garden<br>Explorer",
+    "feeling": "Impatience eases with the satisfaction of the right timing.",
+    "ask": "What is something worth waiting for?",
+    "try_this": "Plant a seed together and check on it over several days.",
+    "standards": "L.K.5.a, L.K.5.c"
+  }
+}

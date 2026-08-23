@@ -1,0 +1,263 @@
+{
+  "book_id": "Book9_Maya_Marcus_PostOffice",
+  "title": "Maya & Marcus Visit the Post Office",
+  "book_title": "Maya & Marcus Visit the Post Office",
+  "book_badge": "Post Office Explorer",
+  "cover": {
+    "h1_html": "Maya &amp; Marcus<br>Visit the Post Office",
+    "stage": {
+      "backdrop": "backdrop-postoffice",
+      "elements": [
+        {
+          "type": "img",
+          "sprite": "maya_happy_waving.png",
+          "alt": "Maya"
+        },
+        {
+          "type": "img",
+          "sprite": "marcus_happy_waving.png",
+          "alt": "Marcus"
+        }
+      ]
+    }
+  },
+  "pages": [
+    {
+      "index": 1,
+      "stage": {
+        "backdrop": "backdrop-street",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "maya_neutral_walking.png",
+            "alt": "Maya"
+          },
+          {
+            "type": "img",
+            "sprite": "marcus_happy_walking.png",
+            "alt": "Marcus"
+          },
+          {
+            "type": "hotspot",
+            "position": "right",
+            "effect": "pulse",
+            "aria_label": "Tap to play",
+            "emoji": "&#9993;&#65039;"
+          }
+        ]
+      },
+      "text_a": "Maya had written a letter to her grandmother, and today she and Marcus were mailing it.",
+      "text_b": "Maya has a letter.",
+      "quiz": null
+    },
+    {
+      "index": 2,
+      "stage": {
+        "backdrop": "backdrop-postoffice",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "maya_neutral_standing.png",
+            "alt": "Maya"
+          },
+          {
+            "type": "helper",
+            "name": "Rose",
+            "emoji": "&#128105;&#8205;&#128188;"
+          },
+          {
+            "type": "img",
+            "sprite": "marcus_happy_standing.png",
+            "alt": "Marcus"
+          },
+          {
+            "type": "hotspot",
+            "position": "left",
+            "effect": "pulse",
+            "aria_label": "Tap to play",
+            "emoji": "&#128174;"
+          }
+        ]
+      },
+      "text_a": "Rose greeted them at the counter with a warm smile and a stack of colorful stamps.",
+      "text_b": "Rose has stamps.",
+      "quiz": null
+    },
+    {
+      "index": 3,
+      "stage": {
+        "backdrop": "backdrop-postoffice",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "maya_sad_looking.png",
+            "alt": "Maya"
+          },
+          {
+            "type": "img",
+            "sprite": "marcus_neutral_standing.png",
+            "alt": "Marcus"
+          }
+        ]
+      },
+      "text_a": "Maya looked at her letter again &mdash; a smudge here, a crossed-out word there. &ldquo;It&rsquo;s not good enough,&rdquo; she said quietly.",
+      "text_b": "Maya feels a bit sad.",
+      "quiz": {
+        "question": "How does Maya feel about her letter?",
+        "options": [
+          "Proud",
+          "Doubtful",
+          "Excited"
+        ],
+        "answer": 1
+      }
+    },
+    {
+      "index": 4,
+      "stage": {
+        "backdrop": "backdrop-postoffice",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "marcus_neutral_reaching.png",
+            "alt": "Marcus"
+          },
+          {
+            "type": "img",
+            "sprite": "maya_sad_standing.png",
+            "alt": "Maya"
+          }
+        ]
+      },
+      "text_a": "Marcus looked at the letter. &ldquo;Grandma will just be happy it&rsquo;s from you,&rdquo; he said gently.",
+      "text_b": "Grandma will be glad.",
+      "quiz": null
+    },
+    {
+      "index": 5,
+      "stage": {
+        "backdrop": "backdrop-postoffice",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "maya_neutral_looking.png",
+            "alt": "Maya"
+          },
+          {
+            "type": "helper",
+            "name": "Rose",
+            "emoji": "&#128105;&#8205;&#128188;"
+          },
+          {
+            "type": "hotspot",
+            "position": "mid",
+            "effect": "pulse",
+            "aria_label": "Tap to play",
+            "emoji": "&#128233;"
+          }
+        ]
+      },
+      "text_a": "Rose showed them how the letter would be sorted, stamped, and sent on its journey.",
+      "text_b": "Rose sorts the mail.",
+      "quiz": null
+    },
+    {
+      "index": 6,
+      "stage": {
+        "backdrop": "backdrop-postoffice",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "maya_neutral_standing.png",
+            "alt": "Maya"
+          },
+          {
+            "type": "helper",
+            "name": "Rose",
+            "emoji": "&#128105;&#8205;&#128188;"
+          },
+          {
+            "type": "img",
+            "sprite": "marcus_neutral_looking.png",
+            "alt": "Marcus"
+          }
+        ]
+      },
+      "text_a": "&ldquo;Every letter that comes through here is real and true, smudges and all,&rdquo; Rose said.",
+      "text_b": "Each letter is real.",
+      "quiz": null
+    },
+    {
+      "index": 7,
+      "stage": {
+        "backdrop": "backdrop-postoffice",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "maya_happy_reaching.png",
+            "alt": "Maya"
+          },
+          {
+            "type": "img",
+            "sprite": "marcus_happy_giving.png",
+            "alt": "Marcus"
+          },
+          {
+            "type": "hotspot",
+            "position": "right",
+            "effect": "pulse",
+            "aria_label": "Tap to play",
+            "emoji": "&#128235;"
+          }
+        ]
+      },
+      "text_a": "Maya watched her letter drop into the mail bin, and a little weight lifted off her shoulders.",
+      "text_b": "Maya sends her letter.",
+      "quiz": {
+        "question": "What helped Maya feel better?",
+        "options": [
+          "Rewriting the letter perfectly",
+          "Trusting it was good enough",
+          "Not sending it"
+        ],
+        "answer": 1
+      }
+    },
+    {
+      "index": 8,
+      "stage": {
+        "backdrop": "backdrop-postoffice",
+        "elements": [
+          {
+            "type": "img",
+            "sprite": "maya_happy_jumping.png",
+            "alt": "Maya"
+          },
+          {
+            "type": "img",
+            "sprite": "marcus_happy_hands.png",
+            "alt": "Marcus"
+          },
+          {
+            "type": "hotspot",
+            "position": "mid",
+            "effect": "pulse",
+            "aria_label": "Tap to play",
+            "emoji": "&#128222;"
+          }
+        ]
+      },
+      "text_a": "A week later, Grandma called &mdash; she loved the letter, smudge and all.",
+      "text_b": "Grandma is glad for the letter.",
+      "quiz": null
+    }
+  ],
+  "end_screen": {
+    "badge_emoji": "&#127941;",
+    "badge_label_html": "Post Office<br>Explorer",
+    "feeling": "Self-doubt eases with trust that &ldquo;good enough&rdquo; really is good enough.",
+    "ask": "Is there something you made that you worried was not good enough?",
+    "try_this": "Mail a real letter together this week, imperfections included.",
+    "standards": "W.K.1, L.K.2.a"
+  }
+}
