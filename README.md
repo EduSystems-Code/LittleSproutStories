@@ -6,7 +6,7 @@ Fourteen storybooks and three games starring Maya, Marcus, Sophie, and James, bu
 "Double Engine" model: every page pairs decodable phonics text with a social-emotional
 learning beat.
 
-**Live site:** https://YOUR-USERNAME.github.io/LittleSproutStories/
+**Live site:** https://edusystems-code.github.io/LittleSproutStories/
 
 ---
 
