@@ -58,6 +58,14 @@ convention `character_expression_pose.png`. Expressions: `happy`, `neutral`, `sa
 `surprised`, `frustrated`. Poses: `standing`, `sitting`, `walking`, `running`, `jumping`,
 `waving`, `kneeling`, `pointing`, `looking`, `reaching`, `giving`, `hands`.
 
+Don't crop/resize/rename by hand. Drop the Canva/Gemini-exported
+character-sheet zip in `raw_art/` (gitignored) and run:
+```bash
+python scripts/import_character_art.py
+```
+It crops each image to its real content, resizes, and writes correctly-named
+files straight into `assets/sprites/`. See its module docstring for details.
+
 ---
 
 ## Suggested workflow
