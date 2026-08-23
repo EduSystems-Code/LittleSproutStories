@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#5BA672">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="assets/icons/icon-180.png">
+<title>Statistics &amp; Data | LittleSprout</title>
+<meta name="description" content="Why early literacy and social-emotional learning matter, sourced from public research, plus an honest account of LittleSprout's own data.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sprout: #5BA672; --sprout-dark: #3C7A52; --sprout-deep: #2C5C3D;
+    --cream: #FBF6EC; --cream-deep: #F3EAD6; --paper-line: #E7DCC4;
+    --sky: #BFE3FA; --sky-deep: #185FA5; --sun: #FFD24A; --sun-deep: #E1A400;
+    --berry: #B0488C; --bark: #36402C; --bark-soft: #5E6650;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--bark); line-height: 1.6; }
+  h1,h2,h3 { font-family: 'Fredoka', sans-serif; font-weight: 600; }
+  a { color: inherit; }
+  .wrap { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+  .nav { position: sticky; top: 0; z-index: 50; background: rgba(251,246,236,0.9); backdrop-filter: blur(10px); border-bottom: 1px solid var(--paper-line); }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 70px; flex-wrap: wrap; gap: 10px; }
+  .logo { font-family: 'Fredoka', sans-serif; font-weight: 700; font-size: 22px; color: var(--sprout-deep); text-decoration: none; }
+  .nav-links { display: flex; gap: 22px; flex-wrap: wrap; }
+  .nav-links a { font-weight: 700; font-size: 14.5px; color: var(--bark-soft); text-decoration: none; }
+  .nav-links a:hover, .nav-links a.current { color: var(--sprout-dark); }
+  .page-hero { padding: 56px 0 36px; text-align: center; }
+  .page-hero .eyebrow { display: inline-block; background: var(--sky); color: var(--sky-deep); font-weight: 800; font-size: 13px; letter-spacing: 0.5px; text-transform: uppercase; padding: 7px 16px; border-radius: 50px; margin-bottom: 18px; }
+  .page-hero h1 { font-size: clamp(30px, 5vw, 46px); margin-bottom: 14px; }
+  .page-hero p { font-size: 17px; color: var(--bark-soft); font-weight: 600; max-width: 640px; margin: 0 auto; }
+  .section { padding: 46px 0; }
+  .section h2 { font-size: 24px; margin-bottom: 8px; }
+  .section > .wrap > p.lede { color: var(--bark-soft); font-weight: 600; margin-bottom: 24px; max-width: 720px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+  .card { background: #fff; border: 1px solid var(--paper-line); border-radius: 16px; padding: 20px; box-shadow: 0 4px 14px rgba(54,64,44,0.06); }
+  .card h3 { font-size: 16.5px; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .card p { font-size: 13.5px; color: var(--bark-soft); font-weight: 600; margin-bottom: 10px; }
+  .card a.go { font-size: 13px; font-weight: 800; color: var(--sprout-dark); text-decoration: none; }
+  .card a.go:hover { text-decoration: underline; }
+  .note { background: #fff; border-left: 5px solid var(--sprout); border-radius: 8px; padding: 16px 20px; font-size: 14px; color: var(--bark-soft); font-weight: 600; margin-top: 20px; }
+  .placeholder { background: repeating-linear-gradient(45deg, #FFF9EC, #FFF9EC 12px, #FDF2D6 12px, #FDF2D6 24px); border-style: dashed; border-color: var(--sun-deep); }
+  .badge { display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase; color: #8A6A00; background: var(--sun); padding: 2px 8px; border-radius: 50px; }
+  .disclaimer { font-size: 12.5px; color: var(--bark-soft); font-weight: 600; text-align: center; margin-top: 30px; opacity: 0.85; }
+  .footer { background: var(--bark); color: #D9DDD0; padding: 40px 0; text-align: center; margin-top: 40px; }
+  .footer a { color: #A8AE9C; font-weight: 700; text-decoration: none; margin: 0 10px; }
+  .footer a:hover { color: var(--sun); }
+  :focus-visible { outline: 3px solid var(--sky-deep); outline-offset: 2px; border-radius: 6px; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a class="logo" href="index.html">🌱 LittleSprout</a>
+    <div class="nav-links">
+      <a href="index.html#library">Books</a>
+      <a href="index.html#games">Games</a>
+      <a href="characters.html">Meet the Friends</a>
+      <a href="index.html#resources">Family resources</a>
+      <a href="grants.html">Grants</a>
+      <a href="stats.html" class="current" aria-current="page">Statistics</a>
+    </div>
+  </div>
+</nav>
+
+<header class="page-hero">
+  <div class="wrap">
+    <span class="eyebrow">📊 The Research</span>
+    <h1>Statistics &amp; Data</h1>
+    <p>Why early reading and social-emotional skills matter &mdash; from real public research &mdash; and an honest account of what LittleSprout does and doesn't track about your child.</p>
+  </div>
+</header>
+
+<section class="section">
+  <div class="wrap">
+    <h2>Why early literacy matters</h2>
+    <p class="lede">These come from ongoing, publicly published research programs. Rather than restate numbers that change with every new report, each card links straight to the primary source so you can see the current figures yourself.</p>
+    <div class="grid">
+      <div class="card">
+        <h3>📈 NAEP &mdash; The Nation's Report Card</h3>
+        <p>The federal government's ongoing assessment of what U.S. students know in reading, by grade and by state, tracked over time.</p>
+        <a class="go" href="https://www.nationsreportcard.gov/reading/" target="_blank" rel="noopener">nationsreportcard.gov &#8594;</a>
+      </div>
+      <div class="card">
+        <h3>👶 Annie E. Casey Foundation &mdash; KIDS COUNT</h3>
+        <p>State-by-state child well-being data, including 3rd-grade reading proficiency, updated annually and free to browse.</p>
+        <a class="go" href="https://www.aecf.org/topics/kids-count" target="_blank" rel="noopener">aecf.org/kids-count &#8594;</a>
+      </div>
+      <div class="card">
+        <h3>🏫 Maryland State Department of Education</h3>
+        <p>Maryland's own school and student performance data, including reading outcomes by school and district.</p>
+        <a class="go" href="https://reportcard.msde.maryland.gov/" target="_blank" rel="noopener">reportcard.msde.maryland.gov &#8594;</a>
+      </div>
+      <div class="card">
+        <h3>💛 CASEL &mdash; Social-Emotional Learning</h3>
+        <p>The leading research clearinghouse on social-emotional learning outcomes in early childhood and K-12 settings.</p>
+        <a class="go" href="https://casel.org/fundamentals-of-sel/" target="_blank" rel="noopener">casel.org &#8594;</a>
+      </div>
+    </div>
+    <p class="note">We link instead of quoting a number here on purpose: a specific percentage printed on this page would go stale the moment the next report comes out, and PixelRoom's own house rule &mdash; a number should never stand in for a claim about a real child &mdash; applies just as much to a statistics page as anywhere else on the site.</p>
+  </div>
+</section>
+
+<section class="section" style="background:var(--cream-deep); border-top:1px solid var(--paper-line); border-bottom:1px solid var(--paper-line);">
+  <div class="wrap">
+    <h2>LittleSprout's own numbers</h2>
+    <p class="lede">What we can honestly say about the project itself, right now.</p>
+    <div class="grid">
+      <div class="card">
+        <h3>📚 The library</h3>
+        <p>14 interactive storybooks, 9 pages each, and 3 games, built on a shared &ldquo;Double Engine&rdquo; reading + feelings model.</p>
+      </div>
+      <div class="card">
+        <h3>🎭 The cast</h3>
+        <p>4 main characters across 5 expressions and 12 poses each, plus 11 named community helpers the series is built around.</p>
+      </div>
+      <div class="card placeholder">
+        <h3>👀 Readers &amp; usage <span class="badge">Not yet available</span></h3>
+        <p>LittleSprout collects no reader data (see our <a href="privacy.html">privacy policy</a>), and as of this writing the site hasn't yet been used outside internal development. Real usage stats will appear here once that changes &mdash; honestly, not projected.</p>
+      </div>
+    </div>
+    <p class="disclaimer">We will never post a statistic here we can't point to a real source for &mdash; house rule, not just a slogan.</p>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <a href="index.html">Home</a>
+    <a href="grants.html">Grants</a>
+    <a href="index.html#resources">Family resources</a>
+    <a href="privacy.html">Privacy</a>
+  </div>
+</footer>
+
+</body>
+</html>

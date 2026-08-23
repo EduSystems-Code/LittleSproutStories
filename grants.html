@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#5BA672">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="assets/icons/icon-180.png">
+<title>Grants &amp; Funding | LittleSprout</title>
+<meta name="description" content="Grant programs and funding resources for families, classrooms, and early-literacy programs, plus how LittleSprout itself is funded.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sprout: #5BA672; --sprout-dark: #3C7A52; --sprout-deep: #2C5C3D;
+    --cream: #FBF6EC; --cream-deep: #F3EAD6; --paper-line: #E7DCC4;
+    --sky: #BFE3FA; --sky-deep: #185FA5; --sun: #FFD24A; --sun-deep: #E1A400;
+    --berry: #B0488C; --bark: #36402C; --bark-soft: #5E6650;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--bark); line-height: 1.6; }
+  h1,h2,h3 { font-family: 'Fredoka', sans-serif; font-weight: 600; }
+  a { color: inherit; }
+  .wrap { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+  .nav { position: sticky; top: 0; z-index: 50; background: rgba(251,246,236,0.9); backdrop-filter: blur(10px); border-bottom: 1px solid var(--paper-line); }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 70px; flex-wrap: wrap; gap: 10px; }
+  .logo { font-family: 'Fredoka', sans-serif; font-weight: 700; font-size: 22px; color: var(--sprout-deep); text-decoration: none; }
+  .nav-links { display: flex; gap: 22px; flex-wrap: wrap; }
+  .nav-links a { font-weight: 700; font-size: 14.5px; color: var(--bark-soft); text-decoration: none; }
+  .nav-links a:hover, .nav-links a.current { color: var(--sprout-dark); }
+  .page-hero { padding: 56px 0 36px; text-align: center; }
+  .page-hero .eyebrow { display: inline-block; background: var(--sky); color: var(--sky-deep); font-weight: 800; font-size: 13px; letter-spacing: 0.5px; text-transform: uppercase; padding: 7px 16px; border-radius: 50px; margin-bottom: 18px; }
+  .page-hero h1 { font-size: clamp(30px, 5vw, 46px); margin-bottom: 14px; }
+  .page-hero p { font-size: 17px; color: var(--bark-soft); font-weight: 600; max-width: 640px; margin: 0 auto; }
+  .section { padding: 46px 0; }
+  .section h2 { font-size: 24px; margin-bottom: 8px; }
+  .section > .wrap > p.lede { color: var(--bark-soft); font-weight: 600; margin-bottom: 24px; max-width: 720px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+  .card { background: #fff; border: 1px solid var(--paper-line); border-radius: 16px; padding: 20px; box-shadow: 0 4px 14px rgba(54,64,44,0.06); }
+  .card h3 { font-size: 16.5px; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .card p { font-size: 13.5px; color: var(--bark-soft); font-weight: 600; margin-bottom: 10px; }
+  .card a.go { font-size: 13px; font-weight: 800; color: var(--sprout-dark); text-decoration: none; }
+  .card a.go:hover { text-decoration: underline; }
+  .placeholder { background: repeating-linear-gradient(45deg, #FFF9EC, #FFF9EC 12px, #FDF2D6 12px, #FDF2D6 24px); border-style: dashed; border-color: var(--sun-deep); }
+  .badge { display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase; color: #8A6A00; background: var(--sun); padding: 2px 8px; border-radius: 50px; }
+  .disclaimer { font-size: 12.5px; color: var(--bark-soft); font-weight: 600; text-align: center; margin-top: 30px; opacity: 0.85; }
+  .footer { background: var(--bark); color: #D9DDD0; padding: 40px 0; text-align: center; margin-top: 40px; }
+  .footer a { color: #A8AE9C; font-weight: 700; text-decoration: none; margin: 0 10px; }
+  .footer a:hover { color: var(--sun); }
+  :focus-visible { outline: 3px solid var(--sky-deep); outline-offset: 2px; border-radius: 6px; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a class="logo" href="index.html">🌱 LittleSprout</a>
+    <div class="nav-links">
+      <a href="index.html#library">Books</a>
+      <a href="index.html#games">Games</a>
+      <a href="characters.html">Meet the Friends</a>
+      <a href="index.html#resources">Family resources</a>
+      <a href="grants.html" class="current" aria-current="page">Grants</a>
+      <a href="stats.html">Statistics</a>
+    </div>
+  </div>
+</nav>
+
+<header class="page-hero">
+  <div class="wrap">
+    <span class="eyebrow">💰 Funding &amp; Support</span>
+    <h1>Grants &amp; Funding</h1>
+    <p>Real programs that help families and classrooms pay for early-literacy materials, plus how LittleSprout itself is funded and supported.</p>
+  </div>
+</header>
+
+<section class="section">
+  <div class="wrap">
+    <h2>Grants &amp; funding for families</h2>
+    <p class="lede">LittleSprout is free to read online. These are real outside programs that help cover the wider cost of early literacy &mdash; books, child care, and school-readiness support &mdash; for Maryland families and beyond.</p>
+    <div class="grid">
+      <div class="card">
+        <h3>📖 Dolly Parton's Imagination Library</h3>
+        <p>Mails one free, age-appropriate book a month to every enrolled child from birth to age five, in participating areas.</p>
+        <a class="go" href="https://imaginationlibrary.com/" target="_blank" rel="noopener">imaginationlibrary.com &#8594;</a>
+      </div>
+      <div class="card">
+        <h3>🏛️ Judy Centers (Maryland)</h3>
+        <p>Maryland's school-readiness centers, based at Title I schools, offering free early learning and family support services.</p>
+        <a class="go" href="https://earlychildhood.marylandpublicschools.org/judy-centers" target="_blank" rel="noopener">MSDE Judy Centers &#8594;</a>
+      </div>
+      <div class="card">
+        <h3>👪 Maryland Family Network / LOCATE</h3>
+        <p>Help finding and affording child care, including how to apply for the Child Care Scholarship Program.</p>
+        <a class="go" href="https://marylandfamilynetwork.org/" target="_blank" rel="noopener">marylandfamilynetwork.org &#8594;</a>
+      </div>
+      <div class="card">
+        <h3>📚 First Book</h3>
+        <p>A national nonprofit that provides free and low-cost books to programs serving children from families facing financial need.</p>
+        <a class="go" href="https://firstbook.org/" target="_blank" rel="noopener">firstbook.org &#8594;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background:var(--cream-deep); border-top:1px solid var(--paper-line); border-bottom:1px solid var(--paper-line);">
+  <div class="wrap">
+    <h2>Grants &amp; funding for classrooms and programs</h2>
+    <p class="lede">If you're a teacher, librarian, or early-childhood program looking to bring decodable, SEL-themed reading into your room, these are established places to start looking for funding.</p>
+    <div class="grid">
+      <div class="card">
+        <h3>🏫 DonorsChoose</h3>
+        <p>Teachers post classroom funding requests &mdash; including books and reading technology &mdash; directly to public donors.</p>
+        <a class="go" href="https://www.donorschoose.org/" target="_blank" rel="noopener">donorschoose.org &#8594;</a>
+      </div>
+      <div class="card">
+        <h3>🏛️ IMLS Grants to States</h3>
+        <p>The Institute of Museum and Library Sciences funds state library agencies, which in turn fund local literacy programming.</p>
+        <a class="go" href="https://www.imls.gov/grants/grants-states" target="_blank" rel="noopener">imls.gov &#8594;</a>
+      </div>
+      <div class="card">
+        <h3>📗 Barbara Bush Foundation</h3>
+        <p>Funds family literacy programs nationally, with a focus on programs serving families with the greatest need.</p>
+        <a class="go" href="https://www.barbarabush.org/" target="_blank" rel="noopener">barbarabush.org &#8594;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <h2>Supporting LittleSprout</h2>
+    <p class="lede">How the project itself is funded, today and going forward.</p>
+    <div class="grid">
+      <div class="card placeholder">
+        <h3>🌱 Sponsor a book <span class="badge">Coming soon</span></h3>
+        <p>A way for a family, classroom, or business to sponsor production of a future LittleSprout title. Not yet open &mdash; check back.</p>
+      </div>
+      <div class="card placeholder">
+        <h3>🎓 Apply for classroom access <span class="badge">Coming soon</span></h3>
+        <p>A simple request form for a Title I classroom or early-childhood program to get LittleSprout set up on their devices, no cost.</p>
+      </div>
+    </div>
+    <p class="disclaimer">External links open in a new tab and are provided for convenience. LittleSprout is not affiliated with the organizations listed above and does not guarantee eligibility or award outcomes &mdash; confirm current details on each program's own site before applying.</p>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <a href="index.html">Home</a>
+    <a href="stats.html">Statistics</a>
+    <a href="index.html#resources">Family resources</a>
+    <a href="privacy.html">Privacy</a>
+  </div>
+</footer>
+
+</body>
+</html>

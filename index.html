@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#5BA672">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="assets/icons/icon-180.png">
+<title>LittleSprout — Read, Play, Grow</title>
+<meta name="description" content="Interactive phonics storybooks and feelings games for early readers ages 4–7, starring Maya, Marcus, Sophie, and James.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sprout: #5BA672;
+    --sprout-dark: #3C7A52;
+    --sprout-deep: #2C5C3D;
+    --cream: #FBF6EC;
+    --cream-deep: #F3EAD6;
+    --paper-line: #E7DCC4;
+    --sky: #BFE3FA;
+    --sky-deep: #185FA5;
+    --sun: #FFD24A;
+    --sun-deep: #E1A400;
+    --berry: #B0488C;
+    --berry-deep: #8A3068;
+    --bark: #36402C;
+    --bark-soft: #5E6650;
+    --white: #FFFFFF;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--bark); line-height: 1.6; overflow-x: hidden; }
+  h1,h2,h3,.display { font-family: 'Fredoka', sans-serif; font-weight: 600; }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+  /* NAV */
+  .nav { position: sticky; top: 0; z-index: 50; background: rgba(251,246,236,0.86); backdrop-filter: blur(10px); border-bottom: 1px solid var(--paper-line); }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 70px; }
+  .logo { display: flex; align-items: center; gap: 10px; font-family: 'Fredoka', sans-serif; font-weight: 700; font-size: 22px; color: var(--sprout-deep); }
+  .logo-mark { width: 34px; height: 34px; flex-shrink: 0; }
+  .nav-links { display: flex; gap: 28px; align-items: center; }
+  .nav-links a { font-weight: 700; font-size: 15px; color: var(--bark-soft); transition: color 0.15s; }
+  .nav-links a:hover { color: var(--sprout-dark); }
+  .nav-cta { background: var(--sprout); color: #fff !important; padding: 10px 20px; border-radius: 50px; font-family: 'Fredoka', sans-serif; font-weight: 600; box-shadow: 0 3px 0 var(--sprout-dark); transition: transform 0.12s, box-shadow 0.12s; }
+  .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 0 var(--sprout-dark); }
+  .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
+  .nav-toggle svg { width: 26px; height: 26px; }
+
+  /* HERO */
+  .hero { position: relative; padding: 60px 0 40px; overflow: hidden; }
+  .hero-cloud { position: absolute; opacity: 0.7; pointer-events: none; }
+  .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: var(--sky); color: var(--sky-deep); font-weight: 800; font-size: 13px; letter-spacing: 0.5px; text-transform: uppercase; padding: 7px 16px; border-radius: 50px; margin-bottom: 22px; }
+  .hero h1 { font-size: clamp(38px, 6.5vw, 68px); line-height: 1.02; color: var(--bark); letter-spacing: -0.5px; margin-bottom: 20px; }
+  .hero h1 .pop { color: var(--sprout-dark); position: relative; white-space: nowrap; }
+  .hero-sub { font-size: clamp(17px, 2.3vw, 20px); color: var(--bark-soft); max-width: 540px; margin: 0 auto 30px; font-weight: 600; }
+  .hero-text { text-align: center; position: relative; z-index: 2; }
+  .hero-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 12px; }
+  .btn-primary { background: var(--sun); color: #5A4200; padding: 15px 32px; border-radius: 50px; font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 18px; box-shadow: 0 5px 0 var(--sun-deep); transition: transform 0.12s, box-shadow 0.12s; border: none; cursor: pointer; }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 7px 0 var(--sun-deep); }
+  .btn-ghost { background: #fff; color: var(--sprout-dark); padding: 15px 30px; border-radius: 50px; font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 18px; border: 2px solid var(--sprout); transition: transform 0.12s, background 0.15s; cursor: pointer; }
+  .btn-ghost:hover { transform: translateY(-2px); background: #F4FBF6; }
+  .hero-backdrop { max-width: 960px; margin: 46px auto 0; height: 220px; border-radius: 26px; border: 4px solid #fff; box-shadow: 0 18px 44px rgba(54,64,44,0.16); background: linear-gradient(160deg,#BFE3FA 0%,#BFE3FA 55%,#D9EEC6 55%,#D9EEC6 100%); display:flex; align-items:flex-end; justify-content:center; gap:24px; font-size:64px; padding-bottom:14px; }
+
+  /* SECTION SHELL */
+  .section { padding: 76px 0; scroll-margin-top: 80px; position: relative; overflow: hidden; }
+  .section-head { text-align: center; max-width: 620px; margin: 0 auto 48px; }
+  .section-eyebrow { display: inline-block; font-weight: 800; font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--sprout); margin-bottom: 12px; }
+  .section-head h2 { font-size: clamp(28px, 4vw, 40px); color: var(--bark); line-height: 1.1; margin-bottom: 14px; }
+  .section-head p { font-size: 17px; color: var(--bark-soft); font-weight: 600; }
+
+  /* LIBRARY / CARDS */
+  .library { background: var(--cream-deep); border-top: 1px solid var(--paper-line); border-bottom: 1px solid var(--paper-line); }
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 26px; }
+  .card { background: #fff; border-radius: 22px; overflow: hidden; border: 1px solid var(--paper-line); box-shadow: 0 6px 22px rgba(54,64,44,0.06); display: flex; flex-direction: column; transition: transform 0.18s, box-shadow 0.18s; }
+  .card:hover { transform: translateY(-5px); box-shadow: 0 14px 32px rgba(54,64,44,0.12); }
+  .card-art { height: 168px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+  .card-art-emoji { font-size: 76px; filter: drop-shadow(0 6px 8px rgba(0,0,0,0.12)); }
+  .card-tag { position: absolute; top: 12px; left: 12px; background: rgba(255,255,255,0.92); font-weight: 800; font-size: 11px; letter-spacing: 0.5px; text-transform: uppercase; padding: 5px 12px; border-radius: 50px; }
+  .card-body { padding: 22px 22px 24px; display: flex; flex-direction: column; flex: 1; }
+  .card-kicker { font-weight: 800; font-size: 12px; letter-spacing: 0.8px; text-transform: uppercase; color: var(--sprout); margin-bottom: 7px; }
+  .card-body h3 { font-size: 21px; color: var(--bark); margin-bottom: 8px; line-height: 1.15; }
+  .card-body p { font-size: 14.5px; color: var(--bark-soft); font-weight: 600; flex: 1; margin-bottom: 18px; }
+  .card-meta { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+  .pill { font-size: 11.5px; font-weight: 800; padding: 4px 11px; border-radius: 50px; background: var(--cream-deep); color: var(--bark-soft); }
+  .card-launch { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: var(--sprout); color: #fff; font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 16px; padding: 12px; border-radius: 14px; box-shadow: 0 3px 0 var(--sprout-dark); transition: transform 0.12s, box-shadow 0.12s; }
+  .card-launch:hover { transform: translateY(-1px); box-shadow: 0 4px 0 var(--sprout-dark); }
+  .card.soon { opacity: 0.85; }
+  .card.soon .card-launch { background: #C9C2B2; box-shadow: 0 3px 0 #ABA593; cursor: default; pointer-events: none; }
+
+  /* APPROACH */
+  .games { background: var(--cream); }
+
+  /* progress + accessibility additions */
+  .card.done .card-art::after { content:"\2713 Finished"; position:absolute; bottom:10px; right:10px;
+    background:var(--sprout); color:#fff; font-weight:800; font-size:11.5px; letter-spacing:.4px;
+    padding:5px 11px; border-radius:50px; box-shadow:0 2px 6px rgba(0,0,0,.18); }
+  .shelf { background:var(--cream); }
+  .shelf-empty { text-align:center; color:var(--bark-soft); font-weight:600; }
+  .badge-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:14px; margin-top:8px; }
+  .badge-chip { background:#fff; border:1px solid var(--paper-line); border-radius:16px; padding:16px 12px;
+    text-align:center; box-shadow:0 4px 14px rgba(54,64,44,.06); }
+  .badge-chip .bi { font-size:32px; display:block; margin-bottom:6px; }
+  .badge-chip .bn { font-family:'Fredoka',sans-serif; font-weight:600; font-size:14px; color:var(--bark); }
+  .shelf-actions { text-align:center; margin-top:22px; }
+  .linkbtn { background:none; border:none; color:var(--bark-soft); font-weight:700; font-size:13.5px;
+    text-decoration:underline; cursor:pointer; font-family:inherit; }
+  .linkbtn:hover { color:#8A3028; }
+  .a11y-bar { display:flex; justify-content:center; gap:10px; padding:14px 0 0; }
+  .a11y-bar button { background:#fff; border:2px solid var(--sprout); color:var(--sprout-dark);
+    border-radius:20px; padding:7px 16px; font-weight:800; font-size:13.5px; cursor:pointer; font-family:inherit; }
+  .a11y-bar button[aria-pressed="true"] { background:var(--sprout); color:#fff; }
+  body.easyread { letter-spacing:.04em; word-spacing:.14em; }
+  body.easyread p, body.easyread li { line-height:1.9; }
+  .skip-link { position:absolute; left:-9999px; background:var(--sun); color:#5A4200; padding:12px 20px;
+    border-radius:0 0 12px 0; font-weight:800; z-index:100; text-decoration:none; }
+  .skip-link:focus { left:0; top:0; }
+  @media (prefers-reduced-motion: reduce) { * { animation:none !important; transition:none !important; } }
+  .approach-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 28px; }
+  .feat { text-align: center; padding: 0 8px; }
+  .feat-icon { width: 66px; height: 66px; border-radius: 20px; margin: 0 auto 18px; display: flex; align-items: center; justify-content: center; font-size: 32px; }
+  .feat h3 { font-size: 19px; color: var(--bark); margin-bottom: 8px; }
+  .feat p { font-size: 14.5px; color: var(--bark-soft); font-weight: 600; }
+
+  /* AUDIENCE */
+  .aud { background: var(--sprout); color: #fff; }
+  .aud .section-head h2 { color: #fff; }
+  .aud-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+  .aud-card { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.22); border-radius: 18px; padding: 26px 24px; }
+  .aud-card h3 { font-size: 19px; margin-bottom: 8px; color: #fff; display: flex; align-items: center; gap: 8px; }
+  .aud-card p { font-size: 14.5px; color: rgba(255,255,255,0.9); font-weight: 600; }
+
+  /* RESOURCES */
+  .resources { background: var(--cream-deep); border-top: 1px solid var(--paper-line); border-bottom: 1px solid var(--paper-line); }
+  .res-group { margin-bottom: 40px; }
+  .res-group:last-child { margin-bottom: 0; }
+  .res-group-head { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+  .res-group-head .res-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+  .res-group-head h3 { font-size: 20px; color: var(--bark); }
+  .res-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
+  .res-link { display: flex; align-items: flex-start; gap: 14px; background: #fff; border: 1px solid var(--paper-line); border-radius: 16px; padding: 16px 18px; transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s; }
+  .res-link:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(54,64,44,0.1); border-color: var(--sprout); }
+  .res-ic { width: 40px; height: 40px; border-radius: 11px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+  .res-body { flex: 1; min-width: 0; }
+  .res-body .res-name { font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 15.5px; color: var(--bark); display: flex; align-items: center; gap: 7px; margin-bottom: 3px; }
+  .res-body .res-name .ext { width: 13px; height: 13px; opacity: 0.5; flex-shrink: 0; }
+  .res-body .res-desc { font-size: 13px; color: var(--bark-soft); font-weight: 600; line-height: 1.45; }
+  .res-link.construction { background: repeating-linear-gradient(45deg, #FFF9EC, #FFF9EC 12px, #FDF2D6 12px, #FDF2D6 24px); border-style: dashed; border-color: var(--sun-deep); cursor: default; }
+  .res-link.construction:hover { transform: none; box-shadow: none; }
+  .res-badge { display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase; color: #8A6A00; background: var(--sun); padding: 2px 8px; border-radius: 50px; margin-left: 6px; vertical-align: middle; }
+  .res-disclaimer { font-size: 12.5px; color: var(--bark-soft); font-weight: 600; text-align: center; margin-top: 36px; opacity: 0.8; }
+
+  .cta-strip { text-align: center; }
+  .cta-card { background: linear-gradient(160deg, var(--sun) 0%, #FFC01F 100%); border-radius: 28px; padding: 52px 32px; box-shadow: 0 12px 30px rgba(225,164,0,0.22); }
+  .cta-card h2 { font-size: clamp(26px, 4vw, 38px); color: #5A4200; margin-bottom: 12px; }
+  .cta-card p { font-size: 17px; color: #6B5212; font-weight: 700; margin-bottom: 26px; }
+
+  /* FOOTER */
+  .footer { background: var(--bark); color: #D9DDD0; padding: 50px 0 30px; }
+  .footer-top { display: flex; justify-content: space-between; gap: 32px; flex-wrap: wrap; margin-bottom: 32px; }
+  .footer-brand { max-width: 300px; }
+  .footer-brand .logo { color: #fff; margin-bottom: 12px; }
+  .footer-brand p { font-size: 14px; color: #A8AE9C; font-weight: 600; }
+  .footer-col h4 { font-family: 'Fredoka', sans-serif; font-size: 15px; color: #fff; margin-bottom: 14px; }
+  .footer-col a { display: block; font-size: 14px; color: #A8AE9C; font-weight: 600; margin-bottom: 9px; transition: color 0.15s; }
+  .footer-col a:hover { color: var(--sun); }
+  .footer-cols { display: flex; gap: 56px; flex-wrap: wrap; }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.12); padding-top: 22px; font-size: 13px; color: #888E7C; font-weight: 600; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+
+  @media (max-width: 760px) { .nav-links { display: none; } .nav-toggle { display: block; } .section { padding: 56px 0; } }
+  :focus-visible { outline: 3px solid var(--sky-deep); outline-offset: 2px; border-radius: 6px; }
+</style>
+</head>
+<body>
+<a href="#library" class="skip-link">Skip to the books</a>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="logo">
+      <svg class="logo-mark" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+        <path d="M20 36 C20 26 20 20 20 16" stroke="#3C7A52" stroke-width="3.5" stroke-linecap="round"/>
+        <path d="M20 22 C14 22 9 18 8 11 C16 11 20 15 20 22 Z" fill="#5BA672"/>
+        <path d="M20 18 C26 17 31 12 31 6 C24 6 20 11 20 18 Z" fill="#7CC68E"/>
+        <circle cx="20" cy="37" r="2.2" fill="#E1A400"/>
+      </svg>
+      LittleSprout
+    </a>
+    <div class="nav-links">
+      <a href="#library">Books</a>
+      <a href="#games">Games</a>
+      <a href="characters.html">Meet the Friends</a>
+      <a href="#approach">How it works</a>
+      <a href="#resources">Maryland resources</a>
+      <a href="#library" class="nav-cta">Start playing</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#36402C" stroke-width="2.5" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </div>
+</nav>
+
+<div class="wrap a11y-bar">
+  <button type="button" id="easyBtn" onclick="toggleEasy()" aria-pressed="false" title="Easier-to-read spacing">Aa Easier to read</button>
+</div>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="wrap hero-text">
+    <span class="hero-eyebrow">🌱 Read &middot; Play &middot; Grow</span>
+    <h1>Little readers,<br><span class="pop">big adventures.</span></h1>
+    <p class="hero-sub">Interactive storybooks and feelings games that help children ages 4&ndash;7 learn to read, name their emotions, and explore their community &mdash; with friends Maya, Marcus, Sophie &amp; James.</p>
+    <div class="hero-btns">
+      <a href="#library" class="btn-primary">Explore the library</a>
+      <a href="#games" class="btn-ghost">Play a game</a>
+    </div>
+  </div>
+  <div class="wrap">
+    <!-- HERO-ART-SWAP: original hero banner photo lives in the prior site build; not fully recoverable from chat history this session, so this is a CSS backdrop placeholder for the section only, not a character/asset placeholder. Swap in original hero-banner image when the source file is available. -->
+    <div class="hero-backdrop">🚒🏫📚🥐🌳</div>
+  </div>
+</header>
+
+<!-- APPROACH -->
+<section class="section approach" id="approach">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-eyebrow">How it works</span>
+      <h2>Two engines in every story</h2>
+      <p>LittleSprout pairs learning to read with learning to feel &mdash; so each adventure grows the whole child.</p>
+    </div>
+    <div class="approach-grid">
+      <div class="feat"><div class="feat-icon" style="background:#E8F4DC;">📖</div><h3>Decodable reading</h3><p>Short, sound-it-out sentences and repeated sight words build confidence on every page.</p></div>
+      <div class="feat"><div class="feat-icon" style="background:#FFF1CC;">⭐</div><h3>Tap-to-learn words</h3><p>Bolded vocabulary words open kid-friendly definitions, turning new words into known words.</p></div>
+      <div class="feat"><div class="feat-icon" style="background:#FCE0EE;">💕</div><h3>Big-feelings practice</h3><p>Characters model naming emotions and making kind choices &mdash; social-emotional learning woven into the story.</p></div>
+      <div class="feat"><div class="feat-icon" style="background:#D9EEFB;">🎯</div><h3>Playful checks</h3><p>Hotspots, sorting, and questions keep readers active and reward them with badges, not pressure.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- LIBRARY -->
+<section class="section library" id="library">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-eyebrow">The Library</span>
+      <h2>Open a book. Play a game.</h2>
+      <p>All 14 adventures are ready to read &mdash; each with a &ldquo;Read to me&rdquo; button, so children can enjoy them before they can read alone.</p>
+    </div>
+    <div class="card-grid">
+      <article class="card">
+        <div class="card-art" style="background:linear-gradient(160deg,#FFD9A0,#E8433F);">
+          <div class="card-art-emoji" aria-hidden="true">🚒</div>
+          <span class="card-tag">Ready to read</span>
+        </div>
+        <div class="card-body">
+          <span class="card-kicker">Book 1 &middot; Community Helpers</span>
+          <h3>Maya & Marcus Visit the Fire Station</h3>
+          <p>Maya, Marcus visit Alex the Firefighter at the Fire Station, and practise a big feeling together along the way.</p>
+          <div class="card-meta"><span class="pill">Nervousness</span><span class="pill">Ages 4&ndash;7</span></div>
+          <a class="card-launch" href="books/Book1_Maya_Marcus_FireStation.html">Read it &#8594;</a>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-art" style="background:linear-gradient(160deg,#D9EEFB,#8FC6EA);">
+          <div class="card-art-emoji" aria-hidden="true">🚓</div>
+          <span class="card-tag">Ready to read</span>
+        </div>
+        <div class="card-body">
+          <span class="card-kicker">Book 2 &middot; Community Helpers</span>
+          <h3>Sophie & James Visit the Police Station</h3>
+          <p>Sophie, James visit Jasmine the Officer at the Police Station, and practise a big feeling together along the way.</p>
+          <div class="card-meta"><span class="pill">Frustration</span><span class="pill">Ages 4&ndash;7</span></div>
+          <a class="card-launch" href="books/Book2_Sophie_James_PoliceStation.html">Read it &#8594;</a>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-art" style="background:linear-gradient(160deg,#F3EAD6,#C9B98E);">
+          <div class="card-art-emoji" aria-hidden="true">📚</div>
+          <span class="card-tag">Ready to read</span>
+        </div>
+        <div class="card-body">
+          <span class="card-kicker">Book 3 &middot; Community Helpers</span>
+          <h3>Maya & Sophie Visit the Library</h3>
+          <p>Maya, Sophie visit Ms. Chen the Librarian at the Library, and practise a big feeling together along the way.</p>
+          <div class="card-meta"><span class="pill">Embarrassment</span><span class="pill">Ages 4&ndash;7</span></div>
+          <a class="card-launch" href="books/Book3_Maya_Sophie_Library.html">Read it &#8594;</a>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-art" style="background:linear-gradient(160deg,#FCE0EE,#EBA9C9);">
+          <div class="card-art-emoji" aria-hidden="true">🩺</div>
+          <span class="card-tag">Ready to read</span>
+        </div>
+        <div class="card-body">
+          <span class="card-kicker">Book 4 &middot; Community Helpers</span>
+          <h3>Marcus & James Visit the Doctor</h3>
+          <p>Marcus, James visit Dr. Patel at the Doctor's Office, and practise a big feeling together along the way.</p>
+          <div class="card-meta"><span class="pill">Anxiety</span><span class="pill">Ages 4&ndash;7</span></div>
+          <a class="card-launch" href="books/Book4_Marcus_James_Doctor.html">Read it &#8594;</a>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-art" style="background:linear-gradient(160deg,#FFF1CC,#F5D77E);">
+          <div class="card-art-emoji" aria-hidden="true">🏫</div>
+          <span class="card-tag">Ready to read</span>
+        </div>
+        <div class="card-body">
+          <span class="card-kicker">Book 5 &middot; Community Helpers</span>
+          <h3>All Four Visit the Elementary School</h3>
+          <p>Maya, Marcus, Sophie, James visit Mr. Rodriguez at the Elementary School, and practise a big feeling together along the way.</p>
+          <div class="card-meta"><span class="pill">Missing a friend</span><span class="pill">Ages 4&ndash;7</span></div>
+          <a class="card-launch" href="books/Book5_AllFour_School.html">Read it &#8594;</a>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-art" style="background:linear-gradient(160deg,#E8F4DC,#A9D687);">
+          <div class="card-art-emoji" aria-hidden="true">💈</div>
+          <span class="card-tag">Ready to read</span>
+        </div>
+        <div class="card-body">
+          <span class="card-kicker">Book 6 &middot; Community Helpers</span>
+          <h3>Marcus & Sophie Visit the Barbershop</h3>
+          <p>Marcus, Sophie visit Mr. Smith at the Barbershop, and practise a big feeling together along the way.</p>
+          <div class="card-meta"><span class="pill">Fear of the new</span><span class="pill">Ages 4&ndash;7</span></div>
+          <a class="card-launch" href="books/Book6_Marcus_Sophie_Barbershop.html">Read it &#8594;</a>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-art" style="background:linear-gradient(160deg,#FFE3CC,#F0B67F);">
+          <div class="card-art-emoji" aria-hidden="true">🥐</div>
+          <span class="card-tag">Ready to read</span>
+        </div>
+        <div class="card-body">
+          <span class="card-kicker">Book 7 &middot; Community Helpers</span>
+          <h3>Maya & James Visit the Bakery</h3>
+          <p>Maya, James visit Keisha the Baker at the Bakery, and practise a big feeling together along the way.</p>
+          <div class="card-meta"><span class="pill">Making mistakes</span><span class="pill">Ages 4&ndash;7</span></div>
+          <a class="card-launch" href="books/Book7_Maya_James_Bakery.html">Read it &#8594;</a>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-art" style="background:linear-gradient(160deg,#D9EEC6,#9FD37F);">
+          <div class="card-art-emoji" aria-hidden="true">🌱</div>
+          <span class="card-tag">Ready to read</span>
+        </div>
+        <div class="card-body">
+          <span class="card-kicker">Book 8 &middot; Community Helpers</span>
+          <h3>Sophie & Marcus Visit the Garden</h3>
+          <p>Sophie, Marcus visit Tom the Gardener at the Community Garden, and practise a big feeling together along the way.</p>
+          <div class="card-meta"><span class="pill">Impatience</span><span class="pill">Ages 4&ndash;7</span></div>
+          <a class="card-launch" href="books/Book8_Sophie_Marcus_Garden.html">Read it &#8594;</a>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-art" style="background:linear-gradient(160deg,#D9EEFB,#BFE3FA);">
+          <div class="card-art-emoji" aria-hidden="true">✉️</div>
+          <span class="card-tag">Ready to read</span>
+        </div>
+        <div class="card-body">
+          <span class="card-kicker">Book 9 &middot; Community Helpers</span>
+          <h3>Maya & Marcus Visit the Post Office</h3>
+          <p>Maya, Marcus visit Rose at the Post Office, and practise a big feeling together along the way.</p>
+          <div class="card-meta"><span class="pill">Self-doubt</span><span class="pill">Ages 4&ndash;7</span></div>
+          <a class="card-launch" href="books/Book9_Maya_Marcus_PostOffice.html">Read it &#8594;</a>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-art" style="background:linear-gradient(160deg,#F3EAD6,#D8C79E);">
+          <div class="card-art-emoji" aria-hidden="true">🔧</div>
+          <span class="card-tag">Ready to read</span>
+        </div>
+        <div class="card-body">
+          <span class="card-kicker">Book 10 &middot; Community Helpers</span>
+          <h3>Sophie & James Visit the Repair Shop</h3>
+          <p>Sophie, James visit David at the Repair Shop, and practise a big feeling together along the way.</p>
+          <div class="card-meta"><span class="pill">Letting go</span><span class="pill">Ages 4&ndash;7</span></div>
+          <a class="card-launch" href="books/Book10_Sophie_James_RepairShop.html">Read it &#8594;</a>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-art" style="background:linear-gradient(160deg,#FCE0EE,#E8B9D3);">
+          <div class="card-art-emoji" aria-hidden="true">🏢</div>
+          <span class="card-tag">Ready to read</span>
+        </div>
+        <div class="card-body">
+          <span class="card-kicker">Book 11 &middot; Community Helpers</span>
+          <h3>All Four Visit the Community Center</h3>
+          <p>Maya, Marcus, Sophie, James visit Nurse Aisha at the Community Center, and practise a big feeling together along the way.</p>
+          <div class="card-meta"><span class="pill">Waiting your turn</span><span class="pill">Ages 4&ndash;7</span></div>
+          <a class="card-launch" href="books/Book11_AllFour_CommunityCenter.html">Read it &#8594;</a>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-art" style="background:linear-gradient(160deg,#FFD9A0,#F0B268);">
+          <div class="card-art-emoji" aria-hidden="true">🚒</div>
+          <span class="card-tag">Ready to read</span>
+        </div>
+        <div class="card-body">
+          <span class="card-kicker">Book 12 &middot; Community Helpers</span>
+          <h3>Marcus & James Revisit the Fire Station</h3>
+          <p>Marcus, James visit Alex the Firefighter at the Fire Station, and practise a big feeling together along the way.</p>
+          <div class="card-meta"><span class="pill">Helping a friend</span><span class="pill">Ages 4&ndash;7</span></div>
+          <a class="card-launch" href="books/Book12_Marcus_James_FireStation2.html">Read it &#8594;</a>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-art" style="background:linear-gradient(160deg,#D9EEC6,#B7DE9C);">
+          <div class="card-art-emoji" aria-hidden="true">🌻</div>
+          <span class="card-tag">Ready to read</span>
+        </div>
+        <div class="card-body">
+          <span class="card-kicker">Book 14 &middot; Community Helpers</span>
+          <h3>All Four Help in the Garden</h3>
+          <p>Maya, Marcus, Sophie, James visit Tom the Gardener at the Community Garden, and practise a big feeling together along the way.</p>
+          <div class="card-meta"><span class="pill">Sharing jobs</span><span class="pill">Ages 4&ndash;7</span></div>
+          <a class="card-launch" href="books/Book14_AllFour_Garden.html">Read it &#8594;</a>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-art" style="background:linear-gradient(160deg,#FFF1CC,#FFD24A);">
+          <div class="card-art-emoji" aria-hidden="true">🎉</div>
+          <span class="card-tag">Ready to read</span>
+        </div>
+        <div class="card-body">
+          <span class="card-kicker">Book 15 &middot; Community Helpers</span>
+          <h3>We Are Community Helpers Too</h3>
+          <p>Maya, Marcus, Sophie, James visit All our friends at the Series Finale, and practise a big feeling together along the way.</p>
+          <div class="card-meta"><span class="pill">Pride</span><span class="pill">Ages 4&ndash;7</span></div>
+          <a class="card-launch" href="books/Book15_AllFour_Finale.html">Read it &#8594;</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- GAMES -->
+<section class="section games" id="games">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-eyebrow">Play &amp; Practice</span>
+      <h2>Games with the same four friends</h2>
+      <p>Short, replayable activities that practise the skills the books introduce &mdash; sounding out words, reading faces, and paying close attention.</p>
+    </div>
+    <div class="card-grid">
+
+      <article class="card">
+        <div class="card-art" style="background:linear-gradient(160deg,#FFF1CC,#F5D77E);">
+          <div class="card-art-emoji">&#128483;&#65039;</div>
+          <span class="card-tag">Ready to play</span>
+        </div>
+        <div class="card-body">
+          <span class="card-kicker">Phonics &middot; Game</span>
+          <h3>Sound It Out</h3>
+          <p>Build simple three-letter words one sound at a time, then hear them read back aloud. Practises blending and letter&ndash;sound matching.</p>
+          <div class="card-meta"><span class="pill">CVC words</span><span class="pill">Ages 4&ndash;7</span></div>
+          <a class="card-launch" href="games/sound_it_out.html">Play it &#8594;</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-art" style="background:linear-gradient(160deg,#FCE0EE,#EBA9C9);">
+          <div class="card-art-emoji">&#128064;</div>
+          <span class="card-tag">Ready to play</span>
+        </div>
+        <div class="card-body">
+          <span class="card-kicker">Attention &middot; Game</span>
+          <h3>Who&rsquo;s Missing?</h3>
+          <p>The friends line up, then one slips away. Can your child spot who? Builds visual memory and careful looking.</p>
+          <div class="card-meta"><span class="pill">Memory</span><span class="pill">Ages 4&ndash;7</span></div>
+          <a class="card-launch" href="games/whos_missing.html">Play it &#8594;</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-art" style="background:linear-gradient(160deg,#D9EEC6,#9FD37F);">
+          <div class="card-art-emoji">&#127881;</div>
+          <span class="card-tag">Ready to play</span>
+        </div>
+        <div class="card-body">
+          <span class="card-kicker">Feelings &middot; Game</span>
+          <h3>Pose Parade</h3>
+          <p>Match the friend to the feeling and the pose. A playful way to practise reading faces and naming emotions.</p>
+          <div class="card-meta"><span class="pill">SEL</span><span class="pill">Ages 4&ndash;7</span></div>
+          <a class="card-launch" href="games/pose_parade.html">Play it &#8594;</a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- BADGE SHELF -->
+<section class="section shelf" id="shelf">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-eyebrow">Your badges</span>
+      <h2>The badge shelf</h2>
+      <p>Badges appear here as your child finishes each book. They&rsquo;re saved on this device only &mdash; we never see them.</p>
+    </div>
+    <div id="badgeArea">
+      <p class="shelf-empty">No badges yet. Finish a book to earn your first one!</p>
+    </div>
+    <div class="shelf-actions">
+      <button type="button" class="linkbtn" id="clearBtn" onclick="clearProgress()">Clear saved progress</button>
+    </div>
+  </div>
+</section>
+
+<!-- AUDIENCE -->
+<section class="section aud" id="grownups">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-eyebrow" style="color:#DFF3E6;">For grown-ups</span>
+      <h2>Made for the people who read along</h2>
+    </div>
+    <div class="aud-grid">
+      <div class="aud-card"><h3>👪 Parents</h3><p>Safe, ad-free, and screen-time you can feel good about. Snuggle up and tap through a story together, or let an independent reader explore.</p></div>
+      <div class="aud-card"><h3>🎓 Teachers</h3><p>Aligned to early-literacy standards for phonics and sight words, with SEL themes that fit morning meeting and centers.</p></div>
+      <div class="aud-card"><h3>🧒 Kids</h3><p>Bright friends, real choices, and badges to earn. Big buttons and read-along text make it easy to play solo.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- RESOURCES -->
+<section class="section resources" id="resources">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-eyebrow">Resources &amp; Links</span>
+      <h2>Early childhood in Maryland</h2>
+      <p>Trusted places to find quality care, school-readiness support, and social-emotional learning &mdash; for families and educators across Maryland.</p>
+    </div>
+
+    <div class="res-group">
+      <div class="res-group-head"><span class="res-dot" style="background:var(--sprout);"></span><h3>Maryland state &amp; programs</h3></div>
+      <div class="res-list">
+        <a class="res-link" href="https://earlychildhood.marylandpublicschools.org/" target="_blank" rel="noopener">
+          <span class="res-ic" style="background:#E8F4DC;">🏛️</span>
+          <span class="res-body"><span class="res-name">MSDE Division of Early Childhood</span><span class="res-desc">Maryland&rsquo;s official hub for early care and education, licensing, and family services.</span></span>
+        </a>
+        <a class="res-link" href="https://marylandexcels.org/families/" target="_blank" rel="noopener">
+          <span class="res-ic" style="background:#FFF1CC;">⭐</span>
+          <span class="res-body"><span class="res-name">Maryland EXCELS</span><span class="res-desc">The state&rsquo;s 1&ndash;5 quality rating system. Search and compare rated child care programs.</span></span>
+        </a>
+        <a class="res-link" href="https://www.marylandlearninglinks.org/" target="_blank" rel="noopener">
+          <span class="res-ic" style="background:#D9EEFB;">📘</span>
+          <span class="res-body"><span class="res-name">Maryland Learning Links</span><span class="res-desc">An MSDE + Johns Hopkins portal for early intervention, special education, and family guidance.</span></span>
+        </a>
+      </div>
+    </div>
+
+    <div class="res-group">
+      <div class="res-group-head"><span class="res-dot" style="background:var(--berry);"></span><h3>For families</h3></div>
+      <div class="res-list">
+        <a class="res-link" href="https://marylandfamilynetwork.org/" target="_blank" rel="noopener">
+          <span class="res-ic" style="background:#FCE0EE;">👪</span>
+          <span class="res-body"><span class="res-name">Maryland Family Network</span><span class="res-desc">Family support centers and LOCATE: Child Care &mdash; a free statewide child care search.</span></span>
+        </a>
+        <a class="res-link" href="https://locatesearch.marylandfamilynetwork.org/" target="_blank" rel="noopener">
+          <span class="res-ic" style="background:#D9EEFB;">🔍</span>
+          <span class="res-body"><span class="res-name">LOCATE: Find Child Care</span><span class="res-desc">Search licensed programs near your home, job, or ZIP code. Free and updated regularly.</span></span>
+        </a>
+        <a class="res-link" href="https://www.readyatfive.org/" target="_blank" rel="noopener">
+          <span class="res-ic" style="background:#E8F4DC;">🌱</span>
+          <span class="res-body"><span class="res-name">Ready At Five</span><span class="res-desc">A Maryland partnership focused on school readiness and supporting families at home.</span></span>
+        </a>
+      </div>
+    </div>
+
+    <div class="res-group">
+      <div class="res-group-head"><span class="res-dot" style="background:var(--sun-deep);"></span><h3>For educators &amp; social-emotional learning</h3></div>
+      <div class="res-list">
+        <a class="res-link" href="https://consciousdiscipline.com/" target="_blank" rel="noopener">
+          <span class="res-ic" style="background:#FCE0EE;">💕</span>
+          <span class="res-body"><span class="res-name">Conscious Discipline</span><span class="res-desc">A brain-based, adult-first SEL approach with free tools for classrooms and homes.</span></span>
+        </a>
+        <a class="res-link" href="https://consciousdiscipline.com/professional-development/free-for-all/" target="_blank" rel="noopener">
+          <span class="res-ic" style="background:#FFF1CC;">🎯</span>
+          <span class="res-body"><span class="res-name">Free SEL Resources</span><span class="res-desc">Webinars, printables, and games to bring feelings-and-friendship skills into your day.</span></span>
+        </a>
+        <div class="res-link construction">
+          <span class="res-ic" style="background:#FDEFC4;">🚧</span>
+          <span class="res-body"><span class="res-name">EduSystems Game <span class="res-badge">Under construction</span></span><span class="res-desc">A new partner learning game is on the way. Check back soon &mdash; we&rsquo;re building it!</span></span>
+        </div>
+      </div>
+    </div>
+
+    <p class="res-disclaimer">External links open in a new tab and are provided for convenience. LittleSprout isn&rsquo;t affiliated with these organizations.</p>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section cta-strip">
+  <div class="wrap">
+    <div class="cta-card">
+      <h2>Ready to grow a reader?</h2>
+      <p>Jump into the first adventure &mdash; it&rsquo;s free to play right now.</p>
+      <a href="#library" class="btn-primary" style="background:#fff;color:var(--sprout-dark);box-shadow:0 5px 0 #C9C2B2;">Open the library</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo">
+          <svg class="logo-mark" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+            <path d="M20 36 C20 26 20 20 20 16" stroke="#7CC68E" stroke-width="3.5" stroke-linecap="round"/>
+            <path d="M20 22 C14 22 9 18 8 11 C16 11 20 15 20 22 Z" fill="#5BA672"/>
+            <path d="M20 18 C26 17 31 12 31 6 C24 6 20 11 20 18 Z" fill="#7CC68E"/>
+          </svg>
+          LittleSprout
+        </div>
+        <p>Interactive phonics storybooks and feelings games for early readers, ages 4&ndash;7.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <a href="#library">Books</a>
+          <a href="#games">Games</a>
+          <a href="characters.html">Meet the Friends</a>
+          <a href="#approach">How it works</a>
+          <a href="#grownups">For grown-ups</a>
+          <a href="#resources">Maryland resources</a>
+          <a href="privacy.html">Privacy</a>
+        </div>
+        <div class="footer-col">
+          <h4>The friends</h4>
+          <a href="characters.html">Maya</a>
+          <a href="characters.html">Marcus</a>
+          <a href="characters.html">Sophie</a>
+          <a href="characters.html">James</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="year"></span> LittleSprout. Made for little readers.</span>
+      <span>Read &middot; Play &middot; Grow</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+  document.getElementById('navToggle').addEventListener('click', function() {
+    document.getElementById('library').scrollIntoView({ behavior: 'smooth' });
+  });
+
+  /* ---------- progress (device-local only) ---------- */
+  function loadProgress() {
+    try { return JSON.parse(localStorage.getItem('littlesprout') || '{}'); }
+    catch (e) { return {}; }
+  }
+  function saveProgress(d) {
+    try { localStorage.setItem('littlesprout', JSON.stringify(d)); return true; }
+    catch (e) { return false; }
+  }
+
+  function renderProgress() {
+    var d = loadProgress();
+    var books = d.books || {};
+    var ids = Object.keys(books).filter(function(k){ return books[k].finished; });
+
+    // tick finished cards
+    var cards = [].slice.call(document.querySelectorAll('.card'));
+    cards.forEach(function(card) {
+      var a = card.querySelector('a.card-launch');
+      if (!a) return;
+      var href = a.getAttribute('href') || '';
+      var m = href.match(/books\/(.+)\.html$/);
+      if (m && books[m[1]] && books[m[1]].finished) card.classList.add('done');
+      else card.classList.remove('done');
+    });
+
+    // badge shelf
+    var area = document.getElementById('badgeArea');
+    if (!area) return;
+    if (!ids.length) {
+      area.innerHTML = '<p class="shelf-empty">No badges yet. Finish a book to earn your first one!</p>';
+      document.getElementById('clearBtn').style.display = 'none';
+      return;
+    }
+    document.getElementById('clearBtn').style.display = '';
+    ids.sort(function(a,b){ return (books[a].at||0) - (books[b].at||0); });
+    var html = '<div class="badge-grid">' + ids.map(function(id) {
+      var b = books[id];
+      var name = (b.badge || 'Explorer').replace(/</g,'&lt;');
+      return '<div class="badge-chip"><span class="bi" aria-hidden="true">\uD83C\uDFC5</span>' +
+             '<span class="bn">' + name + '</span></div>';
+    }).join('') + '</div>';
+    area.innerHTML = html;
+  }
+
+  function clearProgress() {
+    if (!confirm('Clear all saved badges and finished books on this device?')) return;
+    var d = loadProgress();
+    delete d.books;
+    saveProgress(d);
+    renderProgress();
+  }
+
+  /* ---------- easier-to-read toggle ---------- */
+  function toggleEasy() {
+    var on = document.body.classList.toggle('easyread');
+    document.getElementById('easyBtn').setAttribute('aria-pressed', on ? 'true' : 'false');
+    var d = loadProgress(); d.easyread = on; saveProgress(d);
+  }
+  if (loadProgress().easyread) {
+    document.body.classList.add('easyread');
+    document.getElementById('easyBtn').setAttribute('aria-pressed','true');
+  }
+
+  renderProgress();
+  window.addEventListener('pageshow', renderProgress);
+
+  /* ---------- offline support ---------- */
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('sw.js').catch(function(){});
+    });
+  }
+</script>
+</body>
+</html>

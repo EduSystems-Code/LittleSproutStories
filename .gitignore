@@ -1,0 +1,24 @@
+# OS noise
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+.idea/
+*.swp
+
+# Python (build pipeline)
+__pycache__/
+*.pyc
+venv/
+.venv/
+
+# Raw / unprocessed art — keep these out of the repo.
+# Only processed sprites in assets/sprites/ belong in git.
+raw_art/
+*_raw/
+LittleSprout_Character_Sheet*.zip
+
+# Standalone offline builds (regenerated, not source)
+dist/

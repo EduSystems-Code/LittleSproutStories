@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#5BA672">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="assets/icons/icon-180.png">
+<title>Meet the Friends | LittleSprout</title>
+<meta name="description" content="Meet Maya, Marcus, Sophie, and James — the four friends who explore their community and learn about big feelings together.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sprout: #5BA672; --sprout-dark: #3C7A52; --sprout-deep: #2C5C3D;
+    --cream: #FBF6EC; --cream-deep: #F3EAD6; --paper-line: #E7DCC4;
+    --sky: #BFE3FA; --sky-deep: #185FA5; --sun: #FFD24A; --sun-deep: #E1A400;
+    --berry: #B0488C; --bark: #36402C; --bark-soft: #5E6650;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--bark); line-height: 1.6; }
+  h1,h2,h3 { font-family: 'Fredoka', sans-serif; font-weight: 600; }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+  .nav { position: sticky; top: 0; z-index: 50; background: rgba(251,246,236,0.86); backdrop-filter: blur(10px); border-bottom: 1px solid var(--paper-line); }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 70px; }
+  .logo { display: flex; align-items: center; gap: 10px; font-family: 'Fredoka', sans-serif; font-weight: 700; font-size: 22px; color: var(--sprout-deep); }
+  .logo-mark { width: 34px; height: 34px; flex-shrink: 0; }
+  .nav-links { display: flex; gap: 28px; align-items: center; }
+  .nav-links a { font-weight: 700; font-size: 15px; color: var(--bark-soft); }
+  .nav-links a:hover { color: var(--sprout-dark); }
+  .nav-cta { background: var(--sprout); color: #fff !important; padding: 10px 20px; border-radius: 50px; font-family: 'Fredoka', sans-serif; font-weight: 600; box-shadow: 0 3px 0 var(--sprout-dark); }
+
+  .page-hero { text-align: center; padding: 54px 0 30px; }
+  .page-hero .eyebrow { display: inline-block; background: var(--sky); color: var(--sky-deep); font-weight: 800; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; padding: 7px 16px; border-radius: 50px; margin-bottom: 18px; }
+  .page-hero h1 { font-size: clamp(32px, 5.5vw, 52px); line-height: 1.05; margin-bottom: 14px; }
+  .page-hero p { font-size: 18px; color: var(--bark-soft); font-weight: 600; max-width: 560px; margin: 0 auto; }
+
+  .friend { padding: 40px 0; border-bottom: 1px solid var(--paper-line); }
+  .friend:last-of-type { border-bottom: none; }
+  .friend-inner { display: grid; grid-template-columns: 230px 1fr; gap: 36px; align-items: center; }
+  .friend-portrait { background: var(--cream-deep); border-radius: 24px; padding: 18px; text-align: center; border: 1px solid var(--paper-line); }
+  .friend-portrait img { width: 100%; max-width: 180px; height: 210px; object-fit: contain; }
+  .friend-body h2 { font-size: 30px; color: var(--sprout-dark); margin-bottom: 6px; }
+  .friend-tagline { font-size: 17px; font-weight: 700; color: var(--berry); margin-bottom: 12px; }
+  .friend-body > p { font-size: 15.5px; color: var(--bark-soft); font-weight: 600; margin-bottom: 18px; }
+
+  .moods { margin-top: 6px; }
+  .moods-label { font-size: 12px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--sprout); margin-bottom: 10px; }
+  .mood-row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .mood { text-align: center; background: #fff; border: 1px solid var(--paper-line); border-radius: 14px; padding: 8px 6px 6px; width: 92px; transition: transform 0.15s, box-shadow 0.15s; cursor: default; }
+  .mood:hover { transform: translateY(-4px); box-shadow: 0 8px 18px rgba(54,64,44,0.1); }
+  .mood img { width: 100%; height: 78px; object-fit: contain; }
+  .mood span { display: block; font-size: 11.5px; font-weight: 800; color: var(--bark-soft); margin-top: 4px; }
+
+  .books-in { margin-top: 16px; font-size: 13.5px; font-weight: 700; color: var(--bark-soft); }
+  .books-in b { color: var(--bark); }
+
+  .note { background: var(--cream-deep); border-radius: 20px; padding: 26px 28px; margin: 34px 0 60px; border: 1px solid var(--paper-line); }
+  .note h3 { font-size: 19px; margin-bottom: 8px; }
+  .note p { font-size: 15px; color: var(--bark-soft); font-weight: 600; }
+
+  .footer { background: var(--bark); color: #D9DDD0; padding: 40px 0 26px; }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.12); padding-top: 20px; margin-top: 22px; font-size: 13px; color: #888E7C; font-weight: 600; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+  .footer a { color: #A8AE9C; font-weight: 600; font-size: 14px; margin-right: 18px; }
+  .footer a:hover { color: var(--sun); }
+
+  @media (max-width: 780px) {
+    .nav-links { display: none; }
+    .friend-inner { grid-template-columns: 1fr; gap: 20px; }
+    .friend-portrait { max-width: 220px; margin: 0 auto; }
+  }
+  :focus-visible { outline: 3px solid var(--sky-deep); outline-offset: 2px; border-radius: 6px; }
+  @media (prefers-reduced-motion: reduce) { * { animation:none !important; transition:none !important; } }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a href="index.html" class="logo">
+      <svg class="logo-mark" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+        <path d="M20 36 C20 26 20 20 20 16" stroke="#3C7A52" stroke-width="3.5" stroke-linecap="round"/>
+        <path d="M20 22 C14 22 9 18 8 11 C16 11 20 15 20 22 Z" fill="#5BA672"/>
+        <path d="M20 18 C26 17 31 12 31 6 C24 6 20 11 20 18 Z" fill="#7CC68E"/>
+        <circle cx="20" cy="37" r="2.2" fill="#E1A400"/>
+      </svg>
+      LittleSprout
+    </a>
+    <div class="nav-links">
+      <a href="index.html#library">Books</a>
+      <a href="index.html#games">Games</a>
+      <a href="characters.html">Meet the Friends</a>
+      <a href="index.html#resources">Maryland resources</a>
+      <a href="index.html#library" class="nav-cta">Start playing</a>
+    </div>
+  </div>
+</nav>
+
+<header class="page-hero">
+  <div class="wrap">
+    <span class="eyebrow">&#127807; Meet the Friends</span>
+    <h1>Four friends, lots of feelings</h1>
+    <p>Maya, Marcus, Sophie, and James explore their community together &mdash; and every story gives them a new big feeling to practice naming.</p>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- MAYA -->
+  <section class="friend">
+    <div class="friend-inner">
+      <div class="friend-portrait">
+        <img src="assets/sprites/maya_happy_waving.png" alt="Maya waving">
+      </div>
+      <div class="friend-body">
+        <h2>Maya</h2>
+        <div class="friend-tagline">The one who notices</div>
+        <p>Maya is often the first to spot when a friend is having a hard time &mdash; she takes a hand, says the calming thing, and stays close. But she has her own worries too: about being left out, about making mistakes, about whether what she made is good enough.</p>
+        <div class="moods">
+          <div class="moods-label">Maya&rsquo;s feelings</div>
+          <div class="mood-row">
+            <div class="mood"><img src="assets/sprites/maya_happy_standing.png" alt="Maya happy"><span>Happy</span></div>
+            <div class="mood"><img src="assets/sprites/maya_neutral_standing.png" alt="Maya calm"><span>Calm</span></div>
+            <div class="mood"><img src="assets/sprites/maya_sad_standing.png" alt="Maya sad"><span>Sad</span></div>
+            <div class="mood"><img src="assets/sprites/maya_surprised_standing.png" alt="Maya surprised"><span>Surprised</span></div>
+            <div class="mood"><img src="assets/sprites/maya_frustrated_standing.png" alt="Maya frustrated"><span>Frustrated</span></div>
+          </div>
+        </div>
+        <p class="books-in"><b>Read Maya in:</b> Books 1, 3, 5, 7, 9, 11, 14, 15</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARCUS -->
+  <section class="friend">
+    <div class="friend-inner">
+      <div class="friend-portrait">
+        <img src="assets/sprites/marcus_happy_waving.png" alt="Marcus waving">
+      </div>
+      <div class="friend-body">
+        <h2>Marcus</h2>
+        <div class="friend-tagline">The steady one</div>
+        <p>Marcus feels things quietly &mdash; a jumpy tummy before something loud, a flutter before a checkup. He works through it, and then he remembers what helped. By the end of the series he&rsquo;s the one teaching the calming trick to someone else.</p>
+        <div class="moods">
+          <div class="moods-label">Marcus&rsquo;s feelings</div>
+          <div class="mood-row">
+            <div class="mood"><img src="assets/sprites/marcus_happy_standing.png" alt="Marcus happy"><span>Happy</span></div>
+            <div class="mood"><img src="assets/sprites/marcus_neutral_standing.png" alt="Marcus calm"><span>Calm</span></div>
+            <div class="mood"><img src="assets/sprites/marcus_sad_standing.png" alt="Marcus sad"><span>Sad</span></div>
+            <div class="mood"><img src="assets/sprites/marcus_surprised_standing.png" alt="Marcus surprised"><span>Surprised</span></div>
+            <div class="mood"><img src="assets/sprites/marcus_frustrated_standing.png" alt="Marcus frustrated"><span>Frustrated</span></div>
+          </div>
+        </div>
+        <p class="books-in"><b>Read Marcus in:</b> Books 1, 4, 5, 6, 8, 9, 11, 12, 14, 15</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOPHIE -->
+  <section class="friend">
+    <div class="friend-inner">
+      <div class="friend-portrait">
+        <img src="assets/sprites/sophie_happy_waving.png" alt="Sophie waving">
+      </div>
+      <div class="friend-body">
+        <h2>Sophie</h2>
+        <div class="friend-tagline">The one with big energy</div>
+        <p>Sophie runs ahead, wiggles during story time, and finds waiting almost impossible. Her stories are about learning that her energy isn&rsquo;t a problem to fix &mdash; and that some good things are worth the wait.</p>
+        <div class="moods">
+          <div class="moods-label">Sophie&rsquo;s feelings</div>
+          <div class="mood-row">
+            <div class="mood"><img src="assets/sprites/sophie_happy_standing.png" alt="Sophie happy"><span>Happy</span></div>
+            <div class="mood"><img src="assets/sprites/sophie_neutral_standing.png" alt="Sophie calm"><span>Calm</span></div>
+            <div class="mood"><img src="assets/sprites/sophie_sad_standing.png" alt="Sophie sad"><span>Sad</span></div>
+            <div class="mood"><img src="assets/sprites/sophie_surprised_standing.png" alt="Sophie surprised"><span>Surprised</span></div>
+            <div class="mood"><img src="assets/sprites/sophie_frustrated_standing.png" alt="Sophie frustrated"><span>Frustrated</span></div>
+          </div>
+        </div>
+        <p class="books-in"><b>Read Sophie in:</b> Books 2, 3, 5, 6, 8, 10, 11, 14, 15</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- JAMES -->
+  <section class="friend">
+    <div class="friend-inner">
+      <div class="friend-portrait">
+        <img src="assets/sprites/james_happy_waving.png" alt="James waving">
+      </div>
+      <div class="friend-body">
+        <h2>James</h2>
+        <div class="friend-tagline">The one with a plan</div>
+        <p>James loves lists, facts, and knowing what comes next. When the plan bends he feels it hard &mdash; and his stories are about discovering that a changed plan, or a mended toy, can still be exactly right.</p>
+        <div class="moods">
+          <div class="moods-label">James&rsquo;s feelings</div>
+          <div class="mood-row">
+            <div class="mood"><img src="assets/sprites/james_happy_standing.png" alt="James happy"><span>Happy</span></div>
+            <div class="mood"><img src="assets/sprites/james_neutral_standing.png" alt="James calm"><span>Calm</span></div>
+            <div class="mood"><img src="assets/sprites/james_sad_standing.png" alt="James sad"><span>Sad</span></div>
+            <div class="mood"><img src="assets/sprites/james_surprised_standing.png" alt="James surprised"><span>Surprised</span></div>
+            <div class="mood"><img src="assets/sprites/james_frustrated_standing.png" alt="James frustrated"><span>Frustrated</span></div>
+          </div>
+        </div>
+        <p class="books-in"><b>Read James in:</b> Books 2, 4, 5, 7, 10, 11, 12, 14, 15</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="note">
+    <h3>Why five feelings?</h3>
+    <p>Every LittleSprout story turns on one feeling a child can name and point to. Seeing the same four friends move between happy, calm, sad, surprised, and frustrated &mdash; and come out okay on the other side &mdash; is what makes the feeling feel manageable. Ask your child which face matches how <i>they</i> feel today.</p>
+  </div>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div>
+      <a href="index.html#library">Books</a>
+      <a href="index.html#games">Games</a>
+      <a href="characters.html">Meet the Friends</a>
+      <a href="index.html#grownups">For grown-ups</a>
+      <a href="index.html#resources">Maryland resources</a>
+      <a href="privacy.html">Privacy</a>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="year"></span> LittleSprout. Made for little readers.</span>
+      <span>Read &middot; Play &middot; Grow</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+try { if (JSON.parse(localStorage.getItem('littlesprout')||'{}').easyread) document.body.style.letterSpacing='.04em'; } catch(e){}
+if ('serviceWorker' in navigator) { window.addEventListener('load', function(){ navigator.serviceWorker.register('sw.js').catch(function(){}); }); }
+</script>
+</body>
+</html>

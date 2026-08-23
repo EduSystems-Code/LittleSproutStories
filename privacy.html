@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#5BA672">
+<title>Privacy | LittleSprout</title>
+<meta name="description" content="LittleSprout collects no personal information from children or adults. No accounts, no ads, no tracking.">
+<link rel="manifest" href="manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sprout:#5BA672; --sprout-dark:#3C7A52; --sprout-deep:#2C5C3D;
+    --cream:#FBF6EC; --cream-deep:#F3EAD6; --paper-line:#E7DCC4;
+    --sky:#BFE3FA; --sky-deep:#185FA5; --sun:#FFD24A;
+    --bark:#36402C; --bark-soft:#555D48;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Nunito',sans-serif; background:var(--cream); color:var(--bark); line-height:1.65; }
+  h1,h2,h3 { font-family:'Fredoka',sans-serif; font-weight:600; }
+  a { color:var(--sprout-dark); }
+  .wrap { max-width:820px; margin:0 auto; padding:0 24px; }
+
+  .nav { position:sticky; top:0; z-index:50; background:rgba(251,246,236,.9); backdrop-filter:blur(10px); border-bottom:1px solid var(--paper-line); }
+  .nav-inner { display:flex; align-items:center; justify-content:space-between; height:70px; max-width:1120px; margin:0 auto; padding:0 24px; }
+  .logo { display:flex; align-items:center; gap:10px; font-family:'Fredoka',sans-serif; font-weight:700; font-size:22px; color:var(--sprout-deep); text-decoration:none; }
+  .logo-mark { width:34px; height:34px; }
+  .nav-links a { font-weight:700; font-size:15px; color:var(--bark-soft); text-decoration:none; margin-left:24px; }
+  .nav-links a:hover { color:var(--sprout-dark); }
+
+  .head { text-align:center; padding:52px 0 26px; }
+  .head .eyebrow { display:inline-block; background:var(--sky); color:var(--sky-deep); font-weight:800; font-size:13px; letter-spacing:1px; text-transform:uppercase; padding:7px 16px; border-radius:50px; margin-bottom:16px; }
+  .head h1 { font-size:clamp(30px,5vw,46px); margin-bottom:10px; }
+  .head p { color:var(--bark-soft); font-weight:600; }
+
+  .summary { background:var(--cream-deep); border:1px solid var(--paper-line); border-radius:20px; padding:26px 28px; margin:10px 0 34px; }
+  .summary h2 { font-size:21px; margin-bottom:12px; }
+  .summary ul { list-style:none; }
+  .summary li { padding-left:30px; position:relative; margin-bottom:9px; font-weight:600; }
+  .summary li::before { content:"\2713"; position:absolute; left:0; top:0; color:var(--sprout); font-weight:900; font-size:18px; }
+
+  section.block { margin-bottom:30px; }
+  section.block h2 { font-size:22px; color:var(--sprout-dark); margin-bottom:10px; }
+  section.block p { margin-bottom:12px; }
+  section.block ul { margin:0 0 12px 22px; }
+  section.block li { margin-bottom:7px; }
+
+  .callout { border-left:5px solid var(--sun); background:#FFF9E8; border-radius:10px; padding:14px 18px; margin:14px 0; }
+
+  .updated { font-size:14px; color:var(--bark-soft); font-weight:600; border-top:1px solid var(--paper-line); padding-top:18px; margin-top:10px; }
+
+  .footer { background:var(--bark); color:#D9DDD0; padding:38px 0 26px; margin-top:56px; }
+  .footer a { color:#A8AE9C; font-weight:600; font-size:14px; margin-right:18px; text-decoration:none; }
+  .footer a:hover { color:var(--sun); }
+  .footer-bottom { border-top:1px solid rgba(255,255,255,.12); padding-top:20px; margin-top:20px; font-size:13px; color:#888E7C; font-weight:600; }
+
+  :focus-visible { outline:3px solid var(--sky-deep); outline-offset:3px; border-radius:6px; }
+  @media (max-width:700px){ .nav-links a { margin-left:14px; font-size:14px; } }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      <svg class="logo-mark" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+        <path d="M20 36 C20 26 20 20 20 16" stroke="#3C7A52" stroke-width="3.5" stroke-linecap="round"/>
+        <path d="M20 22 C14 22 9 18 8 11 C16 11 20 15 20 22 Z" fill="#5BA672"/>
+        <path d="M20 18 C26 17 31 12 31 6 C24 6 20 11 20 18 Z" fill="#7CC68E"/>
+        <circle cx="20" cy="37" r="2.2" fill="#E1A400"/>
+      </svg>
+      LittleSprout
+    </a>
+    <div class="nav-links">
+      <a href="index.html#library">Books</a>
+      <a href="index.html#games">Games</a>
+      <a href="characters.html">Meet the Friends</a>
+    </div>
+  </div>
+</nav>
+
+<header class="head">
+  <div class="wrap">
+    <span class="eyebrow">Privacy</span>
+    <h1>We don&rsquo;t collect anything.</h1>
+    <p>The short version, in plain language &mdash; then the details.</p>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="summary">
+    <h2>The short version</h2>
+    <ul>
+      <li>No accounts. No sign-up, no login, no email address.</li>
+      <li>No personal information is collected from anyone &mdash; child or adult.</li>
+      <li>No advertising, and nothing is sold or shared with anyone.</li>
+      <li>No analytics or tracking pixels.</li>
+      <li>Reading progress stays on your own device and never reaches us.</li>
+    </ul>
+  </div>
+
+  <section class="block">
+    <h2>Who this is for</h2>
+    <p>LittleSprout is made for children roughly ages 4&ndash;7 and the grown-ups reading alongside them. Because our audience includes children under 13, we designed the site so that the question of children&rsquo;s data mostly doesn&rsquo;t arise: there is nothing to sign up for and nothing to fill in.</p>
+  </section>
+
+  <section class="block">
+    <h2>What we store on your device</h2>
+    <p>When your child finishes a book, the site saves a small note in your own browser&rsquo;s local storage so the badge shows up next time. That record contains only:</p>
+    <ul>
+      <li>which books have been finished, and the badge earned</li>
+      <li>the date each one was finished</li>
+      <li>whether the easier-to-read text setting is switched on</li>
+    </ul>
+    <p>This never leaves your device. We cannot see it, and it is not sent to any server. Clearing your browser data, or using the &ldquo;Clear saved progress&rdquo; button on the home page, erases it completely.</p>
+    <div class="callout">
+      <strong>Note:</strong> because this is stored per-device and per-browser, progress will not follow your child from a tablet to a laptop. That is a deliberate trade-off &mdash; syncing would require accounts, and accounts would require collecting personal information.
+    </div>
+  </section>
+
+  <section class="block">
+    <h2>Read-aloud narration</h2>
+    <p>The &ldquo;Read to me&rdquo; button uses speech capability already built into your browser and device. No microphone is used, no recording takes place, and nothing your child says or does is captured.</p>
+    <p>Depending on the browser and the voice selected, the text of the page may be processed by your operating system or, for some cloud-based voices, by your browser vendor. That is the same mechanism any website using built-in speech relies on, and it is governed by your device and browser settings rather than by us. If you prefer to avoid it entirely, simply don&rsquo;t use the button.</p>
+  </section>
+
+  <section class="block">
+    <h2>Hosting and third parties</h2>
+    <p>The site is hosted on GitHub Pages. Like any web host, GitHub processes standard server request information such as IP addresses in order to deliver the page; see GitHub&rsquo;s own privacy documentation for details. We do not receive, store, or have access to that information.</p>
+    <p>We load fonts from Google Fonts. We include no advertising networks, no social media trackers, and no analytics services.</p>
+    <p>Some pages link out to Maryland early-childhood organizations as a convenience. Those are independent websites with their own privacy practices, and we are not affiliated with them.</p>
+  </section>
+
+  <section class="block">
+    <h2>Your rights as a parent</h2>
+    <p>Under COPPA, parents have the right to review, delete, and refuse further collection of a child&rsquo;s personal information. Because LittleSprout collects no personal information, there is nothing held for us to show or delete. Progress saved on your device is fully under your control and can be cleared at any time from the home page or through your browser settings.</p>
+  </section>
+
+  <section class="block">
+    <h2>Changes</h2>
+    <p>If this ever changes &mdash; for example if accounts or classroom features are added &mdash; this page will be updated before the change goes live, and the summary at the top will say plainly what is different.</p>
+  </section>
+
+  <section class="block">
+    <h2>Contact</h2>
+    <p>Questions about privacy, or anything else about the site, can be raised through the project&rsquo;s GitHub repository.</p>
+  </section>
+
+  <p class="updated">Last updated: August 2026.</p>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div>
+      <a href="index.html#library">Books</a>
+      <a href="index.html#games">Games</a>
+      <a href="characters.html">Meet the Friends</a>
+      <a href="index.html#resources">Maryland resources</a>
+      <a href="privacy.html">Privacy</a>
+    </div>
+    <div class="footer-bottom">
+      &copy; <span id="year"></span> LittleSprout. Made for little readers. &nbsp;&middot;&nbsp; Read &middot; Play &middot; Grow
+    </div>
+  </div>
+</footer>
+
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
