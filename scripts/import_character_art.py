@@ -17,11 +17,18 @@ Usage (from repo root):
 
 Expects source filenames matching the character-sheet export pattern:
     {Character}_{pose}_{expression}_{index}.png
-e.g. Sophie_standing_neutral_9.png
+e.g. Sophie_standing_neutral_9.png — where {pose} is always one of the
+site's known poses (single word) and {expression} can be one word
+(neutral, sad, ...) OR a multi-word label a batch sometimes uses
+instead of the site's plain name (e.g. a real export used
+"big_happy_smile" for what the site calls "happy" — see EXPRESSION_ALIASES
+below; that's a normalization, not a guess, since the other four
+expressions in that same batch matched the site's plain names exactly).
 
 Writes to assets/sprites/{character}_{expression}_{pose}.png (lowercase),
-matching the naming convention the root README documents. A zip whose
-files don't match that pattern is skipped, not guessed at.
+matching the naming convention the root README documents. A file whose
+pose isn't recognized, or whose expression doesn't normalize to one of
+the site's five, is skipped and reported — never silently guessed at.
 """
 
 import re
@@ -36,13 +43,22 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 SPRITES_DIR = REPO_ROOT / "assets" / "sprites"
 RAW_ART_DIR = REPO_ROOT / "raw_art"
 
-FILENAME_RE = re.compile(r"^([A-Za-z]+)_([a-z]+)_([a-z]+)_\d+\.png$")
+FILENAME_RE = re.compile(r"^([A-Za-z]+)_(.+)_(\d+)\.png$")
 
 # The site's full documented vocabulary (root README, "Character art"),
-# used only to report what's still missing after an import — never to
-# reject files, since a batch legitimately covers a subset.
+# used both to parse pose/expression out of a filename and to report
+# what's still missing after an import.
 CHARACTERS = ["maya", "marcus", "sophie", "james"]
 EXPRESSIONS = ["happy", "neutral", "sad", "surprised", "frustrated"]
+
+# Real-world export labels seen that don't match the site's plain
+# expression names, mapped to what they actually mean. Add to this only
+# when a batch's other files already confirm the pattern (e.g. this one
+# batch's neutral/sad/surprised/frustrated all matched exactly, and
+# "big_happy_smile" was clearly the 5th, filling the "happy" slot).
+EXPRESSION_ALIASES = {
+    "big_happy_smile": "happy",
+}
 POSES = ["standing", "sitting", "walking", "running", "jumping", "waving",
          "kneeling", "pointing", "looking", "reaching", "giving", "hands"]
 
@@ -78,6 +94,28 @@ def process_image(src_path: Path) -> Image.Image | None:
     return cropped.quantize(colors=QUANTIZE_COLORS, method=Image.FASTOCTREE, dither=Image.FLOYDSTEINBERG)
 
 
+def parse_filename(name: str) -> tuple[str, str, str] | None:
+    """Returns (char, expr, pose), all lowercase, or None if the pose
+    isn't recognized or the expression doesn't normalize to one of the
+    site's five (see EXPRESSION_ALIASES) — never a guess."""
+    m = FILENAME_RE.match(name)
+    if not m:
+        return None
+    char, middle, _index = m.groups()
+    tokens = middle.lower().split("_")
+
+    pose = tokens[0]
+    if pose not in POSES:
+        return None
+    expr_raw = "_".join(tokens[1:])
+    if not expr_raw:
+        return None
+    expr = EXPRESSION_ALIASES.get(expr_raw, expr_raw)
+    if expr not in EXPRESSIONS:
+        return None
+    return char.lower(), expr, pose
+
+
 def import_zip(zip_path: Path) -> tuple[int, int, list[str]]:
     """Returns (upgraded_count, added_count, skipped_reasons)."""
     upgraded, added, skipped = 0, 0, []
@@ -86,18 +124,21 @@ def import_zip(zip_path: Path) -> tuple[int, int, list[str]]:
         tmp_path = Path(tmp)
         with zipfile.ZipFile(zip_path) as zf:
             names = [n for n in zf.namelist() if n.lower().endswith(".png")]
-            matched = [n for n in names if FILENAME_RE.match(Path(n).name)]
+            parsed = {n: parse_filename(Path(n).name) for n in names}
+            matched = [n for n in names if parsed[n] is not None]
+            unmatched = [n for n in names if parsed[n] is None]
             if not matched:
                 skipped.append(f"{zip_path.name}: no files matched the expected "
                                 f"Character_pose_expression_N.png pattern, skipped entirely")
                 return 0, 0, skipped
+            for n in unmatched:
+                skipped.append(f"{Path(n).name}: unrecognized pose or expression, skipped")
             zf.extractall(tmp_path, members=matched)
 
         seen_keys = {}
         for n in matched:
-            m = FILENAME_RE.match(Path(n).name)
-            char, pose, expr = m.groups()
-            key = (char.lower(), expr.lower(), pose.lower())
+            char, expr, pose = parsed[n]
+            key = (char, expr, pose)
             seen_keys[key] = tmp_path / n  # last one wins; content is identical for true dupes
 
         for (char, expr, pose), src in sorted(seen_keys.items()):
