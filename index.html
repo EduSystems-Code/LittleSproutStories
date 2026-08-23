@@ -61,7 +61,9 @@
   .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 7px 0 var(--sun-deep); }
   .btn-ghost { background: #fff; color: var(--sprout-dark); padding: 15px 30px; border-radius: 50px; font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 18px; border: 2px solid var(--sprout); transition: transform 0.12s, background 0.15s; cursor: pointer; }
   .btn-ghost:hover { transform: translateY(-2px); background: #F4FBF6; }
-  .hero-backdrop { max-width: 960px; margin: 46px auto 0; height: 220px; border-radius: 26px; border: 4px solid #fff; box-shadow: 0 18px 44px rgba(54,64,44,0.16); background: linear-gradient(160deg,#BFE3FA 0%,#BFE3FA 55%,#D9EEC6 55%,#D9EEC6 100%); display:flex; align-items:flex-end; justify-content:center; gap:24px; font-size:64px; padding-bottom:14px; }
+  .hero-backdrop { max-width: 960px; margin: 46px auto 0; height: 260px; border-radius: 26px; border: 4px solid #fff; box-shadow: 0 18px 44px rgba(54,64,44,0.16); background: linear-gradient(160deg,#BFE3FA 0%,#BFE3FA 55%,#D9EEC6 55%,#D9EEC6 100%); display:flex; align-items:flex-end; justify-content:center; gap:6px; overflow:hidden; }
+  .hero-backdrop img { height: 240px; object-fit: contain; filter: drop-shadow(0 8px 10px rgba(54,64,44,0.15)); }
+  @media (max-width: 640px) { .hero-backdrop { height: 190px; } .hero-backdrop img { height: 170px; } }
 
   /* SECTION SHELL */
   .section { padding: 76px 0; scroll-margin-top: 80px; position: relative; overflow: hidden; }
@@ -77,6 +79,9 @@
   .card:hover { transform: translateY(-5px); box-shadow: 0 14px 32px rgba(54,64,44,0.12); }
   .card-art { height: 168px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
   .card-art-emoji { font-size: 76px; filter: drop-shadow(0 6px 8px rgba(0,0,0,0.12)); }
+  .card-art-chars { display: flex; align-items: flex-end; justify-content: center; gap: 4px; height: 100%; padding-top: 10px; }
+  .card-art-chars img { height: 150px; object-fit: contain; filter: drop-shadow(0 4px 6px rgba(54,64,44,0.14)); }
+  .card-art-chars.four img { height: 130px; }
   .card-tag { position: absolute; top: 12px; left: 12px; background: rgba(255,255,255,0.92); font-weight: 800; font-size: 11px; letter-spacing: 0.5px; text-transform: uppercase; padding: 5px 12px; border-radius: 50px; }
   .card-body { padding: 22px 22px 24px; display: flex; flex-direction: column; flex: 1; }
   .card-kicker { font-weight: 800; font-size: 12px; letter-spacing: 0.8px; text-transform: uppercase; color: var(--sprout); margin-bottom: 7px; }
@@ -231,8 +236,12 @@
     </div>
   </div>
   <div class="wrap">
-    <!-- HERO-ART-SWAP: original hero banner photo lives in the prior site build; not fully recoverable from chat history this session, so this is a CSS backdrop placeholder for the section only, not a character/asset placeholder. Swap in original hero-banner image when the source file is available. -->
-    <div class="hero-backdrop">🚒🏫📚🥐🌳</div>
+    <div class="hero-backdrop">
+      <img src="assets/sprites/maya_happy_waving.png" alt="Maya waving" loading="lazy">
+      <img src="assets/sprites/marcus_happy_waving.png" alt="Marcus waving" loading="lazy">
+      <img src="assets/sprites/sophie_happy_waving.png" alt="Sophie waving" loading="lazy">
+      <img src="assets/sprites/james_happy_waving.png" alt="James waving" loading="lazy">
+    </div>
   </div>
 </header>
 
@@ -264,8 +273,7 @@
     <div class="card-grid">
       <article class="card">
         <div class="card-art" style="background:linear-gradient(160deg,#FFD9A0,#E8433F);">
-          <div class="card-art-emoji" aria-hidden="true">🚒</div>
-          <span class="card-tag">Ready to read</span>
+          <div class="card-art-chars"><img src="assets/sprites/maya_happy_waving.png" alt="Maya" loading="lazy"><img src="assets/sprites/marcus_happy_waving.png" alt="Marcus" loading="lazy"></div>          <span class="card-tag">Ready to read</span>
         </div>
         <div class="card-body">
           <span class="card-kicker">Book 1 &middot; Community Helpers</span>
@@ -278,8 +286,7 @@
       </article>
       <article class="card">
         <div class="card-art" style="background:linear-gradient(160deg,#D9EEFB,#8FC6EA);">
-          <div class="card-art-emoji" aria-hidden="true">🚓</div>
-          <span class="card-tag">Ready to read</span>
+          <div class="card-art-chars"><img src="assets/sprites/sophie_happy_waving.png" alt="Sophie" loading="lazy"><img src="assets/sprites/james_happy_waving.png" alt="James" loading="lazy"></div>          <span class="card-tag">Ready to read</span>
         </div>
         <div class="card-body">
           <span class="card-kicker">Book 2 &middot; Community Helpers</span>
@@ -292,8 +299,7 @@
       </article>
       <article class="card">
         <div class="card-art" style="background:linear-gradient(160deg,#F3EAD6,#C9B98E);">
-          <div class="card-art-emoji" aria-hidden="true">📚</div>
-          <span class="card-tag">Ready to read</span>
+          <div class="card-art-chars"><img src="assets/sprites/maya_happy_waving.png" alt="Maya" loading="lazy"><img src="assets/sprites/sophie_happy_waving.png" alt="Sophie" loading="lazy"></div>          <span class="card-tag">Ready to read</span>
         </div>
         <div class="card-body">
           <span class="card-kicker">Book 3 &middot; Community Helpers</span>
@@ -306,8 +312,7 @@
       </article>
       <article class="card">
         <div class="card-art" style="background:linear-gradient(160deg,#FCE0EE,#EBA9C9);">
-          <div class="card-art-emoji" aria-hidden="true">🩺</div>
-          <span class="card-tag">Ready to read</span>
+          <div class="card-art-chars"><img src="assets/sprites/marcus_happy_waving.png" alt="Marcus" loading="lazy"><img src="assets/sprites/james_happy_waving.png" alt="James" loading="lazy"></div>          <span class="card-tag">Ready to read</span>
         </div>
         <div class="card-body">
           <span class="card-kicker">Book 4 &middot; Community Helpers</span>
@@ -320,8 +325,7 @@
       </article>
       <article class="card">
         <div class="card-art" style="background:linear-gradient(160deg,#FFF1CC,#F5D77E);">
-          <div class="card-art-emoji" aria-hidden="true">🏫</div>
-          <span class="card-tag">Ready to read</span>
+          <div class="card-art-chars four"><img src="assets/sprites/maya_happy_waving.png" alt="Maya" loading="lazy"><img src="assets/sprites/marcus_happy_waving.png" alt="Marcus" loading="lazy"><img src="assets/sprites/sophie_happy_waving.png" alt="Sophie" loading="lazy"><img src="assets/sprites/james_happy_waving.png" alt="James" loading="lazy"></div>          <span class="card-tag">Ready to read</span>
         </div>
         <div class="card-body">
           <span class="card-kicker">Book 5 &middot; Community Helpers</span>
@@ -334,8 +338,7 @@
       </article>
       <article class="card">
         <div class="card-art" style="background:linear-gradient(160deg,#E8F4DC,#A9D687);">
-          <div class="card-art-emoji" aria-hidden="true">💈</div>
-          <span class="card-tag">Ready to read</span>
+          <div class="card-art-chars"><img src="assets/sprites/marcus_happy_waving.png" alt="Marcus" loading="lazy"><img src="assets/sprites/sophie_happy_waving.png" alt="Sophie" loading="lazy"></div>          <span class="card-tag">Ready to read</span>
         </div>
         <div class="card-body">
           <span class="card-kicker">Book 6 &middot; Community Helpers</span>
@@ -348,8 +351,7 @@
       </article>
       <article class="card">
         <div class="card-art" style="background:linear-gradient(160deg,#FFE3CC,#F0B67F);">
-          <div class="card-art-emoji" aria-hidden="true">🥐</div>
-          <span class="card-tag">Ready to read</span>
+          <div class="card-art-chars"><img src="assets/sprites/maya_happy_waving.png" alt="Maya" loading="lazy"><img src="assets/sprites/james_happy_waving.png" alt="James" loading="lazy"></div>          <span class="card-tag">Ready to read</span>
         </div>
         <div class="card-body">
           <span class="card-kicker">Book 7 &middot; Community Helpers</span>
@@ -362,8 +364,7 @@
       </article>
       <article class="card">
         <div class="card-art" style="background:linear-gradient(160deg,#D9EEC6,#9FD37F);">
-          <div class="card-art-emoji" aria-hidden="true">🌱</div>
-          <span class="card-tag">Ready to read</span>
+          <div class="card-art-chars"><img src="assets/sprites/sophie_happy_waving.png" alt="Sophie" loading="lazy"><img src="assets/sprites/marcus_happy_waving.png" alt="Marcus" loading="lazy"></div>          <span class="card-tag">Ready to read</span>
         </div>
         <div class="card-body">
           <span class="card-kicker">Book 8 &middot; Community Helpers</span>
@@ -376,8 +377,7 @@
       </article>
       <article class="card">
         <div class="card-art" style="background:linear-gradient(160deg,#D9EEFB,#BFE3FA);">
-          <div class="card-art-emoji" aria-hidden="true">✉️</div>
-          <span class="card-tag">Ready to read</span>
+          <div class="card-art-chars"><img src="assets/sprites/maya_happy_waving.png" alt="Maya" loading="lazy"><img src="assets/sprites/marcus_happy_waving.png" alt="Marcus" loading="lazy"></div>         <span class="card-tag">Ready to read</span>
         </div>
         <div class="card-body">
           <span class="card-kicker">Book 9 &middot; Community Helpers</span>
@@ -390,8 +390,7 @@
       </article>
       <article class="card">
         <div class="card-art" style="background:linear-gradient(160deg,#F3EAD6,#D8C79E);">
-          <div class="card-art-emoji" aria-hidden="true">🔧</div>
-          <span class="card-tag">Ready to read</span>
+          <div class="card-art-chars"><img src="assets/sprites/sophie_happy_waving.png" alt="Sophie" loading="lazy"><img src="assets/sprites/james_happy_waving.png" alt="James" loading="lazy"></div>          <span class="card-tag">Ready to read</span>
         </div>
         <div class="card-body">
           <span class="card-kicker">Book 10 &middot; Community Helpers</span>
@@ -404,8 +403,7 @@
       </article>
       <article class="card">
         <div class="card-art" style="background:linear-gradient(160deg,#FCE0EE,#E8B9D3);">
-          <div class="card-art-emoji" aria-hidden="true">🏢</div>
-          <span class="card-tag">Ready to read</span>
+          <div class="card-art-chars four"><img src="assets/sprites/maya_happy_waving.png" alt="Maya" loading="lazy"><img src="assets/sprites/marcus_happy_waving.png" alt="Marcus" loading="lazy"><img src="assets/sprites/sophie_happy_waving.png" alt="Sophie" loading="lazy"><img src="assets/sprites/james_happy_waving.png" alt="James" loading="lazy"></div>          <span class="card-tag">Ready to read</span>
         </div>
         <div class="card-body">
           <span class="card-kicker">Book 11 &middot; Community Helpers</span>
@@ -418,8 +416,7 @@
       </article>
       <article class="card">
         <div class="card-art" style="background:linear-gradient(160deg,#FFD9A0,#F0B268);">
-          <div class="card-art-emoji" aria-hidden="true">🚒</div>
-          <span class="card-tag">Ready to read</span>
+          <div class="card-art-chars"><img src="assets/sprites/marcus_happy_waving.png" alt="Marcus" loading="lazy"><img src="assets/sprites/james_happy_waving.png" alt="James" loading="lazy"></div>          <span class="card-tag">Ready to read</span>
         </div>
         <div class="card-body">
           <span class="card-kicker">Book 12 &middot; Community Helpers</span>
@@ -432,8 +429,7 @@
       </article>
       <article class="card">
         <div class="card-art" style="background:linear-gradient(160deg,#D9EEC6,#B7DE9C);">
-          <div class="card-art-emoji" aria-hidden="true">🌻</div>
-          <span class="card-tag">Ready to read</span>
+          <div class="card-art-chars four"><img src="assets/sprites/maya_happy_waving.png" alt="Maya" loading="lazy"><img src="assets/sprites/marcus_happy_waving.png" alt="Marcus" loading="lazy"><img src="assets/sprites/sophie_happy_waving.png" alt="Sophie" loading="lazy"><img src="assets/sprites/james_happy_waving.png" alt="James" loading="lazy"></div>          <span class="card-tag">Ready to read</span>
         </div>
         <div class="card-body">
           <span class="card-kicker">Book 14 &middot; Community Helpers</span>
@@ -446,8 +442,7 @@
       </article>
       <article class="card">
         <div class="card-art" style="background:linear-gradient(160deg,#FFF1CC,#FFD24A);">
-          <div class="card-art-emoji" aria-hidden="true">🎉</div>
-          <span class="card-tag">Ready to read</span>
+          <div class="card-art-chars four"><img src="assets/sprites/maya_happy_waving.png" alt="Maya" loading="lazy"><img src="assets/sprites/marcus_happy_waving.png" alt="Marcus" loading="lazy"><img src="assets/sprites/sophie_happy_waving.png" alt="Sophie" loading="lazy"><img src="assets/sprites/james_happy_waving.png" alt="James" loading="lazy"></div>          <span class="card-tag">Ready to read</span>
         </div>
         <div class="card-body">
           <span class="card-kicker">Book 15 &middot; Community Helpers</span>
@@ -474,7 +469,7 @@
 
       <article class="card">
         <div class="card-art" style="background:linear-gradient(160deg,#FFF1CC,#F5D77E);">
-          <div class="card-art-emoji">&#128483;&#65039;</div>
+          <div class="card-art-chars four"><img src="assets/sprites/maya_happy_waving.png" alt="Maya" loading="lazy"><img src="assets/sprites/marcus_happy_waving.png" alt="Marcus" loading="lazy"><img src="assets/sprites/sophie_happy_waving.png" alt="Sophie" loading="lazy"><img src="assets/sprites/james_happy_waving.png" alt="James" loading="lazy"></div>
           <span class="card-tag">Ready to play</span>
         </div>
         <div class="card-body">
@@ -489,7 +484,7 @@
 
       <article class="card">
         <div class="card-art" style="background:linear-gradient(160deg,#FCE0EE,#EBA9C9);">
-          <div class="card-art-emoji">&#128064;</div>
+          <div class="card-art-chars four"><img src="assets/sprites/maya_happy_waving.png" alt="Maya" loading="lazy"><img src="assets/sprites/marcus_happy_waving.png" alt="Marcus" loading="lazy"><img src="assets/sprites/sophie_happy_waving.png" alt="Sophie" loading="lazy"><img src="assets/sprites/james_happy_waving.png" alt="James" loading="lazy"></div>
           <span class="card-tag">Ready to play</span>
         </div>
         <div class="card-body">
@@ -504,7 +499,7 @@
 
       <article class="card">
         <div class="card-art" style="background:linear-gradient(160deg,#D9EEC6,#9FD37F);">
-          <div class="card-art-emoji">&#127881;</div>
+          <div class="card-art-chars four"><img src="assets/sprites/maya_happy_waving.png" alt="Maya" loading="lazy"><img src="assets/sprites/marcus_happy_waving.png" alt="Marcus" loading="lazy"><img src="assets/sprites/sophie_happy_waving.png" alt="Sophie" loading="lazy"><img src="assets/sprites/james_happy_waving.png" alt="James" loading="lazy"></div>
           <span class="card-tag">Ready to play</span>
         </div>
         <div class="card-body">
