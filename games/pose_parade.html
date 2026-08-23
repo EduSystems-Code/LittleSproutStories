@@ -54,8 +54,8 @@ h1,h2,h3,button{font-family:'Fredoka',sans-serif;font-weight:600}
 .win{text-align:center;padding:20px 0}
 .win img{height:190px}
 .win h2{font-size:32px;color:var(--sprout-deep);margin:10px 0 6px}
-</style></head><body>
-<div class="topbar"><a class="back" href="../index.html">&#8592; Back</a><div class="stars" id="stars"></div></div>
+body.easyread{letter-spacing:.03em;word-spacing:.1em}body.easyread .hint,body.easyread .sub{line-height:1.9}.topbar-right{display:flex;align-items:center;gap:10px}.aa{font-family:'Fredoka',sans-serif;font-weight:600;font-size:15px;color:var(--sprout-dark);background:#fff;border:2px solid var(--paper-line);border-radius:50px;padding:8px 16px;cursor:pointer}.aa[aria-pressed="true"]{background:var(--sprout);color:#fff;border-color:var(--sprout)}</style></head><body>
+<div class="topbar"><a class="back" href="../index.html">&#8592; Back</a><div class="topbar-right"><button type="button" class="aa" id="easyBtn" onclick="toggleEasy()" aria-pressed="false" title="Easier-to-read spacing">Aa</button><div class="stars" id="stars"></div></div></div>
 <h1 class="title">Pose Parade</h1>
 <p class="sub">Find the two friends doing the same thing.</p>
 <div class="panel" id="panel"></div>
@@ -108,7 +108,7 @@ function flip(el,c){
       setTimeout(()=>{
         a.el.classList.add('done'); b.el.classList.add('done');
         a.el.classList.remove('flip'); b.el.classList.remove('flip');
-        say(WORDS[a.c.pose]); matched++; stars=Math.min(6,matched); drawStars();
+        say(WORDS[a.c.pose]); matched++; stars=Math.min(6,matched); drawStars(); saveGameStars(stars);
         open=[]; lock=false;
         if(matched===POSES.length) setTimeout(win,700);
       },520);
@@ -128,4 +128,11 @@ function win(){
   document.getElementById('switch').onclick=()=>{stars=0;drawStars();chooser();};
 }
 drawStars(); chooser();
+
+function loadProgress(){try{return JSON.parse(localStorage.getItem('littlesprout')||'{}');}catch(e){return{};}}
+function saveProgress(d){try{localStorage.setItem('littlesprout',JSON.stringify(d));return true;}catch(e){return false;}}
+function toggleEasy(){const on=document.body.classList.toggle('easyread');document.getElementById('easyBtn').setAttribute('aria-pressed',on?'true':'false');const d=loadProgress();d.easyread=on;saveProgress(d);}
+(function initEasy(){if(loadProgress().easyread){document.body.classList.add('easyread');const b=document.getElementById('easyBtn');if(b)b.setAttribute('aria-pressed','true');}})();
+function saveGameStars(n){const d=loadProgress();d.games=d.games||{};const prev=(d.games['pose_parade']&&d.games['pose_parade'].stars)||0;d.games['pose_parade']={stars:Math.max(prev,n),at:Date.now()};saveProgress(d);}
+if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('../sw.js').catch(function(){});});}
 </script></body></html>
