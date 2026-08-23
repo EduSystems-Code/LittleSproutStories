@@ -14,6 +14,18 @@ right. This script is that whole chain, run as one command.
 Usage (from repo root):
     python scripts/import_character_art.py                 # scan raw_art/*.zip
     python scripts/import_character_art.py path/to/one.zip  # or specific zip(s)
+    python scripts/import_character_art.py --skip-existing  # only fill real
+                                                              # gaps; never
+                                                              # overwrite a
+                                                              # sprite that's
+                                                              # already there
+                                                              # (for a batch
+                                                              # that's a full
+                                                              # re-generation,
+                                                              # not a
+                                                              # deliberate
+                                                              # resolution
+                                                              # upgrade)
 
 Expects source filenames matching the character-sheet export pattern:
     {Character}_{pose}_{expression}_{index}.png
@@ -116,9 +128,17 @@ def parse_filename(name: str) -> tuple[str, str, str] | None:
     return char.lower(), expr, pose
 
 
-def import_zip(zip_path: Path) -> tuple[int, int, list[str]]:
-    """Returns (upgraded_count, added_count, skipped_reasons)."""
+def import_zip(zip_path: Path, skip_existing: bool = False) -> tuple[int, int, list[str]]:
+    """Returns (upgraded_count, added_count, skipped_reasons).
+
+    skip_existing=True never overwrites a sprite that's already there —
+    for a batch that's a full re-generation (not a deliberate resolution
+    upgrade), where the point is only to fill real gaps and the existing
+    file is already known to be as good or better. In that mode
+    upgraded_count is always 0 by definition; skipped_reasons notes how
+    many existing files were left untouched instead."""
     upgraded, added, skipped = 0, 0, []
+    kept_existing = 0
 
     with TemporaryDirectory() as tmp:
         tmp_path = Path(tmp)
@@ -144,6 +164,9 @@ def import_zip(zip_path: Path) -> tuple[int, int, list[str]]:
         for (char, expr, pose), src in sorted(seen_keys.items()):
             out_path = SPRITES_DIR / f"{char}_{expr}_{pose}.png"
             existed = out_path.exists()
+            if existed and skip_existing:
+                kept_existing += 1
+                continue
             result = process_image(src)
             if result is None:
                 skipped.append(f"{src.name}: fully transparent, no content found")
@@ -153,6 +176,10 @@ def import_zip(zip_path: Path) -> tuple[int, int, list[str]]:
                 upgraded += 1
             else:
                 added += 1
+
+    if kept_existing:
+        skipped.append(f"{zip_path.name}: kept {kept_existing} existing sprite(s) untouched "
+                        f"(--skip-existing)")
 
     return upgraded, added, skipped
 
@@ -168,8 +195,12 @@ def report_missing() -> list[str]:
 
 
 def main() -> int:
-    if len(sys.argv) > 1:
-        targets = [Path(a) for a in sys.argv[1:]]
+    args = sys.argv[1:]
+    skip_existing = "--skip-existing" in args
+    args = [a for a in args if a != "--skip-existing"]
+
+    if args:
+        targets = [Path(a) for a in args]
     else:
         RAW_ART_DIR.mkdir(exist_ok=True)
         targets = sorted(RAW_ART_DIR.glob("*.zip"))
@@ -184,7 +215,7 @@ def main() -> int:
         if not zp.exists():
             print(f"Not found: {zp}")
             continue
-        up, add, skipped = import_zip(zp)
+        up, add, skipped = import_zip(zp, skip_existing=skip_existing)
         total_upgraded += up
         total_added += add
         all_skipped.extend(skipped)
