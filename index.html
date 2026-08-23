@@ -81,8 +81,14 @@
   .card-body { padding: 22px 22px 24px; display: flex; flex-direction: column; flex: 1; }
   .card-kicker { font-weight: 800; font-size: 12px; letter-spacing: 0.8px; text-transform: uppercase; color: var(--sprout); margin-bottom: 7px; }
   .card-body h3 { font-size: 21px; color: var(--bark); margin-bottom: 8px; line-height: 1.15; }
-  .card-body p { font-size: 14.5px; color: var(--bark-soft); font-weight: 600; flex: 1; margin-bottom: 18px; }
-  .card-meta { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+  .card-hint { display: block; font-size: 12.5px; font-weight: 800; color: var(--sprout); margin-bottom: 10px;
+    transition: opacity 0.2s ease; }
+  .card-desc { font-size: 14.5px; color: var(--bark-soft); font-weight: 600; max-height: 0; opacity: 0;
+    overflow: hidden; margin-bottom: 0;
+    transition: max-height 0.35s ease, opacity 0.25s ease, margin-bottom 0.35s ease; }
+  .card:hover .card-hint, .card:focus-within .card-hint, .card:active .card-hint { opacity: 0; height: 0; margin: 0; }
+  .card:hover .card-desc, .card:focus-within .card-desc, .card:active .card-desc { max-height: 220px; opacity: 1; margin-bottom: 18px; }
+  .card-meta { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; margin-top: auto; }
   .pill { font-size: 11.5px; font-weight: 800; padding: 4px 11px; border-radius: 50px; background: var(--cream-deep); color: var(--bark-soft); }
   .card-launch { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: var(--sprout); color: #fff; font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 16px; padding: 12px; border-radius: 14px; box-shadow: 0 3px 0 var(--sprout-dark); transition: transform 0.12s, box-shadow 0.12s; }
   .card-launch:hover { transform: translateY(-1px); box-shadow: 0 4px 0 var(--sprout-dark); }
@@ -264,7 +270,8 @@
         <div class="card-body">
           <span class="card-kicker">Book 1 &middot; Community Helpers</span>
           <h3>Maya & Marcus Visit the Fire Station</h3>
-          <p>Maya, Marcus visit Alex the Firefighter at the Fire Station, and practise a big feeling together along the way.</p>
+          <span class="card-hint">Hover to read more &#9662;</span>
+          <p class="card-desc">Maya, Marcus visit Alex the Firefighter at the Fire Station, and practise a big feeling together along the way.</p>
           <div class="card-meta"><span class="pill">Nervousness</span><span class="pill">Ages 4&ndash;7</span></div>
           <a class="card-launch" href="books/Book1_Maya_Marcus_FireStation.html">Read it &#8594;</a>
         </div>
@@ -277,7 +284,8 @@
         <div class="card-body">
           <span class="card-kicker">Book 2 &middot; Community Helpers</span>
           <h3>Sophie & James Visit the Police Station</h3>
-          <p>Sophie, James visit Jasmine the Officer at the Police Station, and practise a big feeling together along the way.</p>
+          <span class="card-hint">Hover to read more &#9662;</span>
+          <p class="card-desc">Sophie, James visit Jasmine the Officer at the Police Station, and practise a big feeling together along the way.</p>
           <div class="card-meta"><span class="pill">Frustration</span><span class="pill">Ages 4&ndash;7</span></div>
           <a class="card-launch" href="books/Book2_Sophie_James_PoliceStation.html">Read it &#8594;</a>
         </div>
@@ -290,7 +298,8 @@
         <div class="card-body">
           <span class="card-kicker">Book 3 &middot; Community Helpers</span>
           <h3>Maya & Sophie Visit the Library</h3>
-          <p>Maya, Sophie visit Ms. Chen the Librarian at the Library, and practise a big feeling together along the way.</p>
+          <span class="card-hint">Hover to read more &#9662;</span>
+          <p class="card-desc">Maya, Sophie visit Ms. Chen the Librarian at the Library, and practise a big feeling together along the way.</p>
           <div class="card-meta"><span class="pill">Embarrassment</span><span class="pill">Ages 4&ndash;7</span></div>
           <a class="card-launch" href="books/Book3_Maya_Sophie_Library.html">Read it &#8594;</a>
         </div>
@@ -303,7 +312,8 @@
         <div class="card-body">
           <span class="card-kicker">Book 4 &middot; Community Helpers</span>
           <h3>Marcus & James Visit the Doctor</h3>
-          <p>Marcus, James visit Dr. Patel at the Doctor's Office, and practise a big feeling together along the way.</p>
+          <span class="card-hint">Hover to read more &#9662;</span>
+          <p class="card-desc">Marcus, James visit Dr. Patel at the Doctor's Office, and practise a big feeling together along the way.</p>
           <div class="card-meta"><span class="pill">Anxiety</span><span class="pill">Ages 4&ndash;7</span></div>
           <a class="card-launch" href="books/Book4_Marcus_James_Doctor.html">Read it &#8594;</a>
         </div>
@@ -316,7 +326,8 @@
         <div class="card-body">
           <span class="card-kicker">Book 5 &middot; Community Helpers</span>
           <h3>All Four Visit the Elementary School</h3>
-          <p>Maya, Marcus, Sophie, James visit Mr. Rodriguez at the Elementary School, and practise a big feeling together along the way.</p>
+          <span class="card-hint">Hover to read more &#9662;</span>
+          <p class="card-desc">Maya, Marcus, Sophie, James visit Mr. Rodriguez at the Elementary School, and practise a big feeling together along the way.</p>
           <div class="card-meta"><span class="pill">Missing a friend</span><span class="pill">Ages 4&ndash;7</span></div>
           <a class="card-launch" href="books/Book5_AllFour_School.html">Read it &#8594;</a>
         </div>
@@ -329,7 +340,8 @@
         <div class="card-body">
           <span class="card-kicker">Book 6 &middot; Community Helpers</span>
           <h3>Marcus & Sophie Visit the Barbershop</h3>
-          <p>Marcus, Sophie visit Mr. Smith at the Barbershop, and practise a big feeling together along the way.</p>
+          <span class="card-hint">Hover to read more &#9662;</span>
+          <p class="card-desc">Marcus, Sophie visit Mr. Smith at the Barbershop, and practise a big feeling together along the way.</p>
           <div class="card-meta"><span class="pill">Fear of the new</span><span class="pill">Ages 4&ndash;7</span></div>
           <a class="card-launch" href="books/Book6_Marcus_Sophie_Barbershop.html">Read it &#8594;</a>
         </div>
@@ -342,7 +354,8 @@
         <div class="card-body">
           <span class="card-kicker">Book 7 &middot; Community Helpers</span>
           <h3>Maya & James Visit the Bakery</h3>
-          <p>Maya, James visit Keisha the Baker at the Bakery, and practise a big feeling together along the way.</p>
+          <span class="card-hint">Hover to read more &#9662;</span>
+          <p class="card-desc">Maya, James visit Keisha the Baker at the Bakery, and practise a big feeling together along the way.</p>
           <div class="card-meta"><span class="pill">Making mistakes</span><span class="pill">Ages 4&ndash;7</span></div>
           <a class="card-launch" href="books/Book7_Maya_James_Bakery.html">Read it &#8594;</a>
         </div>
@@ -355,7 +368,8 @@
         <div class="card-body">
           <span class="card-kicker">Book 8 &middot; Community Helpers</span>
           <h3>Sophie & Marcus Visit the Garden</h3>
-          <p>Sophie, Marcus visit Tom the Gardener at the Community Garden, and practise a big feeling together along the way.</p>
+          <span class="card-hint">Hover to read more &#9662;</span>
+          <p class="card-desc">Sophie, Marcus visit Tom the Gardener at the Community Garden, and practise a big feeling together along the way.</p>
           <div class="card-meta"><span class="pill">Impatience</span><span class="pill">Ages 4&ndash;7</span></div>
           <a class="card-launch" href="books/Book8_Sophie_Marcus_Garden.html">Read it &#8594;</a>
         </div>
@@ -368,7 +382,8 @@
         <div class="card-body">
           <span class="card-kicker">Book 9 &middot; Community Helpers</span>
           <h3>Maya & Marcus Visit the Post Office</h3>
-          <p>Maya, Marcus visit Rose at the Post Office, and practise a big feeling together along the way.</p>
+          <span class="card-hint">Hover to read more &#9662;</span>
+          <p class="card-desc">Maya, Marcus visit Rose at the Post Office, and practise a big feeling together along the way.</p>
           <div class="card-meta"><span class="pill">Self-doubt</span><span class="pill">Ages 4&ndash;7</span></div>
           <a class="card-launch" href="books/Book9_Maya_Marcus_PostOffice.html">Read it &#8594;</a>
         </div>
@@ -381,7 +396,8 @@
         <div class="card-body">
           <span class="card-kicker">Book 10 &middot; Community Helpers</span>
           <h3>Sophie & James Visit the Repair Shop</h3>
-          <p>Sophie, James visit David at the Repair Shop, and practise a big feeling together along the way.</p>
+          <span class="card-hint">Hover to read more &#9662;</span>
+          <p class="card-desc">Sophie, James visit David at the Repair Shop, and practise a big feeling together along the way.</p>
           <div class="card-meta"><span class="pill">Letting go</span><span class="pill">Ages 4&ndash;7</span></div>
           <a class="card-launch" href="books/Book10_Sophie_James_RepairShop.html">Read it &#8594;</a>
         </div>
@@ -394,7 +410,8 @@
         <div class="card-body">
           <span class="card-kicker">Book 11 &middot; Community Helpers</span>
           <h3>All Four Visit the Community Center</h3>
-          <p>Maya, Marcus, Sophie, James visit Nurse Aisha at the Community Center, and practise a big feeling together along the way.</p>
+          <span class="card-hint">Hover to read more &#9662;</span>
+          <p class="card-desc">Maya, Marcus, Sophie, James visit Nurse Aisha at the Community Center, and practise a big feeling together along the way.</p>
           <div class="card-meta"><span class="pill">Waiting your turn</span><span class="pill">Ages 4&ndash;7</span></div>
           <a class="card-launch" href="books/Book11_AllFour_CommunityCenter.html">Read it &#8594;</a>
         </div>
@@ -407,7 +424,8 @@
         <div class="card-body">
           <span class="card-kicker">Book 12 &middot; Community Helpers</span>
           <h3>Marcus & James Revisit the Fire Station</h3>
-          <p>Marcus, James visit Alex the Firefighter at the Fire Station, and practise a big feeling together along the way.</p>
+          <span class="card-hint">Hover to read more &#9662;</span>
+          <p class="card-desc">Marcus, James visit Alex the Firefighter at the Fire Station, and practise a big feeling together along the way.</p>
           <div class="card-meta"><span class="pill">Helping a friend</span><span class="pill">Ages 4&ndash;7</span></div>
           <a class="card-launch" href="books/Book12_Marcus_James_FireStation2.html">Read it &#8594;</a>
         </div>
@@ -420,7 +438,8 @@
         <div class="card-body">
           <span class="card-kicker">Book 14 &middot; Community Helpers</span>
           <h3>All Four Help in the Garden</h3>
-          <p>Maya, Marcus, Sophie, James visit Tom the Gardener at the Community Garden, and practise a big feeling together along the way.</p>
+          <span class="card-hint">Hover to read more &#9662;</span>
+          <p class="card-desc">Maya, Marcus, Sophie, James visit Tom the Gardener at the Community Garden, and practise a big feeling together along the way.</p>
           <div class="card-meta"><span class="pill">Sharing jobs</span><span class="pill">Ages 4&ndash;7</span></div>
           <a class="card-launch" href="books/Book14_AllFour_Garden.html">Read it &#8594;</a>
         </div>
@@ -433,7 +452,8 @@
         <div class="card-body">
           <span class="card-kicker">Book 15 &middot; Community Helpers</span>
           <h3>We Are Community Helpers Too</h3>
-          <p>Maya, Marcus, Sophie, James visit All our friends at the Series Finale, and practise a big feeling together along the way.</p>
+          <span class="card-hint">Hover to read more &#9662;</span>
+          <p class="card-desc">Maya, Marcus, Sophie, James visit All our friends at the Series Finale, and practise a big feeling together along the way.</p>
           <div class="card-meta"><span class="pill">Pride</span><span class="pill">Ages 4&ndash;7</span></div>
           <a class="card-launch" href="books/Book15_AllFour_Finale.html">Read it &#8594;</a>
         </div>
@@ -460,7 +480,8 @@
         <div class="card-body">
           <span class="card-kicker">Phonics &middot; Game</span>
           <h3>Sound It Out</h3>
-          <p>Build simple three-letter words one sound at a time, then hear them read back aloud. Practises blending and letter&ndash;sound matching.</p>
+          <span class="card-hint">Hover to read more &#9662;</span>
+          <p class="card-desc">Build simple three-letter words one sound at a time, then hear them read back aloud. Practises blending and letter&ndash;sound matching.</p>
           <div class="card-meta"><span class="pill">CVC words</span><span class="pill">Ages 4&ndash;7</span></div>
           <a class="card-launch" href="games/sound_it_out.html">Play it &#8594;</a>
         </div>
@@ -474,7 +495,8 @@
         <div class="card-body">
           <span class="card-kicker">Attention &middot; Game</span>
           <h3>Who&rsquo;s Missing?</h3>
-          <p>The friends line up, then one slips away. Can your child spot who? Builds visual memory and careful looking.</p>
+          <span class="card-hint">Hover to read more &#9662;</span>
+          <p class="card-desc">The friends line up, then one slips away. Can your child spot who? Builds visual memory and careful looking.</p>
           <div class="card-meta"><span class="pill">Memory</span><span class="pill">Ages 4&ndash;7</span></div>
           <a class="card-launch" href="games/whos_missing.html">Play it &#8594;</a>
         </div>
@@ -488,7 +510,8 @@
         <div class="card-body">
           <span class="card-kicker">Feelings &middot; Game</span>
           <h3>Pose Parade</h3>
-          <p>Match the friend to the feeling and the pose. A playful way to practise reading faces and naming emotions.</p>
+          <span class="card-hint">Hover to read more &#9662;</span>
+          <p class="card-desc">Match the friend to the feeling and the pose. A playful way to practise reading faces and naming emotions.</p>
           <div class="card-meta"><span class="pill">SEL</span><span class="pill">Ages 4&ndash;7</span></div>
           <a class="card-launch" href="games/pose_parade.html">Play it &#8594;</a>
         </div>
