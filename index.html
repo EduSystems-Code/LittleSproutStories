@@ -170,6 +170,13 @@
 
   @media (max-width: 760px) { .nav-links { display: none; } .nav-toggle { display: block; } .section { padding: 56px 0; } }
   :focus-visible { outline: 3px solid var(--sky-deep); outline-offset: 2px; border-radius: 6px; }
+
+  /* juice: press feedback, badge celebration, confetti */
+  .card-launch:active, .btn-primary:active, .btn-ghost:active, .nav-cta:active { transform: scale(.95); }
+  .badge-chip.new { animation: badgePopIn .5s cubic-bezier(.3,1.5,.4,1) both; }
+  @keyframes badgePopIn { 0% { transform:scale(0) rotate(-10deg); opacity:0; } 60% { transform:scale(1.15) rotate(4deg); } 100% { transform:scale(1) rotate(0); opacity:1; } }
+  .confetti-piece { position: fixed; top: -12px; width: 10px; height: 14px; opacity: .95; pointer-events: none; z-index: 999; animation: confettiFall linear forwards; }
+  @keyframes confettiFall { to { transform: translateY(110vh) rotate(560deg); opacity: .6; } }
 </style>
 </head>
 <body>
@@ -202,6 +209,7 @@
 </nav>
 
 <div class="wrap a11y-bar">
+  <button type="button" id="muteBtn" onclick="toggleMute()" aria-pressed="false" title="Sound on/off">&#128266; Sound</button>
   <button type="button" id="easyBtn" onclick="toggleEasy()" aria-pressed="false" title="Easier-to-read spacing">Aa Easier to read</button>
 </div>
 
@@ -684,13 +692,23 @@
     }
     document.getElementById('clearBtn').style.display = '';
     ids.sort(function(a,b){ return (books[a].at||0) - (books[b].at||0); });
+    var seen = d.badgesSeen || [];
     var html = '<div class="badge-grid">' + ids.map(function(id) {
       var b = books[id];
       var name = (b.badge || 'Explorer').replace(/</g,'&lt;');
-      return '<div class="badge-chip"><span class="bi" aria-hidden="true">\uD83C\uDFC5</span>' +
+      var isNew = seen.indexOf(id) === -1;
+      return '<div class="badge-chip' + (isNew ? ' new' : '') + '"><span class="bi" aria-hidden="true">\uD83C\uDFC5</span>' +
              '<span class="bn">' + name + '</span></div>';
     }).join('') + '</div>';
     area.innerHTML = html;
+
+    var newIds = ids.filter(function(id){ return seen.indexOf(id) === -1; });
+    if (newIds.length) {
+      sfxCheer();
+      confettiBurst();
+      d.badgesSeen = ids;
+      saveProgress(d);
+    }
   }
 
   function clearProgress() {
@@ -710,6 +728,53 @@
   if (loadProgress().easyread) {
     document.body.classList.add('easyread');
     document.getElementById('easyBtn').setAttribute('aria-pressed','true');
+  }
+
+  /* ---------- sound: tiny synthesized effects, no audio files ---------- */
+  var audioCtx = null;
+  function getAudioCtx() {
+    if (!audioCtx) { try { audioCtx = new (window.AudioContext||window.webkitAudioContext)(); } catch(e) {} }
+    return audioCtx;
+  }
+  function isMuted() { return !!loadProgress().muted; }
+  function tone(freq, dur, type, vol) {
+    if (isMuted()) return;
+    var ctx = getAudioCtx(); if (!ctx) return;
+    try {
+      var o = ctx.createOscillator(); var g = ctx.createGain();
+      o.type = type || 'sine'; o.frequency.value = freq;
+      o.connect(g); g.connect(ctx.destination);
+      g.gain.value = vol || 0.1;
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + dur);
+      o.start(); o.stop(ctx.currentTime + dur);
+    } catch(e) {}
+  }
+  function sfxCheer() { [523,659,784,1047].forEach(function(f,i) { setTimeout(function(){ tone(f, .18, 'sine', .1); }, i*100); }); }
+
+  function confettiBurst() {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var colors = ['#5BA672','#FFD24A','#185FA5','#B0488C','#E8433F'];
+    for (var i=0; i<28; i++) {
+      var p = document.createElement('div');
+      p.className = 'confetti-piece';
+      p.style.left = (Math.random()*100) + 'vw';
+      p.style.background = colors[i % colors.length];
+      p.style.animationDuration = (1.4 + Math.random()*1.2) + 's';
+      p.style.transform = 'rotate(' + (Math.random()*360) + 'deg)';
+      document.body.appendChild(p);
+      (function(el){ setTimeout(function(){ el.remove(); }, 3000); })(p);
+    }
+  }
+
+  function toggleMute() {
+    var d = loadProgress(); d.muted = !d.muted; saveProgress(d);
+    var b = document.getElementById('muteBtn');
+    b.innerHTML = d.muted ? '&#128263; Sound' : '&#128266; Sound';
+    b.setAttribute('aria-pressed', d.muted ? 'true' : 'false');
+  }
+  if (loadProgress().muted) {
+    document.getElementById('muteBtn').innerHTML = '&#128263; Sound';
+    document.getElementById('muteBtn').setAttribute('aria-pressed','true');
   }
 
   renderProgress();

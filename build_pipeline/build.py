@@ -23,8 +23,8 @@ from render import main as render_main  # noqa: E402
 
 
 if __name__ == "__main__":
-    if len(sys.argv) == 1:
-        sys.argv.append("--all")
+    if len(sys.argv) == 1 or sys.argv[1] == "--all":
+        sys.argv = [sys.argv[0], "--all"]
     else:
         name = sys.argv[1]
         spec_path = Path(__file__).resolve().parent / "specs" / f"{name}.json"

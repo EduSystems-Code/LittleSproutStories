@@ -52,8 +52,8 @@ h1,h2,h3,button{font-family:'Fredoka',sans-serif;font-weight:600}
 .hint{text-align:center;font-family:'Fredoka',sans-serif;font-weight:600;font-size:20px;
  color:var(--bark-soft);min-height:32px;margin:18px 0 8px}
 .pic{text-align:center;font-size:64px;margin-bottom:6px}
-body.easyread{letter-spacing:.03em;word-spacing:.1em}body.easyread .hint,body.easyread .sub{line-height:1.9}.topbar-right{display:flex;align-items:center;gap:10px}.aa{font-family:'Fredoka',sans-serif;font-weight:600;font-size:15px;color:var(--sprout-dark);background:#fff;border:2px solid var(--paper-line);border-radius:50px;padding:8px 16px;cursor:pointer}.aa[aria-pressed="true"]{background:var(--sprout);color:#fff;border-color:var(--sprout)}</style></head><body>
-<div class="topbar"><a class="back" href="../index.html">&#8592; Back</a><div class="topbar-right"><button type="button" class="aa" id="easyBtn" onclick="toggleEasy()" aria-pressed="false" title="Easier-to-read spacing">Aa</button><div class="stars" id="stars"></div></div></div>
+body.easyread{letter-spacing:.03em;word-spacing:.1em}body.easyread .hint,body.easyread .sub{line-height:1.9}.topbar-right{display:flex;align-items:center;gap:10px}.aa{font-family:'Fredoka',sans-serif;font-weight:600;font-size:15px;color:var(--sprout-dark);background:#fff;border:2px solid var(--paper-line);border-radius:50px;padding:8px 16px;cursor:pointer}.aa[aria-pressed="true"]{background:var(--sprout);color:#fff;border-color:var(--sprout)}.btn,.tile,.aa,.back{transition:transform .12s ease}.btn:active,.tile:not(:disabled):active,.aa:active,.back:active{transform:scale(.93)}.confetti-piece{position:fixed;top:-12px;width:10px;height:14px;opacity:.95;pointer-events:none;z-index:999;animation:confettiFall linear forwards}@keyframes confettiFall{to{transform:translateY(110vh) rotate(560deg);opacity:.6}}@media(prefers-reduced-motion:reduce){.btn:active,.tile:active,.aa:active,.back:active{transform:none}.confetti-piece{display:none}}</style></head><body>
+<div class="topbar"><a class="back" href="../index.html">&#8592; Back</a><div class="topbar-right"><button type="button" class="aa" id="easyBtn" onclick="toggleEasy()" aria-pressed="false" title="Easier-to-read spacing">Aa</button><button type="button" class="aa" id="muteBtn" onclick="toggleMute()" aria-pressed="false" title="Sound on/off">🔊</button><div class="stars" id="stars"></div></div></div>
 <h1 class="title">Sound It Out</h1>
 <p class="sub">Tap the letters in order to build the word.</p>
 <div class="panel">
@@ -116,14 +116,15 @@ function tap(btn,c){
  if(c===word[step]){
   const s=document.getElementById('s'+step);
   s.textContent=c; s.classList.add('filled');
-  btn.disabled=true; say(c,.7); step++;
+  btn.disabled=true; sfxPop(); say(c,.7); step++;
   if(step===word.length){
-   stars++; drawStars(); saveGameStars(stars); setBuddy('jumping',true);
+   stars++; drawStars(); saveGameStars(stars); sfxSuccess(); if(stars%5===0)confettiBurst(); setBuddy('jumping',true);
    hintEl.textContent='You built '+word.toUpperCase()+'!';
    setTimeout(()=>say(word+'! You did it!',.8),350);
    setTimeout(next,2600);
   } else hintEl.textContent='Next sound...';
  } else {
+  sfxOops();
   hintEl.textContent='Try another letter.';
   btn.animate([{transform:'translateX(0)'},{transform:'translateX(-6px)'},{transform:'translateX(6px)'},{transform:'translateX(0)'}],{duration:260});
  }
@@ -137,4 +138,20 @@ function toggleEasy(){const on=document.body.classList.toggle('easyread');docume
 (function initEasy(){if(loadProgress().easyread){document.body.classList.add('easyread');const b=document.getElementById('easyBtn');if(b)b.setAttribute('aria-pressed','true');}})();
 function saveGameStars(n){const d=loadProgress();d.games=d.games||{};const prev=(d.games['sound_it_out']&&d.games['sound_it_out'].stars)||0;d.games['sound_it_out']={stars:Math.max(prev,n),at:Date.now()};saveProgress(d);}
 if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('../sw.js').catch(function(){});});}
+
+let audioCtx=null;
+function getAudioCtx(){if(!audioCtx){try{audioCtx=new (window.AudioContext||window.webkitAudioContext)();}catch(e){}}return audioCtx;}
+function isMuted(){return !!loadProgress().muted;}
+function tone(freq,dur,type,vol){if(isMuted())return;const ctx=getAudioCtx();if(!ctx)return;try{const o=ctx.createOscillator(),g=ctx.createGain();o.type=type||'sine';o.frequency.value=freq;o.connect(g);g.connect(ctx.destination);g.gain.value=vol||0.1;g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+dur);o.start();o.stop(ctx.currentTime+dur);}catch(e){}}
+function sfxPop(){tone(520,.12,'sine',.12);}
+function sfxSuccess(){tone(523,.12,'sine',.1);setTimeout(function(){tone(659,.12,'sine',.1);},90);setTimeout(function(){tone(784,.2,'sine',.12);},180);}
+function sfxOops(){tone(220,.18,'sine',.08);}
+function sfxCheer(){[523,659,784,1047].forEach(function(f,i){setTimeout(function(){tone(f,.18,'sine',.1);},i*100);});}
+function confettiBurst(){
+ if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+ const colors=['#5BA672','#FFD24A','#185FA5','#B0488C','#E8433F'];
+ for(let i=0;i<24;i++){const p=document.createElement('div');p.className='confetti-piece';p.style.left=(Math.random()*100)+'vw';p.style.background=colors[i%colors.length];p.style.animationDuration=(1.4+Math.random()*1.2)+'s';p.style.transform='rotate('+(Math.random()*360)+'deg)';document.body.appendChild(p);setTimeout(function(){p.remove();},3000);}
+}
+function toggleMute(){const d=loadProgress();d.muted=!d.muted;saveProgress(d);const b=document.getElementById('muteBtn');b.textContent=d.muted?'🔇':'🔊';b.setAttribute('aria-pressed',d.muted?'true':'false');}
+(function initMute(){if(loadProgress().muted){const b=document.getElementById('muteBtn');if(b){b.textContent='🔇';b.setAttribute('aria-pressed','true');}}})();
 </script></body></html>
