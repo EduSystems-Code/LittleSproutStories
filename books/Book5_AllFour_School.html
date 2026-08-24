@@ -25,19 +25,19 @@ body.easyread .text-a, body.easyread .text-b { line-height:1.95; }
 .banner { background:var(--sprout); color:#fff; display:inline-block; padding:6px 18px; border-radius:20px; font-size:14px; margin-bottom:10px; }
 h1 { color:var(--sprout); font-size:28px; }
 .stage { position:relative; min-height:320px; border-radius:16px; margin:16px 0; display:flex; align-items:flex-end; justify-content:center; gap:10px; padding:16px; overflow:hidden; background-size:cover; background-position:center bottom; }
-/* Eleven of twelve locations now have real illustrated backgrounds (assets/backgrounds/).
+/* All twelve locations now have real illustrated backgrounds (assets/backgrounds/).
    Each keeps its old flat-gradient rule as the paint-before-image-loads/fallback color.
-   backdrop-police is the one location still on a flat gradient, waiting on real art --
-   tracked in README.md's "Known placeholders" list, not with a *-SWAP marker here, since
-   this comment is shared boilerplate repeated on every book regardless of whether that
-   book actually uses backdrop-police -- placeholder_audit.py counting it 14 times would
-   misreport "14 things still need art" when it's really one. */
+   backdrop-classroom is Mr. Rodriguez's specific room -- used only on the one page across
+   every book that actually features him as the on-page helper (Book5 p2). Everywhere else
+   School-related (including Book5's own other pages and Book15's classroom-flavored recap)
+   stays on backdrop-school's general room, per explicit instruction. */
 .backdrop-barbershop { background-color:#e8f4dc; background-image:url('../assets/backgrounds/barbershop.jpg'); }
 .backdrop-garden { background-color:#bfe3fa; background-image:url('../assets/backgrounds/garden.jpg'); }
 .backdrop-repair { background-color:#f3ead6; background-image:url('../assets/backgrounds/repair.jpg'); }
 .backdrop-street { background-color:#bfe3ff; background-image:url('../assets/backgrounds/street.jpg'); }
 .backdrop-firestation { background-color:#ffd9a0; background-image:url('../assets/backgrounds/firestation.jpg'); }
-.backdrop-police { background:linear-gradient(180deg,#d9eefb 0%,#d9eefb 52%,#8fc6ea 52%,#8fc6ea 100%); }
+.backdrop-police { background-color:#d9eefb; background-image:url('../assets/backgrounds/police.jpg'); }
+.backdrop-classroom { background-color:#fff1cc; background-image:url('../assets/backgrounds/classroom.jpg'); }
 .backdrop-library { background-color:#f3ead6; background-image:url('../assets/backgrounds/library.jpg'); }
 .backdrop-doctor { background-color:#fce0ee; background-image:url('../assets/backgrounds/doctor.jpg'); }
 .backdrop-center { background-color:#fce0ee; background-image:url('../assets/backgrounds/center.jpg'); }
@@ -165,7 +165,7 @@ img.char { height:220px; object-fit:contain; }
 </section></div>
 <div class="page-wrap" id="p2" style="display:none">
 <section class="page">
-  <div class="stage backdrop-school">
+  <div class="stage backdrop-classroom">
     <img class="char" src="../assets/sprites/maya_neutral_standing.png" alt="Maya" loading="lazy">
     <div class="helper-slot" role="img" aria-label="Mr. Rodriguez">&#128104;&#8205;&#127979;<div class="helper-label">Mr. Rodriguez</div></div>
     <img class="char" src="../assets/sprites/james_neutral_standing.png" alt="James" loading="lazy">

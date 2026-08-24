@@ -111,15 +111,14 @@ old cached copy. This is the single most common cause of "I pushed a fix but it 
 
 These are real gaps, documented so nobody mistakes them for finished work:
 
-- **Backgrounds — 11 of 12 locations done.** Real illustrated art
-  (`assets/backgrounds/`) via `scripts/import_background_art.py`, sourced from
-  BackgroundForge exports in `raw_art/backgrounds/`. **`backdrop-police`
-  (Book2, Police Station) is the one location still on a flat CSS gradient** —
-  no art has been generated for it yet. A `classroom` background also exists
-  in `raw_art/backgrounds/` but isn't wired in: it's a second, more specific
-  School location (Mr. Rodriguez's room) alongside the exterior/cafeteria art
-  already used for `backdrop-school` — using it needs a decision about which
-  School book pages show which room, not just an asset swap.
+- ~~Backgrounds~~ — done. Real illustrated art (`assets/backgrounds/`) via
+  `scripts/import_background_art.py`, sourced from BackgroundForge exports in
+  `raw_art/backgrounds/`. All twelve `backdrop-*` locations, including
+  `backdrop-police`, now use real art instead of a flat gradient. Mr.
+  Rodriguez's specific classroom (`backdrop-classroom`) is wired to Book5's
+  one page that actually features him as the on-page helper; every other
+  School-related page (including Book5's other rooms and Book15's
+  classroom-flavored recap) stays on `backdrop-school`'s general room.
 - **Helper characters.** The eleven community helpers — Alex, Jasmine, Ms. Chen,
   Dr. Patel, Mr. Rodriguez, Mr. Smith, Keisha, Tom, Rose, David, Nurse Aisha — render as
   an emoji plus a name label in a `.helper-slot` div. The series is named after these

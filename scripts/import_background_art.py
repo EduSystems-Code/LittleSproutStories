@@ -34,25 +34,27 @@ RAW_ART_DIR = REPO_ROOT / "raw_art" / "backgrounds"
 
 # BackgroundForge slug -> the site's real backdrop-<suffix> CSS class,
 # confirmed against build_pipeline/render.py's actual CSS (never assumed).
-# Left out on purpose, not silently dropped:
-#   - "classroom" has no matching class -- backdrop-school currently
-#     covers every School page; classroom is a second, more specific
-#     location (Mr. Rodriguez's room) that would need a per-page content
-#     decision about which School pages show which room, not just an
-#     asset swap. Available in raw_art/backgrounds/ for that decision
-#     later.
-#   - "police" (backdrop-police, used by Book2) has no zip at all -- no
-#     BackgroundForge_police_variations.zip was ever provided.
+#
+# "classroom" -> backdrop-classroom (added 2026-08-24): Mr. Rodriguez's
+# specific room, used only on the one page across all books that actually
+# features him as the on-page helper (Book5 p2, confirmed against that
+# spec's own helper metadata) -- everywhere else School-related stays on
+# backdrop-school/"big-school", per explicit instruction: classroom art
+# for the Mr. Rodriguez page specifically, the general room everywhere
+# else (including Book15's classroom-flavored recap pages, which never
+# actually show him on-page).
 SLUG_TO_CLASS = {
     "bakery": "bakery",
     "barbershop": "barbershop",
     "big-school": "school",
+    "classroom": "classroom",
     "community-center": "center",
     "crosswalk": "street",
     "doctor": "doctor",
     "fire-station": "firestation",
     "garden": "garden",
     "library": "library",
+    "police-station": "police",
     "post-office": "postoffice",
     "repair-shop": "repair",
 }
