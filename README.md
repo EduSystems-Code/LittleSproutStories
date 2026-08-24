@@ -123,8 +123,11 @@ These are real gaps, documented so nobody mistakes them for finished work:
   Dr. Patel, Mr. Rodriguez, Mr. Smith, Keisha, Tom, Rose, David, Nurse Aisha — render as
   an emoji plus a name label in a `.helper-slot` div. The series is named after these
   characters and none of them are drawn yet.
-- **Games still embed their art** as base64 (~3.6MB total). Fine for now; worth
-  converting to `assets/sprites/` references if they get edited often.
+- ~~Games still embed their art~~ — done. All three games (`games/*.html`)
+  now reference `assets/sprites/` instead of ~3.6MB of embedded base64 —
+  the `SPRITES` lookup object's values are relative paths, not data URIs.
+  Games use the `happy` expression exclusively (they're not narrative
+  scenes, so only one expression per pose was ever embedded).
 
 ---
 
