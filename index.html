@@ -107,6 +107,9 @@
   .card.done .card-art::after { content:"\2713 Finished"; position:absolute; bottom:10px; right:10px;
     background:var(--sprout); color:#fff; font-weight:800; font-size:11.5px; letter-spacing:.4px;
     padding:5px 11px; border-radius:50px; box-shadow:0 2px 6px rgba(0,0,0,.18); }
+  .card.played .card-art::after { content:"\2605 Played"; position:absolute; bottom:10px; right:10px;
+    background:var(--sun-deep); color:#fff; font-weight:800; font-size:11.5px; letter-spacing:.4px;
+    padding:5px 11px; border-radius:50px; box-shadow:0 2px 6px rgba(0,0,0,.18); }
   .shelf { background:var(--cream); }
   .shelf-empty { text-align:center; color:var(--bark-soft); font-weight:600; }
   .badge-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:14px; margin-top:8px; }
@@ -522,7 +525,7 @@
     <div class="section-head">
       <span class="section-eyebrow">Your badges</span>
       <h2>The badge shelf</h2>
-      <p>Badges appear here as your child finishes each book. They&rsquo;re saved on this device only &mdash; we never see them.</p>
+      <p>Badges appear here as your child finishes a book or plays a game. They&rsquo;re saved on this device only &mdash; we never see them.</p>
     </div>
     <div id="badgeArea">
       <p class="shelf-empty">No badges yet. Finish a book to earn your first one!</p>
@@ -684,55 +687,79 @@
     catch (e) { return false; }
   }
 
+  var GAME_TITLES = { sound_it_out: 'Sound It Out', whos_missing: 'Who\u2019s Missing?', pose_parade: 'Pose Parade' };
+
   function renderProgress() {
     var d = loadProgress();
     var books = d.books || {};
-    var ids = Object.keys(books).filter(function(k){ return books[k].finished; });
+    var games = d.games || {};
+    var bookIds = Object.keys(books).filter(function(k){ return books[k].finished; });
+    var gameIds = Object.keys(games).filter(function(k){ return games[k] && games[k].stars > 0; });
 
-    // tick finished cards
+    // tick finished book cards and played game cards
     var cards = [].slice.call(document.querySelectorAll('.card'));
     cards.forEach(function(card) {
       var a = card.querySelector('a.card-launch');
       if (!a) return;
       var href = a.getAttribute('href') || '';
-      var m = href.match(/books\/(.+)\.html$/);
-      if (m && books[m[1]] && books[m[1]].finished) card.classList.add('done');
-      else card.classList.remove('done');
+      var bm = href.match(/books\/(.+)\.html$/);
+      var gm = href.match(/games\/(.+)\.html$/);
+      card.classList.toggle('done', !!(bm && books[bm[1]] && books[bm[1]].finished));
+      card.classList.toggle('played', !!(gm && games[gm[1]] && games[gm[1]].stars > 0));
     });
 
-    // badge shelf
+    // badge shelf: books earn a finish badge, games earn a "played" badge
+    // once any stars are saved -- games have no single "finished" state
+    // (sound_it_out especially has no natural cap), so "played" is the
+    // uniform bar across all three rather than only counting the two
+    // games that happen to have a max-stars ceiling.
     var area = document.getElementById('badgeArea');
     if (!area) return;
-    if (!ids.length) {
-      area.innerHTML = '<p class="shelf-empty">No badges yet. Finish a book to earn your first one!</p>';
+    if (!bookIds.length && !gameIds.length) {
+      area.innerHTML = '<p class="shelf-empty">No badges yet. Finish a book or play a game to earn your first one!</p>';
       document.getElementById('clearBtn').style.display = 'none';
       return;
     }
     document.getElementById('clearBtn').style.display = '';
-    ids.sort(function(a,b){ return (books[a].at||0) - (books[b].at||0); });
+    bookIds.sort(function(a,b){ return (books[a].at||0) - (books[b].at||0); });
+    gameIds.sort(function(a,b){ return (games[a].at||0) - (games[b].at||0); });
     var seen = d.badgesSeen || [];
-    var html = '<div class="badge-grid">' + ids.map(function(id) {
+    var seenGames = d.gameBadgesSeen || [];
+
+    var bookHtml = bookIds.map(function(id) {
       var b = books[id];
       var name = (b.badge || 'Explorer').replace(/</g,'&lt;');
       var isNew = seen.indexOf(id) === -1;
       return '<div class="badge-chip' + (isNew ? ' new' : '') + '"><span class="bi" aria-hidden="true">\uD83C\uDFC5</span>' +
              '<span class="bn">' + name + '</span></div>';
-    }).join('') + '</div>';
-    area.innerHTML = html;
+    }).join('');
+    var gameHtml = gameIds.map(function(id) {
+      var g = games[id];
+      var name = (GAME_TITLES[id] || id).replace(/</g,'&lt;');
+      var isNew = seenGames.indexOf(id) === -1;
+      return '<div class="badge-chip' + (isNew ? ' new' : '') + '"><span class="bi" aria-hidden="true">\u2B50</span>' +
+             '<span class="bn">' + name + '</span></div>';
+    }).join('');
+    area.innerHTML = '<div class="badge-grid">' + bookHtml + gameHtml + '</div>';
 
-    var newIds = ids.filter(function(id){ return seen.indexOf(id) === -1; });
-    if (newIds.length) {
+    var newBookIds = bookIds.filter(function(id){ return seen.indexOf(id) === -1; });
+    var newGameIds = gameIds.filter(function(id){ return seenGames.indexOf(id) === -1; });
+    if (newBookIds.length || newGameIds.length) {
       sfxCheer();
       confettiBurst();
-      d.badgesSeen = ids;
+      d.badgesSeen = bookIds;
+      d.gameBadgesSeen = gameIds;
       saveProgress(d);
     }
   }
 
   function clearProgress() {
-    if (!confirm('Clear all saved badges and finished books on this device?')) return;
+    if (!confirm('Clear all saved badges, finished books, and game progress on this device?')) return;
     var d = loadProgress();
     delete d.books;
+    delete d.games;
+    delete d.badgesSeen;
+    delete d.gameBadgesSeen;
     saveProgress(d);
     renderProgress();
   }

@@ -1,17 +1,19 @@
 /* LittleSprout service worker.
    Strategy:
-     - shell (home, characters, privacy, manifest, icons) precached on install
+     - shell (all top-level pages, manifest, icons) precached on install
      - everything else (books, games, sprites) cached the first time it is opened,
        so a book a child has read once will still open with no connection.
    Bump CACHE_VERSION whenever site files change, so old copies are cleared. */
 
-const CACHE_VERSION = 'littlesprout-v10';
+const CACHE_VERSION = 'littlesprout-v11';
 
 const SHELL = [
   './',
   './index.html',
   './characters.html',
   './privacy.html',
+  './grants.html',
+  './stats.html',
   './manifest.json',
   './assets/icons/icon-192.png',
   './assets/icons/icon-512.png'
