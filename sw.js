@@ -5,7 +5,7 @@
        so a book a child has read once will still open with no connection.
    Bump CACHE_VERSION whenever site files change, so old copies are cleared. */
 
-const CACHE_VERSION = 'littlesprout-v14';
+const CACHE_VERSION = 'littlesprout-v15';
 
 const SHELL = [
   './',
@@ -42,6 +42,14 @@ self.addEventListener('activate', function (event) {
   );
 });
 
+function putInCache(req, res) {
+  if (res && res.status === 200 && res.type === 'basic') {
+    var copy = res.clone();
+    caches.open(CACHE_VERSION).then(function (cache) { cache.put(req, copy); });
+  }
+  return res;
+}
+
 self.addEventListener('fetch', function (event) {
   var req = event.request;
 
@@ -49,23 +57,42 @@ self.addEventListener('fetch', function (event) {
   if (req.method !== 'GET') return;
   if (new URL(req.url).origin !== self.location.origin) return;
 
+  // HTML pages (navigations): network-first. A page that's already cached
+  // used to be served instantly and stale -- CACHE_VERSION bumping only
+  // helps from the SECOND visit onward, since the first post-deploy load
+  // still hit the old cache entry before the background refresh finished.
+  // Network-first means anyone online always sees the current page; the
+  // cache is only the fallback when there's no connection at all.
+  if (req.mode === 'navigate' || (req.headers.get('accept') || '').indexOf('text/html') !== -1) {
+    event.respondWith(
+      // 'reload' bypasses the browser's own HTTP cache, not just the SW
+      // cache above it -- fetch(req) alone can still return a
+      // browser-cached response for a page with no explicit Cache-Control
+      // header (GitHub Pages doesn't set one), which would silently
+      // defeat network-first the same way cache-first did.
+      fetch(req, { cache: 'reload' }).then(function (res) {
+        return putInCache(req, res);
+      }).catch(function () {
+        return caches.match(req).then(function (cached) {
+          return cached || caches.match('./index.html');
+        });
+      })
+    );
+    return;
+  }
+
+  // Everything else (sprites, backgrounds, icons, manifest): cache-first
+  // with a background refresh. These are content-addressed by filename
+  // and change rarely relative to page markup, so instant-from-cache is
+  // the right tradeoff -- especially for offline reading of a book a
+  // child has already opened once.
   event.respondWith(
     caches.match(req).then(function (cached) {
       var network = fetch(req).then(function (res) {
-        if (res && res.status === 200 && res.type === 'basic') {
-          var copy = res.clone();
-          caches.open(CACHE_VERSION).then(function (cache) {
-            cache.put(req, copy);
-          });
-        }
-        return res;
+        return putInCache(req, res);
       }).catch(function () {
-        // offline and not cached: fall back to the home page for navigations
-        if (req.mode === 'navigate') return caches.match('./index.html');
         return cached;
       });
-
-      // serve cache immediately when we have it, refresh in background
       return cached || network;
     })
   );
