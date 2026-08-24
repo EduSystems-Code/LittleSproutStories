@@ -318,11 +318,32 @@ function saveProgress(data) {
   try { localStorage.setItem('littlesprout', JSON.stringify(data)); return true; }
   catch (e) { return false; }
 }
+/* ---------- reading time: wall-clock while this tab is actually visible,
+   so leaving it open in a background tab doesn't inflate the number.
+   Only recorded on the FIRST completion -- rereads don't overwrite it. */
+let visibleSince = document.visibilityState === 'visible' ? Date.now() : null;
+let visibleMs = 0;
+document.addEventListener('visibilitychange', function() {
+  if (document.visibilityState === 'hidden') {
+    if (visibleSince) visibleMs += Date.now() - visibleSince;
+    visibleSince = null;
+  } else {
+    visibleSince = Date.now();
+  }
+});
+function currentVisibleMs() {
+  return visibleMs + (visibleSince ? Date.now() - visibleSince : 0);
+}
+
 function markFinished() {
   const d = loadProgress();
   d.books = d.books || {};
   const already = d.books[BOOK_ID] && d.books[BOOK_ID].finished;
-  d.books[BOOK_ID] = { finished:true, title:BOOK_TITLE, badge:BOOK_BADGE, at:Date.now() };
+  const prevSeconds = (d.books[BOOK_ID] && d.books[BOOK_ID].seconds) || null;
+  d.books[BOOK_ID] = {
+    finished:true, title:BOOK_TITLE, badge:BOOK_BADGE, at:Date.now(),
+    seconds: already ? prevSeconds : Math.round(currentVisibleMs() / 1000),
+  };
   const ok = saveProgress(d);
   const note = document.getElementById('savedNote');
   if (note) note.textContent = ok

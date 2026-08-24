@@ -112,11 +112,27 @@
     padding:5px 11px; border-radius:50px; box-shadow:0 2px 6px rgba(0,0,0,.18); }
   .shelf { background:var(--cream); }
   .shelf-empty { text-align:center; color:var(--bark-soft); font-weight:600; }
+  .badge-progress { max-width:480px; margin:0 auto 22px; text-align:center; }
+  .badge-progress-label { font-family:'Fredoka',sans-serif; font-weight:600; font-size:14.5px; color:var(--bark); margin-bottom:8px; }
+  .badge-progress-bar { height:14px; background:#fff; border:1px solid var(--paper-line); border-radius:50px; overflow:hidden; }
+  .badge-progress-fill { height:100%; background:linear-gradient(90deg,var(--sprout),var(--sprout-dark)); border-radius:50px;
+    transition:width .5s ease; }
+  .reading-time-note { text-align:center; color:var(--sprout-dark); font-weight:700; font-size:14px; margin:0 0 18px; }
   .badge-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:14px; margin-top:8px; }
-  .badge-chip { background:#fff; border:1px solid var(--paper-line); border-radius:16px; padding:16px 12px;
+  .badge-chip { position:relative; background:#fff; border:1px solid var(--paper-line); border-radius:16px; padding:16px 12px;
     text-align:center; box-shadow:0 4px 14px rgba(54,64,44,.06); }
   .badge-chip .bi { font-size:32px; display:block; margin-bottom:6px; }
   .badge-chip .bn { font-family:'Fredoka',sans-serif; font-weight:600; font-size:14px; color:var(--bark); }
+  .badge-chip.locked { background:var(--cream-deep); opacity:.75; cursor:help; }
+  .badge-chip.locked .bi { filter:grayscale(1); opacity:.55; }
+  .badge-chip.locked .bn { color:var(--bark-soft); }
+  .badge-tip { position:absolute; left:50%; bottom:calc(100% + 8px); transform:translateX(-50%) translateY(4px);
+    width:190px; background:var(--bark); color:#fff; font-size:12.5px; font-weight:600; line-height:1.4;
+    padding:8px 10px; border-radius:10px; opacity:0; pointer-events:none; transition:opacity .15s, transform .15s; z-index:5; }
+  .badge-tip::after { content:''; position:absolute; top:100%; left:50%; transform:translateX(-50%);
+    border:6px solid transparent; border-top-color:var(--bark); }
+  .badge-chip.locked:hover .badge-tip, .badge-chip.locked:focus-within .badge-tip, .badge-chip.locked.show-tip .badge-tip {
+    opacity:1; transform:translateX(-50%) translateY(0); }
   .shelf-actions { text-align:center; margin-top:22px; }
   .linkbtn { background:none; border:none; color:var(--bark-soft); font-weight:700; font-size:13.5px;
     text-decoration:underline; cursor:pointer; font-family:inherit; }
@@ -525,10 +541,14 @@
     <div class="section-head">
       <span class="section-eyebrow">Your badges</span>
       <h2>The badge shelf</h2>
-      <p>Badges appear here as your child finishes a book or plays a game. They&rsquo;re saved on this device only &mdash; we never see them.</p>
+      <p>Every badge you can earn is shown here &mdash; hover or tap a locked one to see what unlocks it. Saved on this device only &mdash; we never see them.</p>
     </div>
+    <div class="badge-progress">
+      <div class="badge-progress-label"><span id="progressCount">0</span> of <span id="progressTotal">14</span> books read</div>
+      <div class="badge-progress-bar"><div class="badge-progress-fill" id="progressFill" style="width:0%"></div></div>
+    </div>
+    <p id="readingTimeNote" class="reading-time-note" hidden></p>
     <div id="badgeArea">
-      <p class="shelf-empty">No badges yet. Finish a book to earn your first one!</p>
     </div>
     <div class="shelf-actions">
       <button type="button" class="linkbtn" id="clearBtn" onclick="clearProgress()">Clear saved progress</button>
@@ -689,6 +709,49 @@
 
   var GAME_TITLES = { sound_it_out: 'Sound It Out', whos_missing: 'Who\u2019s Missing?', pose_parade: 'Pose Parade' };
 
+  // Source of truth for "every badge that can be earned" -- matches the
+  // library order on this page (Book1-12, 14, 15; Book13 was scrapped).
+  // Pulled from each book's own spec at authoring time, not guessed.
+  var ALL_BOOKS = [
+    { id: 'Book1_Maya_Marcus_FireStation', badge: 'Fire Station Explorer', title: 'Maya & Marcus Visit the Fire Station' },
+    { id: 'Book2_Sophie_James_PoliceStation', badge: 'Police Station Explorer', title: 'Sophie & James Visit the Police Station' },
+    { id: 'Book3_Maya_Sophie_Library', badge: 'Library Explorer', title: 'Maya & Sophie Visit the Library' },
+    { id: 'Book4_Marcus_James_Doctor', badge: 'Healthy Helper', title: 'Marcus & James Visit the Doctor' },
+    { id: 'Book5_AllFour_School', badge: 'School Explorer', title: 'All Four Visit the Elementary School' },
+    { id: 'Book6_Marcus_Sophie_Barbershop', badge: 'Barbershop Explorer', title: 'Marcus & Sophie Visit the Barbershop' },
+    { id: 'Book7_Maya_James_Bakery', badge: 'Bakery Explorer', title: 'Maya & James Visit the Bakery' },
+    { id: 'Book8_Sophie_Marcus_Garden', badge: 'Garden Explorer', title: 'Sophie & Marcus Visit the Garden' },
+    { id: 'Book9_Maya_Marcus_PostOffice', badge: 'Post Office Explorer', title: 'Maya & Marcus Visit the Post Office' },
+    { id: 'Book10_Sophie_James_RepairShop', badge: 'Repair Shop Explorer', title: 'Sophie & James Visit the Repair Shop' },
+    { id: 'Book11_AllFour_CommunityCenter', badge: 'Community Center Explorer', title: 'All Four Visit the Community Center' },
+    { id: 'Book12_Marcus_James_FireStation2', badge: 'Fire Station Explorer II', title: 'Marcus & James Revisit the Fire Station' },
+    { id: 'Book14_AllFour_Garden', badge: 'Garden Helper', title: 'All Four Help in the Garden' },
+    { id: 'Book15_AllFour_Finale', badge: 'Community Helper Series Complete!', title: 'We Are Community Helpers Too' },
+  ];
+  var ALL_GAME_IDS = ['sound_it_out', 'whos_missing', 'pose_parade'];
+
+  function formatMinutes(mins) {
+    if (mins < 1) return 'under a minute';
+    if (mins < 60) return mins + ' minute' + (mins === 1 ? '' : 's');
+    var h = Math.floor(mins / 60), m = mins % 60;
+    return h + ' hr' + (h === 1 ? '' : 's') + (m ? ' ' + m + ' min' : '');
+  }
+
+  function badgeTileHtml(opts) {
+    // opts: { earned, icon, name, hint, isNew }
+    if (opts.earned) {
+      return '<div class="badge-chip' + (opts.isNew ? ' new' : '') + '">' +
+        '<span class="bi" aria-hidden="true">' + opts.icon + '</span>' +
+        '<span class="bn">' + opts.name + '</span></div>';
+    }
+    return '<div class="badge-chip locked" tabindex="0" role="button" ' +
+      'aria-label="Locked badge: ' + opts.hint.replace(/"/g,'&quot;') + '" ' +
+      'onclick="this.classList.toggle(\'show-tip\')">' +
+      '<span class="bi" aria-hidden="true">\uD83D\uDD12</span>' +
+      '<span class="bn">' + opts.name + '</span>' +
+      '<span class="badge-tip">' + opts.hint + '</span></div>';
+  }
+
   function renderProgress() {
     var d = loadProgress();
     var books = d.books || {};
@@ -708,37 +771,65 @@
       card.classList.toggle('played', !!(gm && games[gm[1]] && games[gm[1]].stars > 0));
     });
 
-    // badge shelf: books earn a finish badge, games earn a "played" badge
-    // once any stars are saved -- games have no single "finished" state
-    // (sound_it_out especially has no natural cap), so "played" is the
-    // uniform bar across all three rather than only counting the two
-    // games that happen to have a max-stars ceiling.
+    // progress bar: books read out of the real total
+    var booksReadCount = ALL_BOOKS.filter(function(b) { return books[b.id] && books[b.id].finished; }).length;
+    var countEl = document.getElementById('progressCount');
+    var totalEl = document.getElementById('progressTotal');
+    var fillEl = document.getElementById('progressFill');
+    if (countEl) countEl.textContent = booksReadCount;
+    if (totalEl) totalEl.textContent = ALL_BOOKS.length;
+    if (fillEl) fillEl.style.width = Math.round(booksReadCount / ALL_BOOKS.length * 100) + '%';
+
+    // reading time: only counts books that recorded a real first-completion
+    // time (see markFinished()/currentVisibleMs() in the book template) --
+    // never invented for a book that hasn't been finished.
+    var totalSeconds = 0, timedBooks = 0;
+    ALL_BOOKS.forEach(function(b) {
+      var rec = books[b.id];
+      if (rec && rec.finished && typeof rec.seconds === 'number') { totalSeconds += rec.seconds; timedBooks++; }
+    });
+    var timeNote = document.getElementById('readingTimeNote');
+    if (timeNote) {
+      if (timedBooks > 0) {
+        var mins = Math.round(totalSeconds / 60);
+        timeNote.hidden = false;
+        timeNote.textContent = (booksReadCount === ALL_BOOKS.length)
+          ? ('\uD83C\uDF89 All ' + ALL_BOOKS.length + ' books finished \u2014 total reading time: ' + formatMinutes(mins) + '!')
+          : ('Reading time so far: ' + formatMinutes(mins) + ' across ' + timedBooks + ' finished book' + (timedBooks === 1 ? '' : 's') + '.');
+      } else {
+        timeNote.hidden = true;
+      }
+    }
+
+    // badge shelf: every possible badge shown, locked or earned.
+    // Games earn a "played" badge once any stars are saved -- games have
+    // no single "finished" state (sound_it_out especially has no natural
+    // cap), so "played" is the uniform bar across all three rather than
+    // only counting the two games that happen to have a max-stars ceiling.
     var area = document.getElementById('badgeArea');
     if (!area) return;
-    if (!bookIds.length && !gameIds.length) {
-      area.innerHTML = '<p class="shelf-empty">No badges yet. Finish a book or play a game to earn your first one!</p>';
-      document.getElementById('clearBtn').style.display = 'none';
-      return;
-    }
-    document.getElementById('clearBtn').style.display = '';
-    bookIds.sort(function(a,b){ return (books[a].at||0) - (books[b].at||0); });
-    gameIds.sort(function(a,b){ return (games[a].at||0) - (games[b].at||0); });
+    document.getElementById('clearBtn').style.display = (bookIds.length || gameIds.length) ? '' : 'none';
     var seen = d.badgesSeen || [];
     var seenGames = d.gameBadgesSeen || [];
 
-    var bookHtml = bookIds.map(function(id) {
-      var b = books[id];
-      var name = (b.badge || 'Explorer').replace(/</g,'&lt;');
-      var isNew = seen.indexOf(id) === -1;
-      return '<div class="badge-chip' + (isNew ? ' new' : '') + '"><span class="bi" aria-hidden="true">\uD83C\uDFC5</span>' +
-             '<span class="bn">' + name + '</span></div>';
+    var bookHtml = ALL_BOOKS.map(function(b) {
+      var rec = books[b.id];
+      var earned = !!(rec && rec.finished);
+      return badgeTileHtml({
+        earned: earned, icon: '\uD83C\uDFC5',
+        name: (earned ? (rec.badge || b.badge) : b.badge).replace(/</g,'&lt;'),
+        hint: 'Read &ldquo;' + b.title.replace(/</g,'&lt;') + '&rdquo; to unlock this badge.',
+        isNew: earned && seen.indexOf(b.id) === -1,
+      });
     }).join('');
-    var gameHtml = gameIds.map(function(id) {
-      var g = games[id];
+    var gameHtml = ALL_GAME_IDS.map(function(id) {
+      var earned = !!(games[id] && games[id].stars > 0);
       var name = (GAME_TITLES[id] || id).replace(/</g,'&lt;');
-      var isNew = seenGames.indexOf(id) === -1;
-      return '<div class="badge-chip' + (isNew ? ' new' : '') + '"><span class="bi" aria-hidden="true">\u2B50</span>' +
-             '<span class="bn">' + name + '</span></div>';
+      return badgeTileHtml({
+        earned: earned, icon: '\u2B50', name: name,
+        hint: 'Play ' + name + ' to unlock this badge.',
+        isNew: earned && seenGames.indexOf(id) === -1,
+      });
     }).join('');
     area.innerHTML = '<div class="badge-grid">' + bookHtml + gameHtml + '</div>';
 
