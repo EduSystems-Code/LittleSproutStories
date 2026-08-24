@@ -44,20 +44,26 @@ body.easyread .text-a, body.easyread .text-b {{ line-height:1.95; }}
 .cover {{ text-align:center; }}
 .banner {{ background:var(--sprout); color:#fff; display:inline-block; padding:6px 18px; border-radius:20px; font-size:14px; margin-bottom:10px; }}
 h1 {{ color:var(--sprout); font-size:28px; }}
-.stage {{ position:relative; min-height:280px; border-radius:16px; margin:16px 0; display:flex; align-items:flex-end; justify-content:center; gap:10px; padding:16px; overflow:hidden; }}
-/* BACKGROUND-SWAP: replace these gradients with real illustrated backgrounds when location art is supplied */
-.backdrop-barbershop {{ background:linear-gradient(180deg,#e8f4dc 0%,#e8f4dc 50%,#a9d687 50%,#a9d687 100%); }}
-.backdrop-garden {{ background:linear-gradient(180deg,#bfe3fa 0%,#bfe3fa 48%,#9fd37f 48%,#9fd37f 100%); }}
-.backdrop-repair {{ background:linear-gradient(180deg,#f3ead6 0%,#f3ead6 52%,#d8c79e 52%,#d8c79e 100%); }}
-.backdrop-street {{ background:linear-gradient(180deg,#bfe3ff 0%,#bfe3ff 55%,#c9c9c9 55%,#c9c9c9 100%); }}
-.backdrop-firestation {{ background:linear-gradient(180deg,#ffd9a0 0%,#ffd9a0 45%,#e8433f 45%,#e8433f 100%); }}
+.stage {{ position:relative; min-height:320px; border-radius:16px; margin:16px 0; display:flex; align-items:flex-end; justify-content:center; gap:10px; padding:16px; overflow:hidden; background-size:cover; background-position:center bottom; }}
+/* Eleven of twelve locations now have real illustrated backgrounds (assets/backgrounds/).
+   Each keeps its old flat-gradient rule as the paint-before-image-loads/fallback color.
+   backdrop-police is the one location still on a flat gradient, waiting on real art --
+   tracked in README.md's "Known placeholders" list, not with a *-SWAP marker here, since
+   this comment is shared boilerplate repeated on every book regardless of whether that
+   book actually uses backdrop-police -- placeholder_audit.py counting it 14 times would
+   misreport "14 things still need art" when it's really one. */
+.backdrop-barbershop {{ background-color:#e8f4dc; background-image:url('../assets/backgrounds/barbershop.jpg'); }}
+.backdrop-garden {{ background-color:#bfe3fa; background-image:url('../assets/backgrounds/garden.jpg'); }}
+.backdrop-repair {{ background-color:#f3ead6; background-image:url('../assets/backgrounds/repair.jpg'); }}
+.backdrop-street {{ background-color:#bfe3ff; background-image:url('../assets/backgrounds/street.jpg'); }}
+.backdrop-firestation {{ background-color:#ffd9a0; background-image:url('../assets/backgrounds/firestation.jpg'); }}
 .backdrop-police {{ background:linear-gradient(180deg,#d9eefb 0%,#d9eefb 52%,#8fc6ea 52%,#8fc6ea 100%); }}
-.backdrop-library {{ background:linear-gradient(180deg,#f3ead6 0%,#f3ead6 50%,#c9b98e 50%,#c9b98e 100%); }}
-.backdrop-doctor {{ background:linear-gradient(180deg,#fce0ee 0%,#fce0ee 52%,#eba9c9 52%,#eba9c9 100%); }}
-.backdrop-center {{ background:linear-gradient(180deg,#fce0ee 0%,#fce0ee 50%,#e8b9d3 50%,#e8b9d3 100%); }}
-.backdrop-school {{ background:linear-gradient(180deg,#fff1cc 0%,#fff1cc 50%,#f5d77e 50%,#f5d77e 100%); }}
-.backdrop-bakery {{ background:linear-gradient(180deg,#ffe3cc 0%,#ffe3cc 52%,#f0b67f 52%,#f0b67f 100%); }}
-.backdrop-postoffice {{ background:linear-gradient(180deg,#d9eefb 0%,#d9eefb 50%,#bfe3fa 50%,#bfe3fa 100%); }}
+.backdrop-library {{ background-color:#f3ead6; background-image:url('../assets/backgrounds/library.jpg'); }}
+.backdrop-doctor {{ background-color:#fce0ee; background-image:url('../assets/backgrounds/doctor.jpg'); }}
+.backdrop-center {{ background-color:#fce0ee; background-image:url('../assets/backgrounds/center.jpg'); }}
+.backdrop-school {{ background-color:#fff1cc; background-image:url('../assets/backgrounds/school.jpg'); }}
+.backdrop-bakery {{ background-color:#ffe3cc; background-image:url('../assets/backgrounds/bakery.jpg'); }}
+.backdrop-postoffice {{ background-color:#d9eefb; background-image:url('../assets/backgrounds/postoffice.jpg'); }}
 img.char {{ height:220px; object-fit:contain; }}
 
 .hotspot {{ position:absolute; top:20px; font-size:40px; cursor:pointer; animation:bob 2s ease-in-out infinite;

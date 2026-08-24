@@ -5,7 +5,7 @@
        so a book a child has read once will still open with no connection.
    Bump CACHE_VERSION whenever site files change, so old copies are cleared. */
 
-const CACHE_VERSION = 'littlesprout-v11';
+const CACHE_VERSION = 'littlesprout-v12';
 
 const SHELL = [
   './',

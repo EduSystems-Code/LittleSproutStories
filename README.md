@@ -111,18 +111,21 @@ old cached copy. This is the single most common cause of "I pushed a fix but it 
 
 These are real gaps, documented so nobody mistakes them for finished work:
 
-- **Backgrounds.** Every book uses a CSS gradient backdrop, marked `BACKGROUND-SWAP` in
-  the source. Right now a fire station and a bakery differ only by color. Eleven
-  locations need exterior + interior art.
+- **Backgrounds — 11 of 12 locations done.** Real illustrated art
+  (`assets/backgrounds/`) via `scripts/import_background_art.py`, sourced from
+  BackgroundForge exports in `raw_art/backgrounds/`. **`backdrop-police`
+  (Book2, Police Station) is the one location still on a flat CSS gradient** —
+  no art has been generated for it yet. A `classroom` background also exists
+  in `raw_art/backgrounds/` but isn't wired in: it's a second, more specific
+  School location (Mr. Rodriguez's room) alongside the exterior/cafeteria art
+  already used for `backdrop-school` — using it needs a decision about which
+  School book pages show which room, not just an asset swap.
 - **Helper characters.** The eleven community helpers — Alex, Jasmine, Ms. Chen,
   Dr. Patel, Mr. Rodriguez, Mr. Smith, Keisha, Tom, Rose, David, Nurse Aisha — render as
   an emoji plus a name label in a `.helper-slot` div. The series is named after these
   characters and none of them are drawn yet.
-- **Hero image.** `HERO-ART-SWAP` in `index.html` marks where the banner photo goes.
 - **Games still embed their art** as base64 (~3.6MB total). Fine for now; worth
   converting to `assets/sprites/` references if they get edited often.
-- **Games lack the newer features** — no read-aloud, no progress saving, no easy-read
-  toggle. They pre-date the v2 engine and were left untouched rather than rewritten blind.
 
 ---
 
