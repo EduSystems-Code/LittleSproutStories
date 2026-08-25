@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#5BA672">
-<title>Sticker Reward | LittleSprout</title>
-<meta name="description" content="Finished all 14 LittleSprout books? Request a real sticker pack of the four friends, mailed to you.">
+<title>Reward Box | LittleSprout</title>
+<meta name="description" content="Finished all 14 LittleSprout books? Get a reward box (poster, certificate, sticker sheet, bookmark, and button) mailed to you.">
 <link rel="manifest" href="manifest.json">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
@@ -41,6 +41,10 @@
   .card p { margin-bottom:12px; color:var(--bark-soft); font-weight:600; }
   .card ul { margin:0 0 12px 22px; }
   .card li { margin-bottom:6px; color:var(--bark-soft); font-weight:600; }
+
+  .price-tag { display:inline-block; background:var(--cream-deep); border:2px dashed var(--sun-deep); border-radius:14px;
+    padding:10px 18px; font-family:'Fredoka',sans-serif; font-weight:700; font-size:22px; color:var(--sprout-deep); margin-bottom:14px; }
+  .price-tag span { font-size:13px; font-weight:700; color:var(--bark-soft); display:block; }
 
   .btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; background:var(--sprout); color:#fff;
     border:none; padding:14px 28px; font-size:17px; font-weight:600; font-family:inherit; border-radius:30px; cursor:pointer;
@@ -98,13 +102,13 @@
 <header class="head">
   <div class="wrap">
     <span class="eyebrow">🎉 All 14 books finished</span>
-    <h1>Get your sticker pack</h1>
-    <p>A real sticker sheet of Maya, Marcus, Sophie, and James, mailed to your door.</p>
+    <h1>Get your reward box</h1>
+    <p>A poster, certificate, sticker sheet, bookmark, and button &mdash; for Maya, Marcus, Sophie, and James's biggest fan.</p>
   </div>
 </header>
 
 <main class="wrap" id="app">
-  <!-- filled in by rewards.js below, depending on where in the flow you are -->
+  <!-- filled in by the script below, depending on where in the flow you are -->
 </main>
 
 <footer class="footer">
@@ -137,33 +141,37 @@
     app.appendChild(el(`
       <div class="card">
         <h2>Not quite ready yet</h2>
-        <p>The sticker reward is being set up right now &mdash; check back soon! In the meantime, thank you for reading all 14 books together. 💚</p>
+        <p>The reward box is being set up right now &mdash; check back soon! In the meantime, thank you for reading all 14 books together. 💚</p>
         <a class="btn" href="index.html">Back to the library</a>
       </div>
     `));
   }
 
-  function showIntro(startVerification) {
+  function showIntro(startCheckout, cancelled) {
     app.innerHTML = '';
     app.appendChild(el(`
       <div class="card">
-        <h2>How it works</h2>
+        ${cancelled ? '<div class="callout">Checkout was cancelled &mdash; no charge was made. You can try again whenever you\'re ready.</div>' : ''}
+        <div class="price-tag">$10<span>one-time, covers the box + shipping</span></div>
+        <h2>What's in the box</h2>
         <ul>
-          <li>Verify you're a parent/guardian through Stripe Identity (a quick photo-ID check &mdash; handled entirely by Stripe, we never see or store the ID itself)</li>
-          <li>Tell us where to mail the stickers</li>
-          <li>That's it &mdash; stickers arrive by mail, no cost to you</li>
+          <li>A poster of all four friends</li>
+          <li>A certificate of completion</li>
+          <li>A sticker sheet of Maya, Marcus, Sophie, and James</li>
+          <li>A bookmark set</li>
+          <li>A "Finished all 14 books!" button</li>
         </ul>
-        <p>See our <a href="privacy.html#stickers">privacy page</a> for exactly what's collected and why identity verification is part of this.</p>
-        <button class="btn" id="startBtn" type="button">Verify with Stripe &#8594;</button>
+        <p>Paying for the box also verifies you're the parent/guardian placing this order &mdash; a completed payment is how we confirm consent, so there's no separate ID-check step. See our <a href="privacy.html#stickers">privacy page</a> for exactly what's collected and why.</p>
+        <button class="btn" id="startBtn" type="button">Get the reward box &mdash; $10 &#8594;</button>
       </div>
     `));
-    document.getElementById('startBtn').addEventListener('click', startVerification);
+    document.getElementById('startBtn').addEventListener('click', startCheckout);
   }
 
   function showWaiting() {
     app.innerHTML = '';
     app.appendChild(el(`
-      <div class="status-line"><span class="spinner" aria-hidden="true"></span>Confirming your verification&hellip;</div>
+      <div class="status-line"><span class="spinner" aria-hidden="true"></span>Confirming your payment&hellip;</div>
     `));
   }
 
@@ -187,7 +195,7 @@
         <label for="recipientName">Your name</label>
         <input id="recipientName" name="recipientName" type="text" required autocomplete="name">
 
-        <label for="childFirstName">Child's first name <span class="hint">(optional &mdash; to personalize the card)</span></label>
+        <label for="childFirstName">Child's first name <span class="hint">(optional &mdash; to personalize the certificate)</span></label>
         <input id="childFirstName" name="childFirstName" type="text" autocomplete="off">
 
         <label for="addressLine1">Address</label>
@@ -204,7 +212,7 @@
         </div>
 
         <div class="callout">Your address is used only to mail this one package, and is automatically deleted 90 days after it ships.</div>
-        <button class="btn" type="submit" style="margin-top:10px">Send my sticker pack &#8594;</button>
+        <button class="btn" type="submit" style="margin-top:10px">Send my reward box &#8594;</button>
         <p class="status-line error" id="formError" hidden></p>
       </form>
     `);
@@ -231,7 +239,7 @@
       <div class="card confirm">
         <div class="confirm-icon" aria-hidden="true">📬</div>
         <h2>On its way!</h2>
-        <p>Thank you for reading all 14 books together. Your sticker pack will arrive by mail soon.</p>
+        <p>Thank you for reading all 14 books together. Your reward box will arrive by mail soon.</p>
         <a class="btn" href="index.html">Back to the library</a>
       </div>
     `));
@@ -242,7 +250,7 @@
     app.appendChild(el(`
       <div class="card">
         <h2>Already sent</h2>
-        <p>This verification has already been used to request a sticker pack &mdash; one per verification, so a second request can't be submitted with the same link.</p>
+        <p>This order has already been used to request a reward box &mdash; one per order, so a second request can't be submitted with the same link.</p>
         <a class="btn" href="index.html">Back to the library</a>
       </div>
     `));
@@ -253,13 +261,13 @@
     return res;
   }
 
-  async function startVerification() {
+  async function startCheckout() {
     try {
-      const res = await apiFetch('/consent/start', { method: 'POST' });
+      const res = await apiFetch('/checkout/start', { method: 'POST' });
       if (!res.ok) { showUnavailable(); return; }
       const data = await res.json();
       sessionStorage.setItem(TOKEN_KEY, data.token);
-      window.location.href = data.verification_url;
+      window.location.href = data.checkout_url;
     } catch (e) {
       showUnavailable();
     }
@@ -271,12 +279,12 @@
       return;
     }
     try {
-      const res = await apiFetch('/consent/status?token=' + encodeURIComponent(token));
-      if (res.status === 404) { showIntro(startVerification); return; }
+      const res = await apiFetch('/checkout/status?token=' + encodeURIComponent(token));
+      if (res.status === 404) { showIntro(startCheckout, false); return; }
       if (!res.ok) { showUnavailable(); return; }
       const data = await res.json();
       if (data.consumed) { showAlreadyUsed(); return; }
-      if (data.verified) { showAddressForm(token, submitRequest); return; }
+      if (data.paid) { showAddressForm(token, submitRequest); return; }
       setTimeout(function () { pollStatus(token, attemptsLeft - 1); }, 1500);
     } catch (e) {
       showUnavailable();
@@ -309,7 +317,7 @@
         errorEl.textContent = 'Something went wrong sending that — please try again.';
       }
     } finally {
-      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Send my sticker pack →'; }
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Send my reward box →'; }
     }
   }
 
@@ -318,13 +326,23 @@
     const urlToken = params.get('token');
     const storedToken = sessionStorage.getItem(TOKEN_KEY);
     const token = urlToken || storedToken;
+    const cancelled = params.get('cancelled') === '1';
+
+    if (cancelled) {
+      // A cancelled Checkout still comes back with the order's token
+      // (see success_url/cancel_url in stripe_checkout.py) -- clear it
+      // so a stale token doesn't get reused, and show the intro fresh.
+      sessionStorage.removeItem(TOKEN_KEY);
+      showIntro(startCheckout, true);
+      return;
+    }
 
     if (token) {
       if (urlToken) sessionStorage.setItem(TOKEN_KEY, urlToken);
       showWaiting();
       pollStatus(token, 10);
     } else {
-      showIntro(startVerification);
+      showIntro(startCheckout, false);
     }
   })();
 </script>
