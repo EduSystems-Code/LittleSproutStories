@@ -118,6 +118,10 @@
   .badge-progress-fill { height:100%; background:linear-gradient(90deg,var(--sprout),var(--sprout-dark)); border-radius:50px;
     transition:width .5s ease; }
   .reading-time-note { text-align:center; color:var(--sprout-dark); font-weight:700; font-size:14px; margin:0 0 18px; }
+  .rewards-cta { text-align:center; background:var(--cream-deep); border:2px dashed var(--sun-deep); border-radius:18px;
+    padding:20px; margin:0 0 24px; }
+  .rewards-cta p { font-family:'Fredoka',sans-serif; font-weight:600; font-size:17px; margin-bottom:12px; }
+  .rewards-cta .btn-primary { display:inline-block; text-decoration:none; }
   .badge-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:14px; margin-top:8px; }
   .badge-chip { position:relative; background:#fff; border:1px solid var(--paper-line); border-radius:16px; padding:16px 12px;
     text-align:center; box-shadow:0 4px 14px rgba(54,64,44,.06); }
@@ -548,6 +552,10 @@
       <div class="badge-progress-bar"><div class="badge-progress-fill" id="progressFill" style="width:0%"></div></div>
     </div>
     <p id="readingTimeNote" class="reading-time-note" hidden></p>
+    <div id="rewardsCta" class="rewards-cta" hidden>
+      <p>🎉 You finished all 14 books!</p>
+      <a class="btn-primary" href="rewards.html">Request your sticker pack &#8594;</a>
+    </div>
     <div id="badgeArea">
     </div>
     <div class="shelf-actions">
@@ -800,6 +808,9 @@
         timeNote.hidden = true;
       }
     }
+
+    var rewardsCta = document.getElementById('rewardsCta');
+    if (rewardsCta) rewardsCta.hidden = (booksReadCount !== ALL_BOOKS.length);
 
     // badge shelf: every possible badge shown, locked or earned.
     // Games earn a "played" badge once any stars are saved -- games have
