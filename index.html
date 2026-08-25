@@ -122,6 +122,26 @@
     padding:20px; margin:0 0 24px; }
   .rewards-cta p { font-family:'Fredoka',sans-serif; font-weight:600; font-size:17px; margin-bottom:12px; }
   .rewards-cta .btn-primary { display:inline-block; text-decoration:none; }
+  .reading-plan { max-width:720px; margin:0 auto 30px; }
+  .reading-plan-head { text-align:center; margin-bottom:16px; }
+  .reading-plan-head h3 { font-size:17px; color:var(--sprout-dark); margin-bottom:4px; }
+  .reading-plan-head p { font-size:13.5px; color:var(--bark-soft); font-weight:600; }
+  .plan-stages { display:flex; flex-direction:column; gap:10px; }
+  .plan-stage { display:flex; align-items:center; gap:14px; background:#fff; border:1px solid var(--paper-line);
+    border-radius:14px; padding:12px 16px; }
+  .plan-stage.current { border-color:var(--sprout); box-shadow:0 4px 14px rgba(91,166,114,.18); }
+  .plan-stage.done { background:var(--cream-deep); }
+  .plan-stage-num { flex-shrink:0; width:34px; height:34px; border-radius:50%; display:flex; align-items:center;
+    justify-content:center; font-family:'Fredoka',sans-serif; font-weight:700; font-size:14px;
+    background:var(--paper-line); color:var(--bark-soft); }
+  .plan-stage.current .plan-stage-num { background:var(--sprout); color:#fff; }
+  .plan-stage.done .plan-stage-num { background:var(--sprout-dark); color:#fff; }
+  .plan-stage-body { flex:1; min-width:0; }
+  .plan-stage-name { font-family:'Fredoka',sans-serif; font-weight:600; font-size:14.5px; color:var(--bark); }
+  .plan-stage-books { font-size:12.5px; color:var(--bark-soft); font-weight:600; margin-top:2px; }
+  .plan-stage-count { flex-shrink:0; font-size:12.5px; font-weight:800; color:var(--sprout-dark);
+    background:var(--cream-deep); border-radius:50px; padding:4px 10px; white-space:nowrap; }
+  .plan-stage.done .plan-stage-count { background:var(--sprout); color:#fff; }
   .badge-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:14px; margin-top:8px; }
   .badge-chip { position:relative; background:#fff; border:1px solid var(--paper-line); border-radius:16px; padding:16px 12px;
     text-align:center; box-shadow:0 4px 14px rgba(54,64,44,.06); }
@@ -552,6 +572,13 @@
       <div class="badge-progress-bar"><div class="badge-progress-fill" id="progressFill" style="width:0%"></div></div>
     </div>
     <p id="readingTimeNote" class="reading-time-note" hidden></p>
+    <div class="reading-plan">
+      <div class="reading-plan-head">
+        <h3>Your reading plan</h3>
+        <p>A suggested pace &mdash; about 3 books per stage, roughly a stage a week.</p>
+      </div>
+      <div id="planStages" class="plan-stages"></div>
+    </div>
     <div id="rewardsCta" class="rewards-cta" hidden>
       <p>🎉 You finished all 14 books!</p>
       <a class="btn-primary" href="rewards.html">Request your sticker pack &#8594;</a>
@@ -738,6 +765,19 @@
   ];
   var ALL_GAME_IDS = ['sound_it_out', 'whos_missing', 'pose_parade'];
 
+  // A suggested pace through the 14 books, grouped into 5 stages of ~3
+  // books each in library order -- purely a display/motivation aid, not
+  // a gate (every book stays playable regardless of stage). No cost, no
+  // backend: this is just ALL_BOOKS chunked with a friendly label per
+  // group, so a parent gets structure without any new infrastructure.
+  var READING_PLAN = [
+    { name: 'Getting started', bookIds: ['Book1_Maya_Marcus_FireStation', 'Book2_Sophie_James_PoliceStation', 'Book3_Maya_Sophie_Library'] },
+    { name: 'Around town', bookIds: ['Book4_Marcus_James_Doctor', 'Book5_AllFour_School', 'Book6_Marcus_Sophie_Barbershop'] },
+    { name: 'Everyday helpers', bookIds: ['Book7_Maya_James_Bakery', 'Book8_Sophie_Marcus_Garden', 'Book9_Maya_Marcus_PostOffice'] },
+    { name: 'Community builders', bookIds: ['Book10_Sophie_James_RepairShop', 'Book11_AllFour_CommunityCenter', 'Book12_Marcus_James_FireStation2'] },
+    { name: 'The big finish', bookIds: ['Book14_AllFour_Garden', 'Book15_AllFour_Finale'] },
+  ];
+
   function formatMinutes(mins) {
     if (mins < 1) return 'under a minute';
     if (mins < 60) return mins + ' minute' + (mins === 1 ? '' : 's');
@@ -758,6 +798,38 @@
       '<span class="bi" aria-hidden="true">\uD83D\uDD12</span>' +
       '<span class="bn">' + opts.name + '</span>' +
       '<span class="badge-tip">' + opts.hint + '</span></div>';
+  }
+
+  function renderPlanStages(books) {
+    var area = document.getElementById('planStages');
+    if (!area) return;
+    var titleById = {};
+    ALL_BOOKS.forEach(function(b) { titleById[b.id] = b.title; });
+
+    // "current" = the first stage that isn't fully finished yet -- every
+    // stage before it is done, every stage after it just shows what's next.
+    var currentIdx = -1;
+    READING_PLAN.forEach(function(stage, i) {
+      var doneCount = stage.bookIds.filter(function(id) { return books[id] && books[id].finished; }).length;
+      if (currentIdx === -1 && doneCount < stage.bookIds.length) currentIdx = i;
+    });
+    if (currentIdx === -1) currentIdx = READING_PLAN.length; // all stages finished
+
+    area.innerHTML = READING_PLAN.map(function(stage, i) {
+      var doneCount = stage.bookIds.filter(function(id) { return books[id] && books[id].finished; }).length;
+      var total = stage.bookIds.length;
+      var isDone = doneCount === total;
+      var isCurrent = i === currentIdx;
+      var titles = stage.bookIds.map(function(id) { return titleById[id] || id; }).join(' &middot; ');
+      return '<div class="plan-stage' + (isDone ? ' done' : '') + (isCurrent ? ' current' : '') + '">' +
+        '<span class="plan-stage-num" aria-hidden="true">' + (isDone ? '✓' : (i + 1)) + '</span>' +
+        '<span class="plan-stage-body">' +
+        '<span class="plan-stage-name">' + stage.name.replace(/</g,'&lt;') + '</span>' +
+        '<span class="plan-stage-books">' + titles.replace(/</g,'&lt;') + '</span>' +
+        '</span>' +
+        '<span class="plan-stage-count">' + doneCount + ' of ' + total + '</span>' +
+        '</div>';
+    }).join('');
   }
 
   function renderProgress() {
@@ -811,6 +883,8 @@
 
     var rewardsCta = document.getElementById('rewardsCta');
     if (rewardsCta) rewardsCta.hidden = (booksReadCount !== ALL_BOOKS.length);
+
+    renderPlanStages(books);
 
     // badge shelf: every possible badge shown, locked or earned.
     // Games earn a "played" badge once any stars are saved -- games have
