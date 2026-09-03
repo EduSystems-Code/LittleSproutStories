@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#5BA672">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="assets/icons/icon-180.png">
+<title>Book Nook | LittleSprout</title>
+<meta name="description" content="Give outgrown early-reader books a second life: where to pass them on, trusted donation programs, and a printable bookplate for the next reader.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sprout: #5BA672; --sprout-dark: #3C7A52; --sprout-deep: #2C5C3D;
+    --cream: #FBF6EC; --cream-deep: #F3EAD6; --paper-line: #E7DCC4;
+    --sky: #BFE3FA; --sky-deep: #185FA5; --sun: #FFD24A; --sun-deep: #E1A400;
+    --berry: #B0488C; --bark: #36402C; --bark-soft: #5E6650;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--bark); line-height: 1.6; }
+  h1,h2,h3 { font-family: 'Fredoka', sans-serif; font-weight: 600; }
+  a { color: inherit; }
+  .wrap { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+  .nav { position: sticky; top: 0; z-index: 50; background: rgba(251,246,236,0.9); backdrop-filter: blur(10px); border-bottom: 1px solid var(--paper-line); }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 70px; flex-wrap: wrap; gap: 10px; }
+  .logo { font-family: 'Fredoka', sans-serif; font-weight: 700; font-size: 22px; color: var(--sprout-deep); text-decoration: none; }
+  .nav-links { display: flex; gap: 22px; flex-wrap: wrap; }
+  .nav-links a { font-weight: 700; font-size: 14.5px; color: var(--bark-soft); text-decoration: none; }
+  .nav-links a:hover, .nav-links a.current { color: var(--sprout-dark); }
+  .page-hero { padding: 56px 0 36px; text-align: center; }
+  .page-hero .eyebrow { display: inline-block; background: var(--sky); color: var(--sky-deep); font-weight: 800; font-size: 13px; letter-spacing: 0.5px; text-transform: uppercase; padding: 7px 16px; border-radius: 50px; margin-bottom: 18px; }
+  .page-hero h1 { font-size: clamp(30px, 5vw, 46px); margin-bottom: 14px; }
+  .page-hero p { font-size: 17px; color: var(--bark-soft); font-weight: 600; max-width: 640px; margin: 0 auto; }
+  .section { padding: 46px 0; }
+  .section h2 { font-size: 24px; margin-bottom: 8px; }
+  .section > .wrap > p.lede { color: var(--bark-soft); font-weight: 600; margin-bottom: 24px; max-width: 720px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+  .card { background: #fff; border: 1px solid var(--paper-line); border-radius: 16px; padding: 20px; box-shadow: 0 4px 14px rgba(54,64,44,0.06); }
+  .card h3 { font-size: 16.5px; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .card p { font-size: 13.5px; color: var(--bark-soft); font-weight: 600; margin-bottom: 10px; }
+  .card a.go { font-size: 13px; font-weight: 800; color: var(--sprout-dark); text-decoration: none; }
+  .card a.go:hover { text-decoration: underline; }
+  ul.plain { list-style: none; display: grid; gap: 12px; }
+  ul.plain li { background: #fff; border: 1px solid var(--paper-line); border-radius: 14px; padding: 16px 18px; font-size: 14px; font-weight: 600; color: var(--bark-soft); }
+  ul.plain li b { color: var(--bark); font-weight: 800; }
+  .cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 18px; }
+  .btn { display: inline-block; font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 15px; text-decoration: none; padding: 12px 22px; border-radius: 50px; }
+  .btn-primary { background: var(--sprout); color: #fff; }
+  .btn-primary:hover { background: var(--sprout-dark); }
+  .btn-ghost { background: #fff; color: var(--sprout-dark); border: 2px solid var(--sprout); }
+  .placeholder { background: repeating-linear-gradient(45deg, #FFF9EC, #FFF9EC 12px, #FDF2D6 12px, #FDF2D6 24px); border-style: dashed; border-color: var(--sun-deep); }
+  .badge { display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase; color: #8A6A00; background: var(--sun); padding: 2px 8px; border-radius: 50px; }
+  .disclaimer { font-size: 12.5px; color: var(--bark-soft); font-weight: 600; text-align: center; margin-top: 30px; opacity: 0.85; }
+  .footer { background: var(--bark); color: #D9DDD0; padding: 40px 0; text-align: center; margin-top: 40px; }
+  .footer a { color: #A8AE9C; font-weight: 700; text-decoration: none; margin: 0 10px; }
+  .footer a:hover { color: var(--sun); }
+  :focus-visible { outline: 3px solid var(--sky-deep); outline-offset: 2px; border-radius: 6px; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a class="logo" href="index.html">🌱 LittleSprout</a>
+    <div class="nav-links">
+      <a href="index.html#library">Books</a>
+      <a href="index.html#games">Games</a>
+      <a href="characters.html">Meet the Friends</a>
+      <a href="index.html#resources">Family resources</a>
+      <a href="book-nook.html" class="current" aria-current="page">Book Nook</a>
+      <a href="shop.html">Shop</a>
+    </div>
+  </div>
+</nav>
+
+<header class="page-hero">
+  <div class="wrap">
+    <span class="eyebrow">📚 Pass it on</span>
+    <h1>The Book Nook</h1>
+    <p>When your reader outgrows their early books, those pages still have a lot of first days of school left in them. Here is how to send them on to the next new reader.</p>
+  </div>
+</header>
+
+<section class="section">
+  <div class="wrap">
+    <h2>Where to pass books on, close to home</h2>
+    <p class="lede">The lowest-effort, lowest-cost options are almost always local &mdash; no shipping, and the books land with a child nearby.</p>
+    <ul class="plain">
+      <li><b>A Little Free Library.</b> The little book boxes on neighbourhood posts. Find one at <a href="https://littlefreelibrary.org/map/" target="_blank" rel="noopener">littlefreelibrary.org/map</a> and leave a few titles.</li>
+      <li><b>A Title I classroom or your local elementary school.</b> Early-grade teachers almost always want more decodable readers for a classroom library. Ask the front office or a teacher you know.</li>
+      <li><b>A paediatrician's or clinic waiting room.</b> Many keep a book basket; some partner with <a href="https://reachoutandread.org/" target="_blank" rel="noopener">Reach Out and Read</a>.</li>
+      <li><b>A family shelter, food pantry, or diaper bank.</b> Ask whether they can put children's books in with what families take home.</li>
+      <li><b>A little one you know.</b> A younger cousin, a neighbour, a friend's new baby &mdash; a hand-me-down book with a note inside is a small, real gift.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section" style="background:var(--cream-deep); border-top:1px solid var(--paper-line); border-bottom:1px solid var(--paper-line);">
+  <div class="wrap">
+    <h2>Trusted programs that take books by mail</h2>
+    <p class="lede">If you would rather ship a box, these are established nonprofits that redistribute gently used children's books. Send books via USPS <b>Media Mail</b> &mdash; it is much cheaper for books than regular parcel post.</p>
+    <div class="grid">
+      <div class="card">
+        <h3>📗 The Children's Book Bank</h3>
+        <p>Collects gently used children's books and gets them to lower-income families and classrooms.</p>
+        <a class="go" href="https://www.childrensbookbank.org/" target="_blank" rel="noopener">childrensbookbank.org &#8594;</a>
+      </div>
+      <div class="card">
+        <h3>🍪 Milk + Bookies</h3>
+        <p>A national nonprofit that gets new and gently used books to children through youth-serving charities.</p>
+        <a class="go" href="https://milkandbookies.org/" target="_blank" rel="noopener">milkandbookies.org &#8594;</a>
+      </div>
+      <div class="card">
+        <h3>🌍 Books for Africa</h3>
+        <p>Ships donated books to schools and libraries across the African continent; accepts gently used current titles.</p>
+        <a class="go" href="https://www.booksforafrica.org/" target="_blank" rel="noopener">booksforafrica.org &#8594;</a>
+      </div>
+      <div class="card">
+        <h3>🏫 Scholastic Book Donations</h3>
+        <p>Scholastic's directory of vetted book-donation and literacy organisations, sortable by need.</p>
+        <a class="go" href="https://www.scholastic.com/bookdonations/" target="_blank" rel="noopener">scholastic.com/bookdonations &#8594;</a>
+      </div>
+      <div class="card">
+        <h3>📖 ALA donation directory</h3>
+        <p>The American Library Association's maintained list of national and regional groups that accept book donations.</p>
+        <a class="go" href="https://libguides.ala.org/book-donations" target="_blank" rel="noopener">libguides.ala.org/book-donations &#8594;</a>
+      </div>
+      <div class="card">
+        <h3>📚 First Book</h3>
+        <p>Provides free and low-cost books to programs serving kids in need; also a place classrooms can register to receive.</p>
+        <a class="go" href="https://firstbook.org/" target="_blank" rel="noopener">firstbook.org &#8594;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <h2>A bookplate for the next reader</h2>
+    <p class="lede">Print this, cut it out, and tuck one inside the front cover of each book you pass on &mdash; a small "this book belongs to a new reader now" note, ready for a name.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="book-nook-bookplate.html">Open the printable bookplate</a>
+      <a class="btn btn-ghost" href="shop.html">Get the sticker-sheet version</a>
+    </div>
+    <p style="font-size:13px;color:var(--bark-soft);font-weight:600;margin-top:14px;">The printable is free &mdash; open it and use your browser's Print (or "Save as PDF"). The same art is on the Little Sprout sticker sheet in the Shop if you would rather have peel-and-stick ones.</p>
+  </div>
+</section>
+
+<section class="section" style="background:var(--cream-deep); border-top:1px solid var(--paper-line); border-bottom:1px solid var(--paper-line);">
+  <div class="wrap">
+    <div class="grid">
+      <div class="card placeholder">
+        <h3>🔁 Pass a book to another Little Sprout family <span class="badge">Coming soon</span></h3>
+        <p>A simple way to list an outgrown book and have another family here claim it &mdash; grown-ups only, no addresses shown in public. Being designed carefully; not open yet.</p>
+      </div>
+    </div>
+    <p class="disclaimer">External links open in a new tab and are provided for convenience. LittleSprout is not affiliated with the organisations listed here. Check each program's own site for what they currently accept and how to send it before mailing anything.</p>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <a href="index.html">Home</a>
+    <a href="index.html#resources">Family resources</a>
+    <a href="grants.html">Grants</a>
+    <a href="shop.html">Shop</a>
+    <a href="privacy.html">Privacy</a>
+  </div>
+</footer>
+
+</body>
+</html>

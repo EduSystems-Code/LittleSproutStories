@@ -110,12 +110,19 @@ def main() -> int:
         # Re-derive the same base used by pushed_range_files(); if stdin
         # already consumed, fall back to HEAD~<n commits> is unreliable,
         # so just diff sw.js content at HEAD vs the merge-base with upstream.
-        upstream = subprocess.run(
-            ["git", "rev-parse", "--abbrev-ref", "--symbolic-full-name", "@{u}"],
-            cwd=REPO_ROOT, capture_output=True, text=True,
-        )
-        if upstream.returncode == 0 and upstream.stdout.strip():
-            base_ref = upstream.stdout.strip()
+        # Prefer this branch's own upstream; on a brand-new branch that
+        # has no upstream yet, fall back to the deploy branch (origin/main)
+        # so a first push still compares sw.js against what's actually
+        # live -- not against HEAD, which is the very commit being pushed
+        # and would always look like "no bump".
+        for candidate in ("@{u}", "origin/main", "origin/master"):
+            resolved = subprocess.run(
+                ["git", "rev-parse", "--verify", "--quiet", candidate],
+                cwd=REPO_ROOT, capture_output=True, text=True,
+            )
+            if resolved.returncode == 0 and resolved.stdout.strip():
+                base_ref = candidate
+                break
 
     base_sw = subprocess.run(
         ["git", "show", f"{base_ref}:sw.js"],
