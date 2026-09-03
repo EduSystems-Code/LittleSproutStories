@@ -55,6 +55,11 @@ class Settings(BaseSettings):
     # what we don't need any longer than necessary" commitment.
     retention_days_after_sent: int = 90
 
+    # SQLite by default for zero-friction local dev. The deployed service
+    # points this at a managed Postgres instead (Render's free tier wipes
+    # the filesystem on every deploy, so a SQLite file there loses every
+    # pending mailing address). Any Postgres URL works -- see
+    # `sqlalchemy_url` for the driver normalisation.
     database_url: str = "sqlite:///./data/rewards.db"
 
     # Which origin(s) may call this API -- the live LittleSprout Stories
@@ -75,6 +80,21 @@ class Settings(BaseSettings):
     @property
     def allowed_origins_list(self) -> list[str]:
         return [o.strip() for o in self.allowed_origins.split(",") if o.strip()]
+
+    @property
+    def sqlalchemy_url(self) -> str:
+        """`database_url` normalised for SQLAlchemy 2.x. A managed Postgres
+        provider typically hands back a `postgres://` or bare
+        `postgresql://` URL; SQLAlchemy 2 rejects the first outright and
+        defaults the second to psycopg2 (not installed -- we pin psycopg
+        v3). Rewrite both to `postgresql+psycopg://`. SQLite, and any URL
+        that already names a driver, pass through untouched."""
+        url = self.database_url
+        if url.startswith("postgres://"):
+            return "postgresql+psycopg://" + url[len("postgres://"):]
+        if url.startswith("postgresql://"):
+            return "postgresql+psycopg://" + url[len("postgresql://"):]
+        return url
 
 
 @lru_cache
