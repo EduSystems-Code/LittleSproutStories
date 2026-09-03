@@ -22,10 +22,20 @@ assets/sprites/     87 character PNGs, shared by every page
 assets/icons/       App icons for installed/home-screen use
 books/              14 storybooks (~23KB each, reference assets/sprites/)
 games/              3 games (currently self-contained w/ embedded art)
+rewards-api/        FastAPI backend — reward box, Shop, cork board. Deploys
+                    separately to Render; GitHub Pages ignores this folder.
 .nojekyll           Tells GitHub Pages to serve files as-is
 ```
 
 Static site — no build step, no server code, no dependencies. Plain HTML/CSS/JS.
+
+The one exception is [`rewards-api/`](rewards-api/README.md) — a small FastAPI
+backend for paid orders (the reward box and the Shop) and the community cork
+board. It is **not** part of the static site: Pages serves the repo root and
+ignores that folder, while the backend runs as its own Render web service from
+the subdirectory (`rootDir: rewards-api`, see `rewards-api/render.yaml`). It was
+previously the separate repo `EduSystems-Code/LittleSprout-Rewards`, consolidated
+here on 2026-09-03.
 
 ---
 

@@ -1,0 +1,19 @@
+# Secrets -- never tracked
+.env
+
+# OS noise
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+
+# The real DB file -- only data/.gitkeep is tracked, matching Chegga's own
+# backend/data/ convention. A fresh clone gets an empty DB via
+# Base.metadata.create_all()/alembic upgrade head, never a shipped file
+# that might contain a real submitted mailing address.
+data/*.db
