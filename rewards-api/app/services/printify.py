@@ -43,23 +43,39 @@ def _auth_headers(token: str) -> dict[str, str]:
     }
 
 
-def build_order_payload(fulfillment: Fulfillment, order: Order, product: dict) -> dict:
+def build_order_payload(
+    fulfillment: Fulfillment,
+    order: Order,
+    product: dict,
+    *,
+    contact_email: str,
+    contact_phone: str,
+) -> dict:
     """Pure function -- turns a stored Fulfillment + its Order + the
     catalog entry into the JSON body Printify's create-order endpoint
-    expects. Kept separate from the HTTP call so it can be asserted on
-    directly in tests."""
+    expects (`POST /v1/shops/{id}/orders.json`, simple image positioning).
+    Kept separate from the HTTP call so it can be asserted on directly in
+    tests.
+
+    `contact_email` / `contact_phone` go in `address_to` -- Printify
+    requires both non-empty for the shipment. They are the operator's
+    fallback contact, not the buyer's (the address form collects neither).
+    """
     mapping = product["printify"]
 
-    line_item: dict = {
+    # variant_id is required on every line item. For a sized product it's
+    # the chosen size (validated upstream against known_variants()); for a
+    # product with no size axis it's the mapping's single variant_id.
+    size = fulfillment.variant
+    variant_id = mapping["variants"][size] if size else mapping["variant_id"]
+
+    line_item = {
         "print_provider_id": mapping["print_provider_id"],
         "blueprint_id": mapping["blueprint_id"],
+        "variant_id": variant_id,
         "quantity": 1,
-        "print_areas": {"front": mapping["image_id"]},
+        "print_areas": {"front": mapping["image_url"]},
     }
-    size = fulfillment.variant
-    if size:
-        # validated upstream (requests_.py) against known_variants()
-        line_item["variant_id"] = mapping["variants"][size]
 
     # Printify wants first/last split; our form collects a single
     # recipient name. Split on the last space, fall back to a repeat so
@@ -71,16 +87,16 @@ def build_order_payload(fulfillment: Fulfillment, order: Order, product: dict) -
         first_name = last_name = name or "Reader"
 
     return {
-        "external_id": order.token,
+        "external_id": order.token,  # Printify dedupes repeat orders on this
         "label": f"{product['name']} (order {order.id})",
         "line_items": [line_item],
-        "shipping_method": 1,  # standard
+        "shipping_method": 1,  # 1 = standard
         "send_shipping_notification": False,
         "address_to": {
             "first_name": first_name,
             "last_name": last_name,
-            "email": "",
-            "phone": "",
+            "email": contact_email,
+            "phone": contact_phone,
             "country": fulfillment.country or "US",
             "region": fulfillment.state,
             "address1": fulfillment.address_line1,
@@ -114,6 +130,11 @@ def create_and_produce_order(fulfillment: Fulfillment, order: Order) -> str:
             "PRINTIFY_API_TOKEN / PRINTIFY_SHOP_ID are not set. Made-to-order "
             "fulfillment requires a real Printify account."
         )
+    if not settings.printify_fallback_email or not settings.printify_fallback_phone:
+        raise PrintifyNotConfigured(
+            "PRINTIFY_FALLBACK_EMAIL / PRINTIFY_FALLBACK_PHONE are not set -- "
+            "Printify requires a contact on the shipment."
+        )
 
     product = get_product(order.product_id)
     if product is None or product.get("fulfillment") != "printify":
@@ -123,7 +144,13 @@ def create_and_produce_order(fulfillment: Fulfillment, order: Order) -> str:
             f"{order.product_id} has no complete Printify catalog mapping yet"
         )
 
-    payload = build_order_payload(fulfillment, order, product)
+    payload = build_order_payload(
+        fulfillment,
+        order,
+        product,
+        contact_email=settings.printify_fallback_email,
+        contact_phone=settings.printify_fallback_phone,
+    )
     created = _post(f"/shops/{shop_id}/orders.json", token, json=payload)
     printify_order_id = str(created.json()["id"])
     _post(f"/shops/{shop_id}/orders/{printify_order_id}/send_to_production.json", token)

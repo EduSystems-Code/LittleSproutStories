@@ -20,7 +20,10 @@ ADDR = {
 }
 
 
-def test_build_order_payload_maps_variant_and_address():
+CONTACT = {"contact_email": "orders@example.test", "contact_phone": "555-0100"}
+
+
+def test_build_order_payload_sized_product():
     order = Order(id=7, token="tok_abc", product_id="tshirt", amount_cents=2000)
     fulfillment = Fulfillment(
         recipient_name="Jane Q Parent", variant="YM",
@@ -31,20 +34,52 @@ def test_build_order_payload_maps_variant_and_address():
         "name": "Little Sprout T-Shirt",
         "variants": ["YS", "YM", "YL"],
         "printify": {
-            "blueprint_id": 5, "print_provider_id": 9, "image_id": "img_1",
+            "blueprint_id": 5, "print_provider_id": 9,
+            "image_url": "https://img.example/tee.png",
+            "variant_id": None,
             "variants": {"YS": 100, "YM": 101, "YL": 102},
         },
     }
 
-    payload = build_order_payload(fulfillment, order, product)
+    payload = build_order_payload(fulfillment, order, product, **CONTACT)
 
+    li = payload["line_items"][0]
     assert payload["external_id"] == "tok_abc"
-    assert payload["line_items"][0]["variant_id"] == 101
-    assert payload["line_items"][0]["blueprint_id"] == 5
+    assert li["variant_id"] == 101
+    assert li["blueprint_id"] == 5
+    assert li["print_provider_id"] == 9
+    assert li["print_areas"] == {"front": "https://img.example/tee.png"}
     assert payload["address_to"]["first_name"] == "Jane Q"
     assert payload["address_to"]["last_name"] == "Parent"
     assert payload["address_to"]["address2"] == "Apt 4"
     assert payload["address_to"]["zip"] == "21201"
+    assert payload["address_to"]["email"] == "orders@example.test"
+    assert payload["address_to"]["phone"] == "555-0100"
+
+
+def test_build_order_payload_unsized_product_uses_single_variant_id():
+    order = Order(id=8, token="tok_tote", product_id="tote", amount_cents=1500)
+    fulfillment = Fulfillment(
+        recipient_name="Sam", variant=None,
+        address_line1="1 A St", city="Baltimore", state="MD",
+        postal_code="21201", country="US",
+    )
+    product = {
+        "name": "Little Sprout Library Bag",
+        "variants": None,
+        "printify": {
+            "blueprint_id": 42, "print_provider_id": 7,
+            "image_url": "https://img.example/tote.png",
+            "variant_id": 999, "variants": {},
+        },
+    }
+
+    payload = build_order_payload(fulfillment, order, product, **CONTACT)
+
+    assert payload["line_items"][0]["variant_id"] == 999
+    # single-word name repeated so neither Printify name field is blank
+    assert payload["address_to"]["first_name"] == "Sam"
+    assert payload["address_to"]["last_name"] == "Sam"
 
 
 def test_create_and_produce_order_unconfigured_raises():
@@ -114,7 +149,8 @@ def test_variant_on_non_variant_product_rejected(client, db_session):
 
 
 def test_catalog_shop_products_all_have_printify_mapping():
+    expected = {"blueprint_id", "print_provider_id", "image_url", "variant_id", "variants"}
     for pid, product in PRODUCTS.items():
         if product.get("fulfillment") == "printify":
             assert "printify" in product, pid
-            assert set(product["printify"]) == {"blueprint_id", "print_provider_id", "image_id", "variants"}, pid
+            assert set(product["printify"]) == expected, pid

@@ -31,6 +31,12 @@ class Settings(BaseSettings):
     # API tokens (order-write scope), NOT a Shopify token.
     printify_api_token: str | None = None
     printify_shop_id: str | None = None
+    # Printify requires a contact email + phone on every shipment. The
+    # address form collects neither, so this is the operator's own
+    # fallback contact (not the buyer's). Unset -> the order falls back to
+    # manual handling, same as a missing token.
+    printify_fallback_email: str | None = None
+    printify_fallback_phone: str | None = None
 
     # The reward box: poster, certificate, sticker sheet, bookmark, button.
     # Priced to cover item cost (~$1.50-2.65), packaging (~$0.30), postage

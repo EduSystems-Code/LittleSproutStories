@@ -23,23 +23,32 @@ Every entry declares how it ships:
   hands addresses to the 3PL, then marks each row sent. No API call.
 
 The ``"printify"`` mapping is a stub until a real Printify account
-exists -- ``blueprint_id`` / ``print_provider_id`` / ``image_id`` are the
-numeric ids from Printify's catalog + uploaded artwork, and ``variants``
-maps each catalog size key (``PRODUCTS[...]["variants"]``) to a Printify
-variant id. ``printify_mapping_ready()`` reports whether a mapping is
-complete enough to actually place an order.
+exists. Fill it from Printify's catalog + your uploaded artwork:
+
+* ``blueprint_id`` / ``print_provider_id`` -- ints from the Printify
+  catalog, for the exact product and print shop.
+* ``image_url`` -- the print image: a public ``https`` URL (or the id of
+  an image already uploaded to Printify).
+* ``variant_id`` -- the single Printify variant id, for a product with
+  **no** size axis (``"variants": None`` in the catalog).
+* ``variants`` -- for a product **with** sizes, a map from each catalog
+  size key (``PRODUCTS[...]["variants"]``) to its Printify variant id,
+  e.g. ``{"YM": 12345}``; leave ``variant_id`` ``None`` in that case.
+
+``printify_mapping_ready()`` reports whether a mapping is complete enough
+to actually place an order.
 """
 
 def _unmapped_printify() -> dict:
     """A fresh, all-placeholder Printify mapping. A factory (not a shared
-    module constant) so each product owns its own nested ``variants``
-    dict -- filling one in later can't leak into the others."""
+    module constant) so each product owns its own nested dicts -- filling
+    one in later can't leak into the others."""
     return {
         "blueprint_id": None,
         "print_provider_id": None,
-        "image_id": None,
-        # size-key -> Printify variant id, e.g. {"YM": 12345}
-        "variants": {},
+        "image_url": None,
+        "variant_id": None,   # a product with no size axis
+        "variants": {},        # size-key -> Printify variant id, for a sized product
     }
 
 
@@ -154,14 +163,15 @@ def known_variants(product_id: str) -> list[str] | None:
 def printify_mapping_ready(product: dict) -> bool:
     """True when the product's Printify mapping has enough real ids to
     place an order: a blueprint, a print provider, an artwork image, and
-    -- if the product has sizes -- a Printify variant id for every one."""
+    a Printify variant id -- one per catalog size if the product has
+    sizes, otherwise the single ``variant_id``."""
     mapping = product.get("printify")
     if not mapping:
         return False
-    if not (mapping.get("blueprint_id") and mapping.get("print_provider_id") and mapping.get("image_id")):
+    if not (mapping.get("blueprint_id") and mapping.get("print_provider_id") and mapping.get("image_url")):
         return False
     sizes = product.get("variants")
     if sizes:
         mapped = mapping.get("variants") or {}
         return all(size in mapped for size in sizes)
-    return True
+    return bool(mapping.get("variant_id"))
