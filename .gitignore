@@ -22,3 +22,8 @@ LittleSprout_Character_Sheet*.zip
 
 # Standalone offline builds (regenerated, not source)
 dist/
+
+# Pre-consolidation checkout of the backend, now vendored as rewards-api/.
+# Kept on disk until PR #2 merges, then delete it. Ignored so `git add -A`
+# can't accidentally stage it as an embedded repo / gitlink.
+LittleSprout-Rewards/

@@ -1,0 +1,53 @@
+# Render Blueprint for the Little Sprout rewards / Shop / cork-board API.
+#
+# This service lives in a subdirectory of the (otherwise static) site repo.
+# `rootDir` tells Render to build and run from here; GitHub Pages serves the
+# static site from the repo root and ignores this folder.
+#
+# The service name is kept as `littlesprout-rewards` on purpose so the
+# public URL stays https://littlesprout-rewards.onrender.com -- that is the
+# value already hardcoded as API_BASE in shop.html / rewards.html / board.html.
+#
+# Secrets are set in the Render dashboard, never committed. `sync: false`
+# below means "prompt me for this, do not read it from the blueprint":
+#   STRIPE_API_KEY, STRIPE_WEBHOOK_SECRET, PRINTIFY_API_TOKEN,
+#   PRINTIFY_SHOP_ID, ADMIN_PASSWORD, ADMIN_SESSION_SECRET
+#
+# KNOWN LIMITATION: Render's free plan has an ephemeral filesystem, so the
+# SQLite file at data/rewards.db is wiped on every deploy and on cold start.
+# That is fine for a first smoke test but NOT for holding real pending
+# mailing addresses -- before going live, either move to a paid plan with a
+# persistent disk, or switch DATABASE_URL to a managed Postgres instance.
+
+services:
+  - type: web
+    name: littlesprout-rewards
+    runtime: python
+    plan: free
+    rootDir: rewards-api
+    buildCommand: pip install -r requirements.txt && alembic upgrade head
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    envVars:
+      - key: ALLOWED_ORIGINS
+        value: https://edusystems-code.github.io
+      - key: SHOP_PAGE_URL
+        value: https://edusystems-code.github.io/LittleSproutStories/shop.html
+      - key: REWARDS_PAGE_URL
+        value: https://edusystems-code.github.io/LittleSproutStories/rewards.html
+      - key: DATABASE_URL
+        value: sqlite:///./data/rewards.db
+      - key: RETENTION_DAYS_AFTER_SENT
+        value: "90"
+      - key: STRIPE_API_KEY
+        sync: false
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false
+      - key: PRINTIFY_API_TOKEN
+        sync: false
+      - key: PRINTIFY_SHOP_ID
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: ADMIN_SESSION_SECRET
+        sync: false
