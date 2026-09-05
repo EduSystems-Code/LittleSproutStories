@@ -22,6 +22,11 @@ SKIP_DIRS = {".git", "node_modules", "scripts"}
 def is_local(url: str) -> bool:
     if not url or url.startswith(("#", "mailto:", "tel:", "javascript:")):
         return False
+    # href/src inside a <script> that builds markup from a JS template
+    # literal ("...href=\"${x}\"...") or a {{handlebars}} placeholder --
+    # not a real static path, nothing to resolve on disk.
+    if "${" in url or "{{" in url:
+        return False
     parsed = urllib.parse.urlparse(url)
     return not parsed.scheme and not parsed.netloc
 

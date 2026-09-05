@@ -22,6 +22,7 @@ TOP_LEVEL_PAGES = [
                   # that's not listed separately (avoids a duplicate-URL
                   # signal to search engines for one page)
     ("characters.html", "0.7"),
+    ("book-nook.html", "0.6"),
     ("grants.html", "0.6"),
     ("stats.html", "0.6"),
     ("privacy.html", "0.3"),
