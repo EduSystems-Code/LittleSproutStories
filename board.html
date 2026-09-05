@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#5BA672">
+<title>Community Board | LittleSprout</title>
+<meta name="description" content="Events, articles, and groups shared by LittleSprout families -- reviewed before they're posted.">
+<link rel="manifest" href="manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sprout:#5BA672; --sprout-dark:#3C7A52; --sprout-deep:#2C5C3D;
+    --cream:#FBF6EC; --cream-deep:#F3EAD6; --paper-line:#E7DCC4;
+    --sky:#BFE3FA; --sky-deep:#185FA5; --sun:#FFD24A; --sun-deep:#E1A400;
+    --bark:#36402C; --bark-soft:#555D48; --loss:#C6453B;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Nunito',sans-serif; background:var(--cream); color:var(--bark); line-height:1.65; }
+  h1,h2,h3 { font-family:'Fredoka',sans-serif; font-weight:600; }
+  a { color:var(--sprout-dark); }
+  .wrap { max-width:760px; margin:0 auto; padding:0 24px; }
+
+  .nav { position:sticky; top:0; z-index:50; background:rgba(251,246,236,.9); backdrop-filter:blur(10px); border-bottom:1px solid var(--paper-line); }
+  .nav-inner { display:flex; align-items:center; justify-content:space-between; height:70px; max-width:1120px; margin:0 auto; padding:0 24px; }
+  .logo { display:flex; align-items:center; gap:10px; font-family:'Fredoka',sans-serif; font-weight:700; font-size:22px; color:var(--sprout-deep); text-decoration:none; }
+  .logo-mark { width:34px; height:34px; }
+  .nav-links a { font-weight:700; font-size:15px; color:var(--bark-soft); text-decoration:none; margin-left:24px; }
+  .nav-links a:hover { color:var(--sprout-dark); }
+
+  .head { text-align:center; padding:52px 0 26px; }
+  .head .eyebrow { display:inline-block; background:var(--sky); color:var(--sky-deep); font-weight:800; font-size:13px; letter-spacing:1px; text-transform:uppercase; padding:7px 16px; border-radius:50px; margin-bottom:16px; }
+  .head h1 { font-size:clamp(28px,5vw,40px); margin-bottom:10px; }
+  .head p { color:var(--bark-soft); font-weight:600; }
+
+  main.wrap { padding-bottom:60px; }
+
+  .section-title { font-size:20px; margin:32px 0 14px; }
+  .section-title:first-child { margin-top:0; }
+
+  .post-list { display:flex; flex-direction:column; gap:12px; }
+  .post-card { background:#fff; border:1px solid var(--paper-line); border-radius:16px; padding:18px 20px; box-shadow:0 3px 10px rgba(54,64,44,.05); }
+  .post-tag { display:inline-block; font-size:11px; font-weight:800; letter-spacing:.4px; text-transform:uppercase;
+    padding:3px 10px; border-radius:50px; margin-bottom:8px; }
+  .post-tag.event { background:var(--sky); color:var(--sky-deep); }
+  .post-tag.article { background:#FCE0EE; color:#9C2E63; }
+  .post-tag.group { background:var(--cream-deep); color:var(--sprout-dark); }
+  .post-tag.other { background:#EDEAE0; color:var(--bark-soft); }
+  .post-card h3 { font-size:17px; margin-bottom:4px; }
+  .post-date { font-size:13px; color:var(--sprout-dark); font-weight:700; margin-bottom:6px; }
+  .post-card p { color:var(--bark-soft); font-weight:600; font-size:14px; margin-bottom:8px; }
+  .post-card a.post-link { font-weight:700; font-size:13.5px; }
+
+  .empty { text-align:center; color:var(--bark-soft); font-weight:600; padding:20px 0; }
+
+  .card { background:#fff; border:1px solid var(--paper-line); border-radius:20px; padding:28px; box-shadow:0 4px 14px rgba(54,64,44,.06); }
+  .card h2 { font-size:20px; margin-bottom:10px; }
+  .card p { margin-bottom:12px; color:var(--bark-soft); font-weight:600; }
+
+  .btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; background:var(--sprout); color:#fff;
+    border:none; padding:13px 22px; font-size:15.5px; font-weight:600; font-family:inherit; border-radius:30px; cursor:pointer;
+    text-decoration:none; width:100%; transition:transform .12s, box-shadow .12s; box-shadow:0 3px 0 var(--sprout-dark); }
+  .btn:hover { transform:translateY(-1px); box-shadow:0 4px 0 var(--sprout-dark); }
+  .btn:disabled { opacity:.6; cursor:default; transform:none; }
+  .btn-ghost { background:#fff; color:var(--sprout-dark); border:2px solid var(--sprout); box-shadow:none; }
+
+  label { display:block; font-weight:700; font-size:14px; margin:14px 0 5px; }
+  input, select, textarea { width:100%; padding:11px 13px; border-radius:10px; border:1.5px solid var(--paper-line);
+    font-family:inherit; font-size:15px; background:var(--cream); }
+  textarea { resize:vertical; min-height:90px; }
+  input:focus, select:focus, textarea:focus { outline:2px solid var(--sky-deep); outline-offset:1px; border-color:var(--sky-deep); }
+  .hint { font-size:13px; color:var(--bark-soft); font-weight:600; margin-top:4px; }
+
+  .status-line { text-align:center; font-weight:700; color:var(--bark-soft); padding:24px 0; }
+  .status-line.error { color:var(--loss); }
+
+  .confirm-icon { font-size:44px; text-align:center; margin-bottom:6px; }
+  .confirm h2 { text-align:center; }
+  .confirm p { text-align:center; }
+
+  .footer { background:var(--bark); color:#D9DDD0; padding:38px 0 26px; margin-top:20px; }
+  .footer a { color:#A8AE9C; font-weight:600; font-size:14px; margin-right:18px; text-decoration:none; }
+  .footer a:hover { color:var(--sun); }
+
+  :focus-visible { outline:3px solid var(--sky-deep); outline-offset:3px; border-radius:6px; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      <svg class="logo-mark" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+        <path d="M20 36 C20 26 20 20 20 16" stroke="#3C7A52" stroke-width="3.5" stroke-linecap="round"/>
+        <path d="M20 22 C14 22 9 18 8 11 C16 11 20 15 20 22 Z" fill="#5BA672"/>
+        <path d="M20 18 C26 17 31 12 31 6 C24 6 20 11 20 18 Z" fill="#7CC68E"/>
+        <circle cx="20" cy="37" r="2.2" fill="#E1A400"/>
+      </svg>
+      LittleSprout
+    </a>
+    <div class="nav-links">
+      <a href="index.html#library">Books</a>
+      <a href="shop.html">Shop</a>
+      <a href="privacy.html">Privacy</a>
+    </div>
+  </div>
+</nav>
+
+<header class="head">
+  <div class="wrap">
+    <span class="eyebrow">📌 Community board</span>
+    <h1>What's happening</h1>
+    <p>Events, articles, and groups shared by LittleSprout families &mdash; every post is reviewed before it appears here.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div id="board"></div>
+
+  <h2 class="section-title">Share something</h2>
+  <div id="submitApp"></div>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <a href="index.html#library">Books</a>
+    <a href="shop.html">Shop</a>
+    <a href="privacy.html">Privacy</a>
+  </div>
+</footer>
+
+<script>
+  // TODO: swap in the real deployed backend URL once Render deployment is
+  // live -- see LittleSprout-Rewards/README.md.
+  const API_BASE = 'https://littlesprout-rewards.onrender.com/api';
+
+  const board = document.getElementById('board');
+  const submitApp = document.getElementById('submitApp');
+
+  const CATEGORY_LABELS = { event: 'Event', article: 'Article', group: 'Group', other: 'Other' };
+
+  function el(html) {
+    const div = document.createElement('div');
+    div.innerHTML = html.trim();
+    return div.firstElementChild;
+  }
+
+  function escapeHtml(s) {
+    const d = document.createElement('div');
+    d.textContent = s == null ? '' : s;
+    return d.innerHTML;
+  }
+
+  function formatDate(iso) {
+    if (!iso) return '';
+    const d = new Date(iso + 'T00:00:00');
+    return d.toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' });
+  }
+
+  function postCardHtml(p) {
+    const tag = CATEGORY_LABELS[p.category] || 'Other';
+    const dateLine = p.event_date ? `<div class="post-date">${formatDate(p.event_date)}</div>` : '';
+    const link = p.url ? `<a class="post-link" href="${escapeHtml(p.url)}" target="_blank" rel="noopener">Learn more &#8594;</a>` : '';
+    return `
+      <div class="post-card">
+        <span class="post-tag ${p.category}">${tag}</span>
+        ${dateLine}
+        <h3>${escapeHtml(p.title)}</h3>
+        <p>${escapeHtml(p.description)}</p>
+        ${link}
+      </div>
+    `;
+  }
+
+  async function loadBoard() {
+    board.innerHTML = '<p class="status-line">Loading&hellip;</p>';
+    try {
+      const res = await fetch(API_BASE + '/board/posts');
+      if (!res.ok) throw new Error('bad response');
+      const posts = await res.json();
+      if (!posts.length) {
+        board.innerHTML = '<p class="empty">Nothing posted yet &mdash; be the first to share something below!</p>';
+        return;
+      }
+      board.innerHTML = '<div class="post-list">' + posts.map(postCardHtml).join('') + '</div>';
+    } catch (e) {
+      board.innerHTML = '<p class="empty">The board couldn\'t load right now &mdash; check back soon.</p>';
+    }
+  }
+
+  function showSubmitForm() {
+    submitApp.innerHTML = '';
+    const form = el(`
+      <form class="card" id="submitForm">
+        <p>Submissions are reviewed before they go live &mdash; yours won't appear immediately, and we'll only use your email if we have a question about it.</p>
+
+        <label for="category">Type</label>
+        <select id="category" name="category" required>
+          <option value="event">Event / gathering</option>
+          <option value="article">Article</option>
+          <option value="group">Facebook group / community</option>
+          <option value="other">Other</option>
+        </select>
+
+        <label for="title">Title</label>
+        <input id="title" name="title" type="text" required maxlength="140">
+
+        <label for="description">Description</label>
+        <textarea id="description" name="description" required maxlength="2000"></textarea>
+
+        <label for="url">Link <span class="hint">(optional)</span></label>
+        <input id="url" name="url" type="url" placeholder="https://">
+
+        <label for="eventDate">Event date <span class="hint">(only for events)</span></label>
+        <input id="eventDate" name="eventDate" type="date">
+
+        <label for="submitterName">Your name <span class="hint">(optional)</span></label>
+        <input id="submitterName" name="submitterName" type="text" autocomplete="name">
+
+        <label for="submitterEmail">Your email <span class="hint">(optional, in case we have a question)</span></label>
+        <input id="submitterEmail" name="submitterEmail" type="email" autocomplete="email">
+
+        <button class="btn" type="submit" style="margin-top:16px">Submit for review &#8594;</button>
+        <p class="status-line error" id="formError" hidden></p>
+      </form>
+    `);
+    submitApp.appendChild(form);
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      submitPost({
+        category: form.category.value,
+        title: form.title.value,
+        description: form.description.value,
+        url: form.url.value || null,
+        event_date: form.eventDate.value || null,
+        submitter_name: form.submitterName.value || null,
+        submitter_email: form.submitterEmail.value || null,
+      });
+    });
+  }
+
+  function showConfirmation() {
+    submitApp.innerHTML = '';
+    submitApp.appendChild(el(`
+      <div class="card confirm">
+        <div class="confirm-icon" aria-hidden="true">📝</div>
+        <h2>Thanks!</h2>
+        <p>Your post is waiting for review and will appear on the board once approved.</p>
+        <button class="btn btn-ghost" id="postAnotherBtn" type="button">Share something else</button>
+      </div>
+    `));
+    document.getElementById('postAnotherBtn').addEventListener('click', showSubmitForm);
+  }
+
+  async function submitPost(payload) {
+    const errorEl = document.getElementById('formError');
+    const submitBtn = document.querySelector('#submitForm button[type=submit]');
+    if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Sending…'; }
+    try {
+      const res = await fetch(API_BASE + '/board/posts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (res.status === 201) {
+        showConfirmation();
+        return;
+      }
+      if (errorEl) {
+        errorEl.hidden = false;
+        errorEl.textContent = 'Something went wrong sending that — please check the form and try again.';
+      }
+    } catch (e) {
+      if (errorEl) {
+        errorEl.hidden = false;
+        errorEl.textContent = 'The board isn\'t reachable right now — please try again soon.';
+      }
+    } finally {
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Submit for review →'; }
+    }
+  }
+
+  loadBoard();
+  showSubmitForm();
+</script>
+</body>
+</html>

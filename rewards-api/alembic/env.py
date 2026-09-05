@@ -12,7 +12,9 @@ if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
 settings = get_settings()
-config.set_main_option("sqlalchemy.url", settings.database_url)
+# Normalised so `alembic upgrade` uses the same driver as the app engine
+# (postgres:// / bare postgresql:// -> postgresql+psycopg://).
+config.set_main_option("sqlalchemy.url", settings.sqlalchemy_url)
 
 target_metadata = Base.metadata
 

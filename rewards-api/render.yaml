@@ -8,16 +8,18 @@
 # public URL stays https://littlesprout-rewards.onrender.com -- that is the
 # value already hardcoded as API_BASE in shop.html / rewards.html / board.html.
 #
-# Secrets are set in the Render dashboard, never committed. `sync: false`
-# below means "prompt me for this, do not read it from the blueprint":
-#   STRIPE_API_KEY, STRIPE_WEBHOOK_SECRET, PRINTIFY_API_TOKEN,
-#   PRINTIFY_SHOP_ID, ADMIN_PASSWORD, ADMIN_SESSION_SECRET
+# Secrets and the DB URL are set in the Render dashboard, never committed.
+# `sync: false` below means "prompt me for this, do not read it from the
+# blueprint": STRIPE_API_KEY, STRIPE_WEBHOOK_SECRET, PRINTIFY_API_TOKEN,
+# PRINTIFY_SHOP_ID, ADMIN_PASSWORD, ADMIN_SESSION_SECRET, DATABASE_URL.
 #
-# KNOWN LIMITATION: Render's free plan has an ephemeral filesystem, so the
-# SQLite file at data/rewards.db is wiped on every deploy and on cold start.
-# That is fine for a first smoke test but NOT for holding real pending
-# mailing addresses -- before going live, either move to a paid plan with a
-# persistent disk, or switch DATABASE_URL to a managed Postgres instance.
+# DATABASE: the app defaults to SQLite, but Render's filesystem is
+# ephemeral -- a SQLite file here is wiped on every deploy, losing every
+# pending mailing address. So DATABASE_URL MUST point at a real Postgres.
+# The code is Postgres-ready (psycopg v3; postgres:// URLs are normalised
+# in app/config.py). Any provider works -- Render's own managed Postgres,
+# or a free tier elsewhere (Neon, Supabase). Pick one, create the DB, and
+# paste its connection URL into DATABASE_URL below.
 
 services:
   - type: web
@@ -36,7 +38,7 @@ services:
       - key: REWARDS_PAGE_URL
         value: https://edusystems-code.github.io/LittleSproutStories/rewards.html
       - key: DATABASE_URL
-        value: sqlite:///./data/rewards.db
+        sync: false   # a Postgres connection URL -- see the note at the top
       - key: RETENTION_DAYS_AFTER_SENT
         value: "90"
       - key: STRIPE_API_KEY
