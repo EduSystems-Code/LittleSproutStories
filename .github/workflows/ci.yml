@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  backend:
+    name: rewards-api tests
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: rewards-api
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: rewards-api/requirements.txt
+      - run: pip install -r requirements.txt
+      - run: python -m pytest -q
+
+  site:
+    name: static site checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Broken internal links
+        run: python scripts/link_check.py
+      # CACHE_VERSION enforcement lives in the pre-push hook
+      # (scripts/cache_bump_guard.py) -- it needs the real push range,
+      # which CI doesn't have, so it isn't duplicated here.
