@@ -23,6 +23,7 @@ TOP_LEVEL_PAGES = [
                   # signal to search engines for one page)
     ("characters.html", "0.7"),
     ("book-nook.html", "0.6"),
+    ("resources.html", "0.7"),
     ("grants.html", "0.6"),
     ("stats.html", "0.6"),
     ("privacy.html", "0.3"),
