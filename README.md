@@ -1,8 +1,8 @@
 # LittleSprout Stories
 
-Interactive phonics storybooks and feelings games for early readers, ages 4–7.
+Interactive phonics storybooks for early readers ages 4–7, plus games spanning ages 3–9.
 
-Fourteen storybooks and three games starring Maya, Marcus, Sophie, and James, built on a
+Fourteen storybooks and six games starring Maya, Marcus, Sophie, and James, built on a
 "Double Engine" model: every page pairs decodable phonics text with a social-emotional
 learning beat.
 
@@ -21,7 +21,7 @@ sw.js               Service worker — offline support
 assets/sprites/     87 character PNGs, shared by every page
 assets/icons/       App icons for installed/home-screen use
 books/              14 storybooks (~23KB each, reference assets/sprites/)
-games/              3 games (currently self-contained w/ embedded art)
+games/              6 games (ages 3-9, all reference assets/sprites/)
 rewards-api/        FastAPI backend — reward box, Shop, cork board. Deploys
                     separately to Render; GitHub Pages ignores this folder.
 .nojekyll           Tells GitHub Pages to serve files as-is
@@ -121,23 +121,29 @@ old cached copy. This is the single most common cause of "I pushed a fix but it 
 
 These are real gaps, documented so nobody mistakes them for finished work:
 
-- ~~Backgrounds~~ — done. Real illustrated art (`assets/backgrounds/`) via
-  `scripts/import_background_art.py`, sourced from BackgroundForge exports in
-  `raw_art/backgrounds/`. All twelve `backdrop-*` locations, including
-  `backdrop-police`, now use real art instead of a flat gradient. Mr.
-  Rodriguez's specific classroom (`backdrop-classroom`) is wired to Book5's
-  one page that actually features him as the on-page helper; every other
+- ~~Backgrounds~~ — done, refreshed 2026-09-11. Real illustrated art
+  (`assets/backgrounds/`) via `scripts/import_background_art.py`. 12 of
+  the 13 `backdrop-*` locations got a full 5-variant overhaul (var1 is
+  what every book still points at via `<class>.jpg`; `<class>_1..5.jpg`
+  are all kept, and the 6 games now each use one as a page background).
+  `backdrop-center` (community center) never got a batch in this round —
+  still the original single-variant art from 2026-08-24, in
+  `raw_art/backgrounds/archive_v1_single-variant/`. Mr. Rodriguez's
+  specific classroom (`backdrop-classroom`) stays wired to Book5's one
+  page that actually features him as the on-page helper; every other
   School-related page (including Book5's other rooms and Book15's
   classroom-flavored recap) stays on `backdrop-school`'s general room.
 - **Helper characters.** The eleven community helpers — Alex, Jasmine, Ms. Chen,
   Dr. Patel, Mr. Rodriguez, Mr. Smith, Keisha, Tom, Rose, David, Nurse Aisha — render as
   an emoji plus a name label in a `.helper-slot` div. The series is named after these
   characters and none of them are drawn yet.
-- ~~Games still embed their art~~ — done. All three games (`games/*.html`)
-  now reference `assets/sprites/` instead of ~3.6MB of embedded base64 —
-  the `SPRITES` lookup object's values are relative paths, not data URIs.
-  Games use the `happy` expression exclusively (they're not narrative
-  scenes, so only one expression per pose was ever embedded).
+- ~~Games still embed their art~~ — done. All six games (`games/*.html`)
+  reference `assets/sprites/` directly, not embedded base64. The original
+  three use the `happy` expression exclusively (they're not narrative
+  scenes). Added 2026-09-11: **Feelings Faces** (ages 3–5, name-the-
+  feeling, uses all five expressions), **Rhyme Time** (ages 5–7, rhyme
+  awareness), and **Sentence Builder** (ages 6–9, word-order practice) —
+  all three use only existing `assets/sprites/` art, no new art needed.
 
 ---
 

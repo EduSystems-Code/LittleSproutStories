@@ -1,0 +1,141 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Feelings Faces — LittleSprout</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--sprout:#5BA672;--sprout-dark:#3C7A52;--sprout-deep:#2C5C3D;--cream:#FBF6EC;--cream-deep:#F3EAD6;
+--paper-line:#E7DCC4;--sky:#BFE3FA;--sky-deep:#185FA5;--sun:#FFD24A;--sun-deep:#E1A400;--berry:#B0488C;
+--bark:#36402C;--bark-soft:#5E6650;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',sans-serif;color:var(--bark);min-height:100vh;
+ background-color:var(--cream);
+ background-image:linear-gradient(rgba(251,246,236,.6),rgba(251,246,236,.6)),url('../assets/backgrounds/garden_2.jpg');
+ background-size:cover;background-position:center;background-repeat:no-repeat;
+ display:flex;flex-direction:column;align-items:center;padding:18px;line-height:1.5}
+h1,h2,h3,button{font-family:'Fredoka',sans-serif;font-weight:600}
+.topbar{width:100%;max-width:860px;display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.back{font-family:'Fredoka',sans-serif;font-weight:600;font-size:15px;color:var(--sprout-dark);
+ background:#fff;border:2px solid var(--paper-line);border-radius:50px;padding:9px 18px;text-decoration:none}
+.back:hover{border-color:var(--sprout)}
+.stars{font-size:22px;letter-spacing:2px;min-height:28px}
+.title{text-align:center;margin-bottom:6px;font-size:clamp(26px,5vw,38px);color:var(--bark)}
+.sub{text-align:center;color:var(--bark-soft);font-weight:700;margin-bottom:22px;font-size:16px}
+.panel{background:#fff;border:1px solid var(--paper-line);border-radius:26px;padding:26px;
+ box-shadow:0 8px 26px rgba(54,64,44,.08);width:100%;max-width:860px}
+.btn{background:var(--sun);color:#5A4200;border:none;border-radius:50px;padding:14px 30px;font-size:18px;
+ box-shadow:0 5px 0 var(--sun-deep);cursor:pointer;transition:transform .12s,box-shadow .12s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 7px 0 var(--sun-deep)}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 var(--sun-deep)}
+.btn.green{background:var(--sprout);color:#fff;box-shadow:0 5px 0 var(--sprout-dark)}
+.btn.green:hover{box-shadow:0 7px 0 var(--sprout-dark)}
+.center{text-align:center}
+.row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+:focus-visible{outline:3px solid var(--sky-deep);outline-offset:3px;border-radius:8px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+.prompt{text-align:center;font-family:'Fredoka',sans-serif;font-weight:600;font-size:24px;color:var(--sprout-deep);margin-bottom:18px}
+.prompt-emoji{font-size:34px;vertical-align:middle;margin-right:8px}
+.stage{display:flex;justify-content:center;align-items:flex-end;gap:14px;min-height:250px;flex-wrap:wrap}
+.face-tile{width:150px;text-align:center;background:#fff;border:4px solid var(--paper-line);border-radius:22px;padding:10px 6px;cursor:pointer;transition:.15s}
+.face-tile:hover{border-color:var(--sprout);transform:translateY(-3px)}
+.face-tile img{width:100%;height:190px;object-fit:contain}
+.face-tile b{display:block;font-family:'Fredoka',sans-serif;font-weight:600;font-size:16px;color:var(--sprout-deep);margin-top:4px}
+.face-tile.right{background:#E8F4DC;border-color:var(--sprout)}
+.face-tile.wrong{background:#FCE0EE;border-color:var(--berry)}
+.msg{text-align:center;font-family:'Fredoka',sans-serif;font-weight:600;font-size:20px;
+ color:var(--sprout-deep);min-height:34px;margin-top:16px}
+body.easyread{letter-spacing:.03em;word-spacing:.1em}body.easyread .hint,body.easyread .sub{line-height:1.9}.topbar-right{display:flex;align-items:center;gap:10px}.aa{font-family:'Fredoka',sans-serif;font-weight:600;font-size:15px;color:var(--sprout-dark);background:#fff;border:2px solid var(--paper-line);border-radius:50px;padding:8px 16px;cursor:pointer}.aa[aria-pressed="true"]{background:var(--sprout);color:#fff;border-color:var(--sprout)}.btn,.tile,.aa,.back{transition:transform .12s ease}.btn:active,.tile:not(:disabled):active,.aa:active,.back:active{transform:scale(.93)}.confetti-piece{position:fixed;top:-12px;width:10px;height:14px;opacity:.95;pointer-events:none;z-index:999;animation:confettiFall linear forwards}@keyframes confettiFall{to{transform:translateY(110vh) rotate(560deg);opacity:.6}}@media(prefers-reduced-motion:reduce){.btn:active,.tile:active,.aa:active,.back:active{transform:none}.confetti-piece{display:none}}</style></head><body>
+<div class="topbar"><a class="back" href="../index.html">&#8592; Back</a><div class="topbar-right"><button type="button" class="aa" id="easyBtn" onclick="toggleEasy()" aria-pressed="false" title="Easier-to-read spacing">Aa</button><button type="button" class="aa" id="muteBtn" onclick="toggleMute()" aria-pressed="false" title="Sound on/off">🔊</button><div class="stars" id="stars"></div></div></div>
+<h1 class="title">Feelings Faces</h1>
+<p class="sub">Look at the faces. Can you find the right feeling?</p>
+<div class="panel">
+  <div class="prompt" id="prompt"></div>
+  <div class="stage" id="stage"></div>
+  <div class="msg" id="msg"></div>
+</div>
+<script>
+const CHARS=[["maya","Maya"],["marcus","Marcus"],["sophie","Sophie"],["james","James"]];
+const EXPRESSIONS=["happy","sad","surprised","frustrated","neutral"];
+const EXPR_EMOJI={happy:"😊",sad:"😢",surprised:"😲",frustrated:"😤",neutral:"😐"};
+const EXPR_LABEL={happy:"Happy",sad:"Sad",surprised:"Surprised",frustrated:"Frustrated",neutral:"Calm"};
+const POSES=["standing","waving","hands","looking"];
+const promptEl=document.getElementById('prompt'), stage=document.getElementById('stage'),
+      msg=document.getElementById('msg'), starEl=document.getElementById('stars');
+let stars=0, target=null, roundChars=[], lock=false;
+
+function say(t){ try{const u=new SpeechSynthesisUtterance(t);u.rate=.85;u.pitch=1.15;speechSynthesis.speak(u);}catch(e){} }
+function drawStars(){ starEl.textContent="⭐".repeat(Math.min(stars,10)); }
+function spritePath(id,expr,p){ return '../assets/sprites/'+id+'_'+expr+'_'+p+'.png'; }
+function randomPose(){ return POSES[Math.floor(Math.random()*POSES.length)]; }
+
+function newRound(){
+  lock=false;
+  const targetExpr=EXPRESSIONS[Math.floor(Math.random()*EXPRESSIONS.length)];
+  const targetIdx=Math.floor(Math.random()*CHARS.length);
+  roundChars=CHARS.map(([id,name],i)=>{
+    let expr;
+    if(i===targetIdx){ expr=targetExpr; }
+    else { do{ expr=EXPRESSIONS[Math.floor(Math.random()*EXPRESSIONS.length)]; } while(expr===targetExpr); }
+    return {id:id,name:name,expr:expr,pose:randomPose()};
+  });
+  target=targetExpr;
+  promptEl.innerHTML='<span class="prompt-emoji">'+EXPR_EMOJI[targetExpr]+'</span>Who feels <b>'+EXPR_LABEL[targetExpr]+'</b>?';
+  say('Who feels '+EXPR_LABEL[targetExpr]+'?');
+  renderStage();
+  msg.textContent='Tap the friend who feels this way.';
+}
+
+function renderStage(){
+  stage.innerHTML='';
+  roundChars.forEach(c=>{
+    const b=document.createElement('button');
+    b.className='face-tile'; b.setAttribute('aria-label',c.name);
+    b.innerHTML='<img alt="'+c.name+'" src="'+spritePath(c.id,c.expr,c.pose)+'"><b>'+c.name+'</b>';
+    b.onclick=()=>guess(b,c);
+    stage.appendChild(b);
+  });
+}
+
+function guess(btn,c){
+  if(lock)return;
+  if(c.expr===target){
+    lock=true; btn.classList.add('right');
+    stars=Math.min(10,stars+1); drawStars(); saveGameStars(stars); sfxSuccess();
+    if(stars%5===0)confettiBurst();
+    msg.textContent=c.name+' feels '+EXPR_LABEL[c.expr]+'! Great looking.';
+    say(c.name+' feels '+EXPR_LABEL[c.expr]+'!');
+    setTimeout(newRound,1800);
+  } else {
+    btn.classList.add('wrong'); sfxOops();
+    msg.textContent='Not quite — look again.';
+    say('Not quite. Look again.');
+    setTimeout(()=>btn.classList.remove('wrong'),700);
+  }
+}
+
+drawStars(); newRound();
+
+function loadProgress(){try{return JSON.parse(localStorage.getItem('littlesprout')||'{}');}catch(e){return{};}}
+function saveProgress(d){try{localStorage.setItem('littlesprout',JSON.stringify(d));return true;}catch(e){return false;}}
+function toggleEasy(){const on=document.body.classList.toggle('easyread');document.getElementById('easyBtn').setAttribute('aria-pressed',on?'true':'false');const d=loadProgress();d.easyread=on;saveProgress(d);}
+(function initEasy(){if(loadProgress().easyread){document.body.classList.add('easyread');const b=document.getElementById('easyBtn');if(b)b.setAttribute('aria-pressed','true');}})();
+function saveGameStars(n){const d=loadProgress();d.games=d.games||{};const prev=(d.games['feelings_faces']&&d.games['feelings_faces'].stars)||0;d.games['feelings_faces']={stars:Math.max(prev,n),at:Date.now()};saveProgress(d);}
+if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('../sw.js').catch(function(){});});}
+
+let audioCtx=null;
+function getAudioCtx(){if(!audioCtx){try{audioCtx=new (window.AudioContext||window.webkitAudioContext)();}catch(e){}}return audioCtx;}
+function isMuted(){return !!loadProgress().muted;}
+function tone(freq,dur,type,vol){if(isMuted())return;const ctx=getAudioCtx();if(!ctx)return;try{const o=ctx.createOscillator(),g=ctx.createGain();o.type=type||'sine';o.frequency.value=freq;o.connect(g);g.connect(ctx.destination);g.gain.value=vol||0.1;g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+dur);o.start();o.stop(ctx.currentTime+dur);}catch(e){}}
+function sfxPop(){tone(520,.12,'sine',.12);}
+function sfxSuccess(){tone(523,.12,'sine',.1);setTimeout(function(){tone(659,.12,'sine',.1);},90);setTimeout(function(){tone(784,.2,'sine',.12);},180);}
+function sfxOops(){tone(220,.18,'sine',.08);}
+function sfxCheer(){[523,659,784,1047].forEach(function(f,i){setTimeout(function(){tone(f,.18,'sine',.1);},i*100);});}
+function confettiBurst(){
+ if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+ const colors=['#5BA672','#FFD24A','#185FA5','#B0488C','#E8433F'];
+ for(let i=0;i<24;i++){const p=document.createElement('div');p.className='confetti-piece';p.style.left=(Math.random()*100)+'vw';p.style.background=colors[i%colors.length];p.style.animationDuration=(1.4+Math.random()*1.2)+'s';p.style.transform='rotate('+(Math.random()*360)+'deg)';document.body.appendChild(p);setTimeout(function(){p.remove();},3000);}
+}
+function toggleMute(){const d=loadProgress();d.muted=!d.muted;saveProgress(d);const b=document.getElementById('muteBtn');b.textContent=d.muted?'🔇':'🔊';b.setAttribute('aria-pressed',d.muted?'true':'false');}
+(function initMute(){if(loadProgress().muted){const b=document.getElementById('muteBtn');if(b){b.textContent='🔇';b.setAttribute('aria-pressed','true');}}})();
+</script></body></html>

@@ -61,9 +61,19 @@
   .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 7px 0 var(--sun-deep); }
   .btn-ghost { background: #fff; color: var(--sprout-dark); padding: 15px 30px; border-radius: 50px; font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 18px; border: 2px solid var(--sprout); transition: transform 0.12s, background 0.15s; cursor: pointer; }
   .btn-ghost:hover { transform: translateY(-2px); background: #F4FBF6; }
-  .hero-backdrop { max-width: 960px; margin: 46px auto 0; height: 260px; border-radius: 26px; border: 4px solid #fff; box-shadow: 0 18px 44px rgba(54,64,44,0.16); background: linear-gradient(160deg,#BFE3FA 0%,#BFE3FA 55%,#D9EEC6 55%,#D9EEC6 100%); display:flex; align-items:flex-end; justify-content:center; gap:6px; overflow:hidden; }
-  .hero-backdrop img { height: 240px; object-fit: contain; filter: drop-shadow(0 8px 10px rgba(54,64,44,0.15)); }
+  .hero-backdrop { position:relative; max-width: 960px; margin: 46px auto 0; height: 260px; border-radius: 26px; border: 4px solid #fff; box-shadow: 0 18px 44px rgba(54,64,44,0.16); background: linear-gradient(160deg,#BFE3FA 0%,#BFE3FA 55%,#D9EEC6 55%,#D9EEC6 100%); display:flex; align-items:flex-end; justify-content:center; gap:6px; overflow:hidden; }
+  .hero-backdrop img { position:relative; z-index:1; height: 240px; object-fit: contain; filter: drop-shadow(0 8px 10px rgba(54,64,44,0.15)); }
   @media (max-width: 640px) { .hero-backdrop { height: 190px; } .hero-backdrop img { height: 170px; } }
+  /* Slowly cross-fades through book/game settings behind the waving friends --
+     a preview of "the world inside the books" before a child picks one.
+     Pure CSS (no JS): each layer is offset by a negative animation-delay so
+     they take turns, one full tour of all 6 scenes every 40s. Under
+     prefers-reduced-motion the sitewide `animation:none` rule freezes every
+     layer at its resting opacity, and :first-child's opacity:1 makes that a
+     single calm scene instead of a blank box. */
+  .hero-scene { position:absolute; inset:0; background-size:cover; background-position:center; opacity:0; animation:heroFade 40s infinite; }
+  .hero-scene:first-child { opacity:1; }
+  @keyframes heroFade { 0%{opacity:0} 2.5%{opacity:1} 14.17%{opacity:1} 16.67%,100%{opacity:0} }
 
   /* SECTION SHELL */
   .section { padding: 76px 0; scroll-margin-top: 80px; position: relative; overflow: hidden; }
@@ -282,6 +292,12 @@
   </div>
   <div class="wrap">
     <div class="hero-backdrop">
+      <div class="hero-scene" aria-hidden="true" style="background-image:url('assets/backgrounds/garden_1.jpg');animation-delay:0s"></div>
+      <div class="hero-scene" aria-hidden="true" style="background-image:url('assets/backgrounds/library_1.jpg');animation-delay:-33.33s"></div>
+      <div class="hero-scene" aria-hidden="true" style="background-image:url('assets/backgrounds/bakery_1.jpg');animation-delay:-26.67s"></div>
+      <div class="hero-scene" aria-hidden="true" style="background-image:url('assets/backgrounds/firestation_1.jpg');animation-delay:-20s"></div>
+      <div class="hero-scene" aria-hidden="true" style="background-image:url('assets/backgrounds/police_1.jpg');animation-delay:-13.33s"></div>
+      <div class="hero-scene" aria-hidden="true" style="background-image:url('assets/backgrounds/classroom_1.jpg');animation-delay:-6.67s"></div>
       <img src="assets/sprites/maya_happy_waving.png" alt="Maya waving" loading="lazy">
       <img src="assets/sprites/marcus_happy_waving.png" alt="Marcus waving" loading="lazy" style="transform:scaleX(-1)">
       <img src="assets/sprites/sophie_happy_waving.png" alt="Sophie waving" loading="lazy">
@@ -508,7 +524,7 @@
     <div class="section-head">
       <span class="section-eyebrow">Play &amp; Practice</span>
       <h2>Games with the same four friends</h2>
-      <p>Short, replayable activities that practise the skills the books introduce &mdash; sounding out words, reading faces, and paying close attention.</p>
+      <p>Short, replayable activities spanning ages 3&ndash;9 &mdash; sounding out words, naming feelings, rhyming, building sentences, and paying close attention.</p>
     </div>
     <div class="card-grid">
 
@@ -554,6 +570,51 @@
           <p class="card-desc">Match the friend to the feeling and the pose. A playful way to practise reading faces and naming emotions.</p>
           <div class="card-meta"><span class="pill">SEL</span><span class="pill">Ages 4&ndash;7</span></div>
           <a class="card-launch" href="games/pose_parade.html">Play it &#8594;</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-art" style="background:linear-gradient(160deg,#FDEBD3,#F6C87A);">
+          <div class="card-art-chars four"><img src="assets/sprites/maya_happy_standing.png" alt="Maya" loading="lazy"><img src="assets/sprites/marcus_sad_standing.png" alt="Marcus" loading="lazy"><img src="assets/sprites/sophie_surprised_standing.png" alt="Sophie" loading="lazy"><img src="assets/sprites/james_frustrated_standing.png" alt="James" loading="lazy"></div>
+          <span class="card-tag">Ready to play</span>
+        </div>
+        <div class="card-body">
+          <span class="card-kicker">Feelings &middot; Game</span>
+          <h3>Feelings Faces</h3>
+          <span class="card-hint">Hover to read more &#9662;</span>
+          <p class="card-desc">A named feeling, four faces &mdash; tap the friend who feels that way. No reading required, just careful looking.</p>
+          <div class="card-meta"><span class="pill">SEL</span><span class="pill">Ages 3&ndash;5</span></div>
+          <a class="card-launch" href="games/feelings_faces.html">Play it &#8594;</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-art" style="background:linear-gradient(160deg,#D6ECF7,#9BD0F0);">
+          <div class="card-art-chars four"><img src="assets/sprites/maya_happy_waving.png" alt="Maya" loading="lazy"><img src="assets/sprites/marcus_happy_waving.png" alt="Marcus" loading="lazy"><img src="assets/sprites/sophie_happy_waving.png" alt="Sophie" loading="lazy"><img src="assets/sprites/james_happy_waving.png" alt="James" loading="lazy"></div>
+          <span class="card-tag">Ready to play</span>
+        </div>
+        <div class="card-body">
+          <span class="card-kicker">Phonics &middot; Game</span>
+          <h3>Rhyme Time</h3>
+          <span class="card-hint">Hover to read more &#9662;</span>
+          <p class="card-desc">Hear a word, then tap the one that rhymes with it. Builds rhyme awareness, a core early-reading skill.</p>
+          <div class="card-meta"><span class="pill">Rhyming</span><span class="pill">Ages 5&ndash;7</span></div>
+          <a class="card-launch" href="games/rhyme_time.html">Play it &#8594;</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-art" style="background:linear-gradient(160deg,#EAE2F8,#C7B3E8);">
+          <div class="card-art-chars four"><img src="assets/sprites/maya_happy_pointing.png" alt="Maya" loading="lazy"><img src="assets/sprites/marcus_happy_pointing.png" alt="Marcus" loading="lazy"><img src="assets/sprites/sophie_happy_pointing.png" alt="Sophie" loading="lazy"><img src="assets/sprites/james_happy_pointing.png" alt="James" loading="lazy"></div>
+          <span class="card-tag">Ready to play</span>
+        </div>
+        <div class="card-body">
+          <span class="card-kicker">Reading &middot; Game</span>
+          <h3>Sentence Builder</h3>
+          <span class="card-hint">Hover to read more &#9662;</span>
+          <p class="card-desc">Tap scrambled words in order to build a short sentence about the friends. A step up for growing readers.</p>
+          <div class="card-meta"><span class="pill">Word order</span><span class="pill">Ages 6&ndash;9</span></div>
+          <a class="card-launch" href="games/sentence_builder.html">Play it &#8594;</a>
         </div>
       </article>
 
@@ -748,7 +809,8 @@
     catch (e) { return false; }
   }
 
-  var GAME_TITLES = { sound_it_out: 'Sound It Out', whos_missing: 'Who\u2019s Missing?', pose_parade: 'Pose Parade' };
+  var GAME_TITLES = { sound_it_out: 'Sound It Out', whos_missing: 'Who\u2019s Missing?', pose_parade: 'Pose Parade',
+    feelings_faces: 'Feelings Faces', rhyme_time: 'Rhyme Time', sentence_builder: 'Sentence Builder' };
 
   // Source of truth for "every badge that can be earned" -- matches the
   // library order on this page (Book1-12, 14, 15; Book13 was scrapped).
@@ -769,7 +831,7 @@
     { id: 'Book14_AllFour_Garden', badge: 'Garden Helper', title: 'All Four Help in the Garden' },
     { id: 'Book15_AllFour_Finale', badge: 'Community Helper Series Complete!', title: 'We Are Community Helpers Too' },
   ];
-  var ALL_GAME_IDS = ['sound_it_out', 'whos_missing', 'pose_parade'];
+  var ALL_GAME_IDS = ['sound_it_out', 'whos_missing', 'pose_parade', 'feelings_faces', 'rhyme_time', 'sentence_builder'];
 
   // A suggested pace through the 14 books, grouped into 5 stages of ~3
   // books each in library order -- purely a display/motivation aid, not
