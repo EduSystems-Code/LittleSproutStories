@@ -61,19 +61,32 @@
   .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 7px 0 var(--sun-deep); }
   .btn-ghost { background: #fff; color: var(--sprout-dark); padding: 15px 30px; border-radius: 50px; font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 18px; border: 2px solid var(--sprout); transition: transform 0.12s, background 0.15s; cursor: pointer; }
   .btn-ghost:hover { transform: translateY(-2px); background: #F4FBF6; }
-  .hero-backdrop { position:relative; max-width: 960px; margin: 46px auto 0; height: 260px; border-radius: 26px; border: 4px solid #fff; box-shadow: 0 18px 44px rgba(54,64,44,0.16); background: linear-gradient(160deg,#BFE3FA 0%,#BFE3FA 55%,#D9EEC6 55%,#D9EEC6 100%); display:flex; align-items:flex-end; justify-content:center; gap:6px; overflow:hidden; }
-  .hero-backdrop img { position:relative; z-index:1; height: 240px; object-fit: contain; filter: drop-shadow(0 8px 10px rgba(54,64,44,0.15)); }
-  @media (max-width: 640px) { .hero-backdrop { height: 190px; } .hero-backdrop img { height: 170px; } }
-  /* Slowly cross-fades through book/game settings behind the waving friends --
-     a preview of "the world inside the books" before a child picks one.
-     Pure CSS (no JS): each layer is offset by a negative animation-delay so
+  .hero-backdrop { position:relative; max-width: 960px; margin: 46px auto 0; height: 260px; border-radius: 26px; border: 4px solid #fff; box-shadow: 0 18px 44px rgba(54,64,44,0.16); background: linear-gradient(160deg,#BFE3FA 0%,#BFE3FA 55%,#D9EEC6 55%,#D9EEC6 100%); overflow:hidden; }
+  @media (max-width: 640px) { .hero-backdrop { height: 190px; } }
+  /* Slowly cross-fades through book/game settings behind the friends -- a
+     preview of "the world inside the books" before a child picks one.
+     Pure CSS (no JS): each scene is offset by a negative animation-delay so
      they take turns, one full tour of all 6 scenes every 40s. Under
      prefers-reduced-motion the sitewide `animation:none` rule freezes every
      layer at its resting opacity, and :first-child's opacity:1 makes that a
-     single calm scene instead of a blank box. */
+     single calm scene instead of a blank box.
+
+     Each scene is a full unit -- background AND its own 4 friends, in a
+     pose/expression picked for what's actually in that photo (pointing at
+     the sunflowers, browsing the library shelf, reaching for cookies...)
+     instead of one frozen "happy waving" row pasted over every setting.
+     Two depth rows (front/back .char sizes+bottom) fake a little parallax
+     instead of a flat line-up; a blurred ellipse under each pair of feet
+     grounds them in the scene instead of floating. */
   .hero-scene { position:absolute; inset:0; background-size:cover; background-position:center; opacity:0; animation:heroFade 40s infinite; }
   .hero-scene:first-child { opacity:1; }
   @keyframes heroFade { 0%{opacity:0} 2.5%{opacity:1} 14.17%{opacity:1} 16.67%,100%{opacity:0} }
+  .hero-scene .char { position:absolute; bottom:0; transform:translateX(-50%); text-align:center; }
+  .hero-scene .char.back { bottom:8%; }
+  .hero-scene .char img { display:block; height:180px; object-fit:contain; filter:drop-shadow(0 8px 10px rgba(54,64,44,0.18)); }
+  .hero-scene .char.back img { height:142px; }
+  .hero-scene .char-shadow { display:block; width:64%; height:14px; margin:1px auto 0; background:radial-gradient(ellipse,rgba(40,30,20,.34),transparent 72%); }
+  @media (max-width: 640px) { .hero-scene .char img { height:128px; } .hero-scene .char.back img { height:100px; } }
 
   /* SECTION SHELL */
   .section { padding: 76px 0; scroll-margin-top: 80px; position: relative; overflow: hidden; }
@@ -292,16 +305,42 @@
   </div>
   <div class="wrap">
     <div class="hero-backdrop">
-      <div class="hero-scene" aria-hidden="true" style="background-image:url('assets/backgrounds/garden_1.jpg');animation-delay:0s"></div>
-      <div class="hero-scene" aria-hidden="true" style="background-image:url('assets/backgrounds/library_1.jpg');animation-delay:-33.33s"></div>
-      <div class="hero-scene" aria-hidden="true" style="background-image:url('assets/backgrounds/bakery_1.jpg');animation-delay:-26.67s"></div>
-      <div class="hero-scene" aria-hidden="true" style="background-image:url('assets/backgrounds/firestation_1.jpg');animation-delay:-20s"></div>
-      <div class="hero-scene" aria-hidden="true" style="background-image:url('assets/backgrounds/police_1.jpg');animation-delay:-13.33s"></div>
-      <div class="hero-scene" aria-hidden="true" style="background-image:url('assets/backgrounds/classroom_1.jpg');animation-delay:-6.67s"></div>
-      <img src="assets/sprites/maya_happy_waving.png" alt="Maya waving" loading="lazy">
-      <img src="assets/sprites/marcus_happy_waving.png" alt="Marcus waving" loading="lazy" style="transform:scaleX(-1)">
-      <img src="assets/sprites/sophie_happy_waving.png" alt="Sophie waving" loading="lazy">
-      <img src="assets/sprites/james_happy_waving.png" alt="James waving" loading="lazy">
+      <div class="hero-scene" aria-hidden="true" style="background-image:url('assets/backgrounds/garden_1.jpg');animation-delay:0s">
+        <div class="char" style="left:20%"><img src="assets/sprites/marcus_happy_kneeling.png" alt=""><span class="char-shadow"></span></div>
+        <div class="char" style="left:41%"><img src="assets/sprites/sophie_happy_giving.png" alt=""><span class="char-shadow"></span></div>
+        <div class="char back" style="left:62%"><img src="assets/sprites/maya_happy_pointing.png" alt=""><span class="char-shadow"></span></div>
+        <div class="char" style="left:82%"><img src="assets/sprites/james_happy_waving.png" alt=""><span class="char-shadow"></span></div>
+      </div>
+      <div class="hero-scene" aria-hidden="true" style="background-image:url('assets/backgrounds/library_1.jpg');animation-delay:-33.33s">
+        <div class="char" style="left:16%"><img src="assets/sprites/marcus_neutral_looking.png" alt=""><span class="char-shadow"></span></div>
+        <div class="char" style="left:38%"><img src="assets/sprites/maya_happy_hands.png" alt=""><span class="char-shadow"></span></div>
+        <div class="char back" style="left:60%"><img src="assets/sprites/sophie_happy_sitting.png" alt=""><span class="char-shadow"></span></div>
+        <div class="char" style="left:80%"><img src="assets/sprites/james_happy_pointing.png" alt="" style="transform:scaleX(-1)"><span class="char-shadow"></span></div>
+      </div>
+      <div class="hero-scene" aria-hidden="true" style="background-image:url('assets/backgrounds/bakery_1.jpg');animation-delay:-26.67s">
+        <div class="char" style="left:18%"><img src="assets/sprites/maya_happy_pointing.png" alt=""><span class="char-shadow"></span></div>
+        <div class="char" style="left:42%"><img src="assets/sprites/sophie_happy_giving.png" alt=""><span class="char-shadow"></span></div>
+        <div class="char back" style="left:64%"><img src="assets/sprites/marcus_happy_standing.png" alt=""><span class="char-shadow"></span></div>
+        <div class="char" style="left:84%"><img src="assets/sprites/james_surprised_hands.png" alt=""><span class="char-shadow"></span></div>
+      </div>
+      <div class="hero-scene" aria-hidden="true" style="background-image:url('assets/backgrounds/firestation_1.jpg');animation-delay:-20s">
+        <div class="char" style="left:20%"><img src="assets/sprites/sophie_happy_looking.png" alt=""><span class="char-shadow"></span></div>
+        <div class="char" style="left:42%"><img src="assets/sprites/james_surprised_pointing.png" alt=""><span class="char-shadow"></span></div>
+        <div class="char back" style="left:64%"><img src="assets/sprites/marcus_happy_waving.png" alt=""><span class="char-shadow"></span></div>
+        <div class="char" style="left:84%"><img src="assets/sprites/maya_surprised_hands.png" alt="" style="transform:scaleX(-1)"><span class="char-shadow"></span></div>
+      </div>
+      <div class="hero-scene" aria-hidden="true" style="background-image:url('assets/backgrounds/police_1.jpg');animation-delay:-13.33s">
+        <div class="char" style="left:18%"><img src="assets/sprites/maya_neutral_looking.png" alt=""><span class="char-shadow"></span></div>
+        <div class="char" style="left:40%"><img src="assets/sprites/marcus_happy_standing.png" alt=""><span class="char-shadow"></span></div>
+        <div class="char back" style="left:62%"><img src="assets/sprites/sophie_happy_pointing.png" alt="" style="transform:scaleX(-1)"><span class="char-shadow"></span></div>
+        <div class="char" style="left:84%"><img src="assets/sprites/james_happy_hands.png" alt=""><span class="char-shadow"></span></div>
+      </div>
+      <div class="hero-scene" aria-hidden="true" style="background-image:url('assets/backgrounds/classroom_1.jpg');animation-delay:-6.67s">
+        <div class="char" style="left:20%"><img src="assets/sprites/marcus_happy_kneeling.png" alt=""><span class="char-shadow"></span></div>
+        <div class="char" style="left:42%"><img src="assets/sprites/sophie_happy_sitting.png" alt=""><span class="char-shadow"></span></div>
+        <div class="char back" style="left:64%"><img src="assets/sprites/maya_happy_pointing.png" alt=""><span class="char-shadow"></span></div>
+        <div class="char" style="left:84%"><img src="assets/sprites/james_happy_hands.png" alt=""><span class="char-shadow"></span></div>
+      </div>
     </div>
   </div>
 </header>
