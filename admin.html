@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Admin | LittleSprout</title>
+<style>
+  :root { --sprout:#5BA672; --sprout-dark:#3C7A52; --cream:#FBF6EC; --cream-deep:#F3EAD6;
+    --paper-line:#E7DCC4; --bark:#36402C; --bark-soft:#555D48; --loss:#C6453B; --warn-bg:#FFF6DC; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:-apple-system,'Segoe UI',Roboto,sans-serif; background:var(--cream); color:var(--bark); line-height:1.5; }
+  .wrap { max-width:900px; margin:0 auto; padding:28px 20px 60px; }
+  h1 { font-size:22px; margin-bottom:4px; }
+  h2 { font-size:17px; margin:28px 0 12px; padding-top:20px; border-top:1px solid var(--paper-line); }
+  h2:first-of-type { border-top:none; padding-top:0; }
+  .sub { color:var(--bark-soft); font-size:14px; margin-bottom:20px; }
+  .card { background:#fff; border:1px solid var(--paper-line); border-radius:12px; padding:16px 18px; margin-bottom:12px; }
+  .badge { display:inline-block; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.4px;
+    padding:2px 8px; border-radius:20px; background:var(--cream-deep); color:var(--bark-soft); margin-right:6px; }
+  .badge.flag { background:var(--warn-bg); color:#8a5a00; }
+  .badge.pending, .badge.unsent { background:#FFF3CD; color:#856404; }
+  .badge.approved, .badge.sent { background:#DFF2E1; color:var(--sprout-dark); }
+  .flag-reason { background:var(--warn-bg); border-left:3px solid var(--warn,#E1A400); padding:6px 10px; font-size:13px; margin-top:8px; border-radius:4px; }
+  .meta { font-size:13px; color:var(--bark-soft); margin-top:4px; }
+  .meta a { color:var(--sprout-dark); }
+  address { font-style:normal; white-space:pre-line; font-size:13px; color:var(--bark-soft); margin-top:6px; display:block; }
+  button { font-family:inherit; font-size:13px; font-weight:700; padding:7px 14px; border-radius:8px; border:none; cursor:pointer; }
+  .approve, .marksent { background:var(--sprout); color:#fff; }
+  .reject { background:#fff; color:var(--loss); border:1.5px solid var(--loss); }
+  button:disabled { opacity:.5; cursor:default; }
+  .actions { display:flex; gap:8px; margin-top:10px; }
+  .empty { color:var(--bark-soft); font-size:14px; padding:12px 0; }
+  #loginCard { max-width:340px; margin:80px auto; }
+  #loginCard input { width:100%; padding:10px; border-radius:8px; border:1.5px solid var(--paper-line); margin:10px 0; font-size:15px; font-family:inherit; }
+  #loginCard button { width:100%; padding:11px; background:var(--sprout); color:#fff; font-size:14px; }
+  .error { color:var(--loss); font-size:13px; margin-top:6px; }
+  .top-row { display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap; }
+  #logoutBtn { background:var(--cream-deep); color:var(--bark-soft); }
+  [hidden] { display:none !important; }
+  :focus-visible { outline:3px solid var(--sprout-dark); outline-offset:2px; }
+</style>
+</head>
+<body>
+
+<div class="wrap" id="loginCard">
+  <h1>LittleSprout admin</h1>
+  <p class="sub">Sign in to review cork board posts and fulfill orders.</p>
+  <form id="loginForm">
+    <input type="password" id="password" placeholder="Admin password" required autocomplete="current-password">
+    <button type="submit">Sign in</button>
+    <p class="error" id="loginError" hidden></p>
+  </form>
+</div>
+
+<div class="wrap" id="dashboard" hidden>
+  <div class="top-row">
+    <div>
+      <h1>LittleSprout admin</h1>
+      <p class="sub">Internal tool &mdash; not linked from the site, not indexed.</p>
+    </div>
+    <button id="logoutBtn" type="button">Sign out</button>
+  </div>
+
+  <h2>Cork board &mdash; moderation queue</h2>
+  <p class="sub">Nothing here is public until you approve it. "Flagged" means an automatic profanity/spam screen caught something &mdash; it's a hint, still your call.</p>
+  <div id="boardList"></div>
+
+  <h2>Reward box + Shop &mdash; pending shipping</h2>
+  <p class="sub">Printify-fulfilled orders ship automatically (shown with an order number). Everything else &mdash; the reward box always, or a Printify hiccup &mdash; needs a manual mark once it's mailed.</p>
+  <div id="fulfillList"></div>
+</div>
+
+<script>
+  // Same placeholder as rewards.html/shop.html until Render deployment is live.
+  const API_BASE = 'https://littlesprout-rewards.onrender.com/api';
+
+  const loginCard = document.getElementById('loginCard');
+  const dashboard = document.getElementById('dashboard');
+  const boardList = document.getElementById('boardList');
+  const fulfillList = document.getElementById('fulfillList');
+
+  function esc(s) {
+    const d = document.createElement('div');
+    d.textContent = s === null || s === undefined ? '' : String(s);
+    return d.innerHTML;
+  }
+
+  function el(html) {
+    const d = document.createElement('div');
+    d.innerHTML = html.trim();
+    return d.firstElementChild;
+  }
+
+  function api(path, options) {
+    return fetch(API_BASE + path, Object.assign({ credentials: 'include' }, options || {}));
+  }
+
+  function showLogin() {
+    dashboard.hidden = true;
+    loginCard.hidden = false;
+  }
+
+  function showDashboard() {
+    loginCard.hidden = true;
+    dashboard.hidden = false;
+    loadBoard();
+    loadFulfillment();
+  }
+
+  async function loadBoard() {
+    const res = await api('/admin/board/posts');
+    if (res.status === 401) { showLogin(); return; }
+    if (!res.ok) { boardList.innerHTML = ''; boardList.appendChild(el('<p class="empty">Couldn\'t load the queue &mdash; try refreshing.</p>')); return; }
+    const posts = await res.json();
+    boardList.innerHTML = '';
+    if (!posts.length) { boardList.appendChild(el('<p class="empty">No submissions yet.</p>')); return; }
+    posts.forEach(function (p) { boardList.appendChild(renderBoardCard(p)); });
+  }
+
+  function renderBoardCard(p) {
+    const status = p.approved ? '<span class="badge approved">Approved</span>' : '<span class="badge pending">Pending</span>';
+    const flag = p.flagged ? '<span class="badge flag">Flagged</span>' : '';
+    const reason = p.flagged ? '<div class="flag-reason">Auto-screen: ' + esc(p.flag_reason) + '</div>' : '';
+    const eventLine = p.event_date ? '<div class="meta">Event date: ' + esc(p.event_date) + '</div>' : '';
+    const urlLine = p.url ? '<div class="meta"><a href="' + esc(p.url) + '" target="_blank" rel="noopener">' + esc(p.url) + '</a></div>' : '';
+    const submitterLine = '<div class="meta">From: ' + esc(p.submitter_name || '(no name given)')
+      + (p.submitter_email ? ' &lt;' + esc(p.submitter_email) + '&gt;' : '')
+      + ' &middot; submitted ' + esc(new Date(p.created_at).toLocaleString()) + '</div>';
+
+    const card = el(
+      '<div class="card">'
+      + '<span class="badge">' + esc(p.category) + '</span>' + status + flag
+      + '<h3 style="margin-top:6px;font-size:16px;">' + esc(p.title) + '</h3>'
+      + '<p style="margin-top:8px;">' + esc(p.description) + '</p>'
+      + eventLine + urlLine + submitterLine + reason
+      + '<div class="actions"></div>'
+      + '</div>'
+    );
+    const actions = card.querySelector('.actions');
+    if (!p.approved) {
+      const approveBtn = document.createElement('button');
+      approveBtn.className = 'approve';
+      approveBtn.type = 'button';
+      approveBtn.textContent = 'Approve — make public';
+      approveBtn.addEventListener('click', function () { decideBoardPost(p.id, 'approve', approveBtn); });
+      actions.appendChild(approveBtn);
+    }
+    const rejectBtn = document.createElement('button');
+    rejectBtn.className = 'reject';
+    rejectBtn.type = 'button';
+    rejectBtn.textContent = p.approved ? 'Remove from board' : 'Reject';
+    rejectBtn.addEventListener('click', function () {
+      if (p.approved && !confirm('This post is already public. Remove it?')) return;
+      decideBoardPost(p.id, 'reject', rejectBtn);
+    });
+    actions.appendChild(rejectBtn);
+    return card;
+  }
+
+  async function decideBoardPost(id, action, btn) {
+    btn.disabled = true;
+    try {
+      const res = await api('/admin/board/posts/' + id + '/' + action, { method: 'POST' });
+      if (res.ok) { loadBoard(); return; }
+      btn.disabled = false;
+      alert("That didn't go through — try again.");
+    } catch (e) {
+      btn.disabled = false;
+      alert("Couldn't reach the server — try again.");
+    }
+  }
+
+  async function loadFulfillment() {
+    const res = await api('/admin/requests');
+    if (res.status === 401) { showLogin(); return; }
+    if (!res.ok) { fulfillList.innerHTML = ''; fulfillList.appendChild(el('<p class="empty">Couldn\'t load orders &mdash; try refreshing.</p>')); return; }
+    const rows = await res.json();
+    fulfillList.innerHTML = '';
+    if (!rows.length) { fulfillList.appendChild(el('<p class="empty">Nothing pending.</p>')); return; }
+    rows.forEach(function (r) { fulfillList.appendChild(renderFulfillCard(r)); });
+  }
+
+  function renderFulfillCard(r) {
+    const sent = r.sent_at
+      ? '<span class="badge sent">Sent ' + esc(new Date(r.sent_at).toLocaleDateString()) + '</span>'
+      : '<span class="badge unsent">Not sent</span>';
+    const printify = r.printify_order_id ? '<span class="badge approved">Printify #' + esc(r.printify_order_id) + '</span>' : '';
+    const addrLines = [r.address_line1, r.address_line2, [r.city, r.state, r.postal_code].filter(Boolean).join(', '), r.country]
+      .filter(Boolean).map(esc).join('\n');
+
+    const card = el(
+      '<div class="card">'
+      + '<span class="badge">' + esc(r.product_name || r.product_id || 'Item') + '</span>' + sent + printify
+      + '<h3 style="margin-top:6px;font-size:16px;">' + esc(r.recipient_name) + (r.variant ? ' — ' + esc(r.variant) : '') + '</h3>'
+      + (r.child_first_name ? '<div class="meta">For: ' + esc(r.child_first_name) + '</div>' : '')
+      + '<address>' + addrLines + '</address>'
+      + '<div class="actions"></div>'
+      + '</div>'
+    );
+    if (!r.sent_at) {
+      const btn = document.createElement('button');
+      btn.className = 'marksent';
+      btn.type = 'button';
+      btn.textContent = 'Mark sent';
+      btn.addEventListener('click', function () { markSent(r.id, btn); });
+      card.querySelector('.actions').appendChild(btn);
+    }
+    return card;
+  }
+
+  async function markSent(id, btn) {
+    btn.disabled = true;
+    try {
+      const res = await api('/admin/requests/' + id + '/mark-sent', { method: 'POST' });
+      if (res.ok) { loadFulfillment(); return; }
+      btn.disabled = false;
+      alert("That didn't go through — try again.");
+    } catch (e) {
+      btn.disabled = false;
+      alert("Couldn't reach the server — try again.");
+    }
+  }
+
+  document.getElementById('loginForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const password = document.getElementById('password').value;
+    const errorEl = document.getElementById('loginError');
+    errorEl.hidden = true;
+    try {
+      const res = await api('/admin/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: password }),
+      });
+      if (res.ok) { showDashboard(); return; }
+      errorEl.textContent = res.status === 401 ? 'Wrong password.' : 'Something went wrong — try again.';
+      errorEl.hidden = false;
+    } catch (err) {
+      errorEl.textContent = 'Could not reach the server.';
+      errorEl.hidden = false;
+    }
+  });
+
+  document.getElementById('logoutBtn').addEventListener('click', async function () {
+    await api('/admin/logout', { method: 'POST' });
+    showLogin();
+  });
+
+  // No session-check endpoint exists (adding one just to probe login state
+  // would duplicate what a real data call already tells us) -- try loading
+  // the board queue straight away. A valid cookie from an earlier visit
+  // shows the dashboard immediately; a 401 falls back to the login form.
+  (async function init() {
+    try {
+      const res = await api('/admin/board/posts');
+      if (res.ok) { showDashboard(); } else { showLogin(); }
+    } catch (e) {
+      showLogin();
+    }
+  })();
+</script>
+</body>
+</html>

@@ -14,6 +14,16 @@ def test_requests_list_requires_login(client):
     assert r.status_code == 401
 
 
+def test_logout_ends_the_session(client):
+    client.post("/api/admin/login", json={"password": TEST_ADMIN_PASSWORD})
+    assert client.get("/api/admin/requests").status_code == 200
+
+    logout = client.post("/api/admin/logout")
+    assert logout.status_code == 200
+
+    assert client.get("/api/admin/requests").status_code == 401
+
+
 def test_login_then_list_and_mark_sent(client, db_session):
     order = make_paid_order(db_session, stripe_checkout_session_id="cs_admin_flow")
     submit = client.post(

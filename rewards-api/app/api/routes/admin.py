@@ -55,6 +55,16 @@ def admin_login(payload: AdminLoginIn, response: Response) -> dict[str, str]:
     return {"status": "ok"}
 
 
+@router.post("/admin/logout")
+def admin_logout(response: Response) -> dict[str, str]:
+    response.delete_cookie(
+        COOKIE_NAME,
+        secure=get_settings().admin_cookie_secure,
+        samesite="none" if get_settings().admin_cookie_secure else "lax",
+    )
+    return {"status": "ok"}
+
+
 @router.get("/admin/requests", response_model=list[FulfillmentOut], dependencies=[Depends(require_admin)])
 def list_requests(db: Session = Depends(get_db)) -> list[FulfillmentOut]:
     scrub_expired(db)  # sweep on every dashboard load -- see services/retention.py

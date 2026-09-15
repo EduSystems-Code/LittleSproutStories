@@ -31,6 +31,16 @@ class BoardPost(Base):
     # never displayed on the public board itself.
     submitter_name: Mapped[str | None] = mapped_column(String(120), nullable=True)
     submitter_email: Mapped[str | None] = mapped_column(String(200), nullable=True)
+    # Captured at submission for rate-limiting only (see
+    # services/board_moderation.py) -- moderation context, never public.
+    submitter_ip: Mapped[str | None] = mapped_column(String(64), nullable=True)
+
+    # Set by an automated first-pass screen at submission time (profanity/
+    # spam heuristics) -- never blocks or auto-rejects a post, only flags it
+    # for the admin's attention. The approve-before-public gate below is
+    # what actually keeps bad content off the board.
+    flagged: Mapped[bool] = mapped_column(Boolean, default=False)
+    flag_reason: Mapped[str | None] = mapped_column(String(200), nullable=True)
 
     approved: Mapped[bool] = mapped_column(Boolean, default=False)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
