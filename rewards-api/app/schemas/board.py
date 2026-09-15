@@ -35,3 +35,7 @@ class BoardPostAdminOut(BoardPostOut):
     created_at: datetime
     submitter_name: str | None
     submitter_email: str | None
+    # From the automated screen at submission time -- a hint for the
+    # moderation queue, not a verdict; the admin still decides.
+    flagged: bool
+    flag_reason: str | None
