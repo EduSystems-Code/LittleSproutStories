@@ -43,6 +43,26 @@
   .logo-mark { width:34px; height:34px; }
   .nav-links a { font-weight:700; font-size:15px; color:var(--bark-soft); text-decoration:none; margin-left:24px; }
   .nav-links a:hover { color:var(--sprout-dark); }
+  .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
+  .nav-toggle svg { width: 26px; height: 26px; }
+  .nav-dd { position: relative; display: inline-block; margin-left: 24px; }
+  .nav-dd-btn { background: none; border: none; cursor: pointer; font: inherit; font-weight: 700; font-size: 15px; color: var(--bark-soft); padding: 0; display: inline-flex; align-items: center; gap: 5px; }
+  .nav-dd-btn:hover { color: var(--sprout-dark); }
+  .nav-dd-btn svg { transition: transform .15s; }
+  .nav-dd.open .nav-dd-btn svg { transform: rotate(180deg); }
+  .nav-dd-menu { position: absolute; top: calc(100% + 16px); left: 50%; transform: translateX(-50%); background: #fff; border: 1px solid var(--paper-line); border-radius: 14px; box-shadow: 0 10px 30px rgba(54,64,44,.14); padding: 8px; min-width: 200px; display: none; flex-direction: column; z-index: 60; }
+  .nav-dd-menu a { display: block; margin-left: 0; padding: 9px 12px; border-radius: 8px; }
+  .nav-dd-menu a:hover, .nav-dd-menu a.current { background: var(--cream-deep); color: var(--sprout-dark); }
+  .nav-dd.open .nav-dd-menu { display: flex; }
+  @media (max-width: 640px) {
+    .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; background: var(--cream); border-bottom: 1px solid var(--paper-line); flex-direction: column; align-items: stretch; gap: 2px; padding: 10px 20px 20px; box-shadow: 0 12px 24px rgba(54,64,44,.1); }
+    .nav-links.open { display: flex; }
+    .nav-links a { margin-left: 0; padding: 10px 2px; display: block; }
+    .nav-dd { margin-left: 0; }
+    .nav-dd-menu { position: static; transform: none; box-shadow: none; border: none; padding: 0 0 4px 14px; min-width: 0; display: flex; }
+    .nav-dd-btn { padding: 10px 2px; width: 100%; justify-content: space-between; }
+    .nav-toggle { display: block; }
+  }
 
   .head { text-align:center; padding:52px 0 26px; }
   .head .eyebrow { display:inline-block; background:var(--sky); color:var(--sky-deep); font-weight:800; font-size:13px; letter-spacing:1px; text-transform:uppercase; padding:7px 16px; border-radius:50px; margin-bottom:16px; }
@@ -109,11 +129,22 @@
       </svg>
       LittleSprout
     </a>
-    <div class="nav-links">
+    <div class="nav-links" id="navLinks">
       <a href="index.html#library">Books</a>
       <a href="index.html#shelf">Badge shelf</a>
+      <div class="nav-dd">
+        <button type="button" class="nav-dd-btn" aria-expanded="false">For Families <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3l4 4 4-4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="nav-dd-menu">
+          <a href="resources.html">Family Resources</a>
+          <a href="grants.html">Grants &amp; Funding</a>
+          <a href="board.html">Community Board</a>
+        </div>
+      </div>
       <a href="privacy.html">Privacy</a>
     </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#36402C" stroke-width="2.5" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
   </div>
 </nav>
 
@@ -137,6 +168,7 @@
   </div>
 </footer>
 
+<script src="nav.js" defer></script>
 <script>
   // TODO: swap in the real deployed backend URL once Render deployment is
   // live -- see LittleSprout-Rewards/README.md. Left as a placeholder

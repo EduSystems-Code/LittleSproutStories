@@ -40,13 +40,37 @@
   .nav { position: sticky; top: 0; z-index: 50; background: rgba(251,246,236,0.9); backdrop-filter: blur(10px); border-bottom: 1px solid var(--paper-line); }
   .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 70px; flex-wrap: wrap; gap: 10px; }
   .logo { font-family: 'Fredoka', sans-serif; font-weight: 700; font-size: 22px; color: var(--sprout-deep); text-decoration: none; }
-  .nav-links { display: flex; gap: 22px; flex-wrap: wrap; }
+  .nav-links { display: flex; gap: 22px; flex-wrap: wrap; align-items: center; }
   .nav-links a { font-weight: 700; font-size: 14.5px; color: var(--bark-soft); text-decoration: none; }
   .nav-links a:hover, .nav-links a.current { color: var(--sprout-dark); }
+  .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
+  .nav-toggle svg { width: 26px; height: 26px; }
+  .nav-dd { position: relative; }
+  .nav-dd-btn { background: none; border: none; cursor: pointer; font: inherit; font-weight: 700; font-size: 14.5px; color: var(--bark-soft); padding: 0; display: inline-flex; align-items: center; gap: 5px; }
+  .nav-dd-btn:hover { color: var(--sprout-dark); }
+  .nav-dd-btn svg { transition: transform .15s; }
+  .nav-dd.open .nav-dd-btn svg { transform: rotate(180deg); }
+  .nav-dd-menu { position: absolute; top: calc(100% + 16px); left: 50%; transform: translateX(-50%); background: #fff; border: 1px solid var(--paper-line); border-radius: 14px; box-shadow: 0 10px 30px rgba(54,64,44,.14); padding: 8px; min-width: 200px; display: none; flex-direction: column; z-index: 60; }
+  .nav-dd-menu a { display: block; padding: 9px 12px; border-radius: 8px; }
+  .nav-dd-menu a:hover, .nav-dd-menu a.current { background: var(--cream-deep); color: var(--sprout-dark); }
+  .nav-dd.open .nav-dd-menu { display: flex; }
+  @media (max-width: 760px) {
+    .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; background: var(--cream); border-bottom: 1px solid var(--paper-line); flex-direction: column; align-items: stretch; gap: 2px; padding: 10px 20px 20px; box-shadow: 0 12px 24px rgba(54,64,44,.1); }
+    .nav-links.open { display: flex; }
+    .nav-links a { padding: 10px 2px; }
+    .nav-dd-menu { position: static; transform: none; box-shadow: none; border: none; padding: 0 0 4px 14px; min-width: 0; display: flex; }
+    .nav-dd-btn { padding: 10px 2px; width: 100%; justify-content: space-between; }
+    .nav-toggle { display: block; }
+  }
   .page-hero { padding: 56px 0 36px; text-align: center; }
   .page-hero .eyebrow { display: inline-block; background: var(--sky); color: var(--sky-deep); font-weight: 800; font-size: 13px; letter-spacing: 0.5px; text-transform: uppercase; padding: 7px 16px; border-radius: 50px; margin-bottom: 18px; }
   .page-hero h1 { font-size: clamp(30px, 5vw, 46px); margin-bottom: 14px; }
   .page-hero p { font-size: 17px; color: var(--bark-soft); font-weight: 600; max-width: 640px; margin: 0 auto; }
+  .a11y-bar { display: flex; justify-content: center; gap: 10px; padding: 14px 0 0; }
+  .a11y-bar button { background: #fff; border: 2px solid var(--sprout); color: var(--sprout-dark); border-radius: 20px; padding: 7px 16px; font-weight: 800; font-size: 13.5px; cursor: pointer; font-family: inherit; }
+  .a11y-bar button[aria-pressed="true"] { background: var(--sprout); color: #fff; }
+  body.easyread { letter-spacing: .04em; word-spacing: .14em; }
+  body.easyread p, body.easyread li { line-height: 1.9; }
   .section { padding: 46px 0; }
   .section h2 { font-size: 24px; margin-bottom: 8px; }
   .section > .wrap > p.lede { color: var(--bark-soft); font-weight: 600; margin-bottom: 24px; max-width: 720px; }
@@ -73,17 +97,30 @@
 <nav class="nav">
   <div class="wrap nav-inner">
     <a class="logo" href="index.html">🌱 LittleSprout</a>
-    <div class="nav-links">
+    <div class="nav-links" id="navLinks">
       <a href="index.html#library">Books</a>
       <a href="index.html#games">Games</a>
       <a href="characters.html">Meet the Friends</a>
-      <a href="resources.html">Family Resources</a>
+      <div class="nav-dd">
+        <button type="button" class="nav-dd-btn" aria-expanded="false">For Families <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3l4 4 4-4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="nav-dd-menu">
+          <a href="resources.html">Family Resources</a>
+          <a href="grants.html" class="current" aria-current="page">Grants &amp; Funding</a>
+          <a href="board.html">Community Board</a>
+        </div>
+      </div>
       <a href="book-nook.html">Book Nook</a>
-      <a href="grants.html" class="current" aria-current="page">Grants</a>
       <a href="stats.html">Statistics</a>
     </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#36402C" stroke-width="2.5" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
   </div>
 </nav>
+
+<div class="wrap a11y-bar">
+  <button type="button" id="easyBtn" onclick="toggleEasy()" aria-pressed="false" title="Easier-to-read spacing">Aa Easier to read</button>
+</div>
 
 <header class="page-hero">
   <div class="wrap">
@@ -201,5 +238,26 @@
   </div>
 </footer>
 
+<script src="nav.js" defer></script>
+<script>
+  /* ---------- easier-to-read toggle (same 'littlesprout' localStorage
+     key/field as index.html, so the setting carries across pages) ---------- */
+  function loadA11yProgress() {
+    try { return JSON.parse(localStorage.getItem('littlesprout') || '{}'); }
+    catch (e) { return {}; }
+  }
+  function saveA11yProgress(d) {
+    try { localStorage.setItem('littlesprout', JSON.stringify(d)); } catch (e) {}
+  }
+  function toggleEasy() {
+    var on = document.body.classList.toggle('easyread');
+    document.getElementById('easyBtn').setAttribute('aria-pressed', on ? 'true' : 'false');
+    var d = loadA11yProgress(); d.easyread = on; saveA11yProgress(d);
+  }
+  if (loadA11yProgress().easyread) {
+    document.body.classList.add('easyread');
+    document.getElementById('easyBtn').setAttribute('aria-pressed', 'true');
+  }
+</script>
 </body>
 </html>

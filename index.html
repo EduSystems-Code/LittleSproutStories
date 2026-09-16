@@ -65,6 +65,15 @@
   .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 0 var(--sprout-dark); }
   .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
   .nav-toggle svg { width: 26px; height: 26px; }
+  .nav-dd { position: relative; }
+  .nav-dd-btn { background: none; border: none; cursor: pointer; font: inherit; font-weight: 700; font-size: 15px; color: var(--bark-soft); padding: 0; display: inline-flex; align-items: center; gap: 5px; }
+  .nav-dd-btn:hover { color: var(--sprout-dark); }
+  .nav-dd-btn svg { transition: transform .15s; }
+  .nav-dd.open .nav-dd-btn svg { transform: rotate(180deg); }
+  .nav-dd-menu { position: absolute; top: calc(100% + 16px); left: 50%; transform: translateX(-50%); background: #fff; border: 1px solid var(--paper-line); border-radius: 14px; box-shadow: 0 10px 30px rgba(54,64,44,.14); padding: 8px; min-width: 200px; display: none; flex-direction: column; z-index: 60; }
+  .nav-dd-menu a { display: block; padding: 9px 12px; border-radius: 8px; font-size: 14.5px; font-weight: 700; color: var(--bark-soft); white-space: nowrap; }
+  .nav-dd-menu a:hover, .nav-dd-menu a.current { background: var(--cream-deep); color: var(--sprout-dark); }
+  .nav-dd.open .nav-dd-menu { display: flex; }
 
   /* HERO */
   .hero { position: relative; padding: 60px 0 40px; overflow: hidden; }
@@ -75,6 +84,8 @@
   .hero-sub { font-size: clamp(17px, 2.3vw, 20px); color: var(--bark-soft); max-width: 540px; margin: 0 auto 30px; font-weight: 600; }
   .hero-text { text-align: center; position: relative; z-index: 2; }
   .hero-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 12px; }
+  .hero-resources-link { font-weight: 700; font-size: 14.5px; margin-bottom: 4px; }
+  .hero-resources-link a { color: var(--sprout-dark); text-decoration: underline; }
   .btn-primary { background: var(--sun); color: #5A4200; padding: 15px 32px; border-radius: 50px; font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 18px; box-shadow: 0 5px 0 var(--sun-deep); transition: transform 0.12s, box-shadow 0.12s; border: none; cursor: pointer; }
   .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 7px 0 var(--sun-deep); }
   .btn-ghost { background: #fff; color: var(--sprout-dark); padding: 15px 30px; border-radius: 50px; font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 18px; border: 2px solid var(--sprout); transition: transform 0.12s, background 0.15s; cursor: pointer; }
@@ -260,7 +271,15 @@
   .footer-cols { display: flex; gap: 56px; flex-wrap: wrap; }
   .footer-bottom { border-top: 1px solid rgba(255,255,255,0.12); padding-top: 22px; font-size: 13px; color: #888E7C; font-weight: 600; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
 
-  @media (max-width: 760px) { .nav-links { display: none; } .nav-toggle { display: block; } .section { padding: 56px 0; } }
+  @media (max-width: 760px) {
+    .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; background: var(--cream); border-bottom: 1px solid var(--paper-line); flex-direction: column; align-items: stretch; gap: 2px; padding: 10px 20px 20px; box-shadow: 0 12px 24px rgba(54,64,44,.1); }
+    .nav-links.open { display: flex; }
+    .nav-links a { padding: 10px 2px; }
+    .nav-dd-menu { position: static; transform: none; box-shadow: none; border: none; padding: 0 0 4px 14px; min-width: 0; display: flex; }
+    .nav-dd-btn { padding: 10px 2px; width: 100%; justify-content: space-between; }
+    .nav-toggle { display: block; }
+    .section { padding: 56px 0; }
+  }
   :focus-visible { outline: 3px solid var(--sky-deep); outline-offset: 2px; border-radius: 6px; }
 
   /* juice: press feedback, badge celebration, confetti */
@@ -286,17 +305,24 @@
       </svg>
       LittleSprout
     </a>
-    <div class="nav-links">
+    <div class="nav-links" id="navLinks">
       <a href="#library">Books</a>
       <a href="#games">Games</a>
       <a href="characters.html">Meet the Friends</a>
       <a href="#approach">How it works</a>
-      <a href="resources.html">Family Resources</a>
+      <div class="nav-dd">
+        <button type="button" class="nav-dd-btn" aria-expanded="false">For Families <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3l4 4 4-4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="nav-dd-menu">
+          <a href="resources.html">Family Resources</a>
+          <a href="grants.html">Grants &amp; Funding</a>
+          <a href="board.html">Community Board</a>
+        </div>
+      </div>
       <a href="book-nook.html">Book Nook</a>
       <a href="shop.html">Shop</a>
       <a href="#library" class="nav-cta">Start playing</a>
     </div>
-    <button class="nav-toggle" id="navToggle" aria-label="Open menu">
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
       <svg viewBox="0 0 24 24" fill="none" stroke="#36402C" stroke-width="2.5" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
   </div>
@@ -317,6 +343,7 @@
       <a href="#library" class="btn-primary">Explore the library</a>
       <a href="#games" class="btn-ghost">Play a game</a>
     </div>
+    <p class="hero-resources-link"><a href="resources.html">Looking for local family resources instead? &#8594;</a></p>
   </div>
   <div class="wrap">
     <div class="hero-backdrop">
@@ -720,10 +747,10 @@
           <span class="res-ic" style="background:#FCE0EE;">💕</span>
           <span class="res-body"><span class="res-name">Conscious Discipline</span><span class="res-desc">A brain-based, adult-first SEL approach with free tools for classrooms and homes.</span></span>
         </a>
-        <div class="res-link construction">
-          <span class="res-ic" style="background:#FDEFC4;">🚧</span>
-          <span class="res-body"><span class="res-name">EduSystems Game <span class="res-badge">Under construction</span></span><span class="res-desc">A new partner learning game is on the way. Check back soon &mdash; we&rsquo;re building it!</span></span>
-        </div>
+        <a class="res-link" href="https://health.maryland.gov/phpa/wic/pages/home.aspx" target="_blank" rel="noopener">
+          <span class="res-ic" style="background:#D9EEFB;">🍎</span>
+          <span class="res-body"><span class="res-name">Maryland WIC</span><span class="res-desc">Free healthy food, nutrition support, and referrals for pregnant women, new mothers, and children under 5.</span></span>
+        </a>
       </div>
     </div>
 
@@ -770,6 +797,7 @@
           <a href="resources.html">Family Resources</a>
           <a href="book-nook.html">Book Nook</a>
           <a href="grants.html">Grants &amp; funding</a>
+          <a href="board.html">Community Board</a>
           <a href="stats.html">Statistics</a>
           <a href="shop.html">Shop</a>
           <a href="privacy.html">Privacy</a>
@@ -790,11 +818,9 @@
   </div>
 </footer>
 
+<script src="nav.js" defer></script>
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
-  document.getElementById('navToggle').addEventListener('click', function() {
-    document.getElementById('library').scrollIntoView({ behavior: 'smooth' });
-  });
 
   /* ---------- progress (device-local only) ---------- */
   function loadProgress() {
