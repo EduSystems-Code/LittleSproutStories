@@ -42,6 +42,31 @@
   .logo-mark { width:34px; height:34px; }
   .nav-links a { font-weight:700; font-size:15px; color:var(--bark-soft); text-decoration:none; margin-left:24px; }
   .nav-links a:hover { color:var(--sprout-dark); }
+  .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
+  .nav-toggle svg { width: 26px; height: 26px; }
+  .nav-dd { position: relative; display: inline-block; margin-left: 24px; }
+  .nav-dd-btn { background: none; border: none; cursor: pointer; font: inherit; font-weight: 700; font-size: 15px; color: var(--bark-soft); padding: 0; display: inline-flex; align-items: center; gap: 5px; }
+  .nav-dd-btn:hover { color: var(--sprout-dark); }
+  .nav-dd-btn svg { transition: transform .15s; }
+  .nav-dd.open .nav-dd-btn svg { transform: rotate(180deg); }
+  .nav-dd-menu { position: absolute; top: calc(100% + 16px); left: 50%; transform: translateX(-50%); background: #fff; border: 1px solid var(--paper-line); border-radius: 14px; box-shadow: 0 10px 30px rgba(54,64,44,.14); padding: 8px; min-width: 200px; display: none; flex-direction: column; z-index: 60; }
+  .nav-dd-menu a { display: block; margin-left: 0; padding: 9px 12px; border-radius: 8px; }
+  .nav-dd-menu a:hover, .nav-dd-menu a.current { background: var(--cream-deep); color: var(--sprout-dark); }
+  .nav-dd.open .nav-dd-menu { display: flex; }
+  @media (max-width: 640px) {
+    .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; background: var(--cream); border-bottom: 1px solid var(--paper-line); flex-direction: column; align-items: stretch; gap: 2px; padding: 10px 20px 20px; box-shadow: 0 12px 24px rgba(54,64,44,.1); }
+    .nav-links.open { display: flex; }
+    .nav-links a { margin-left: 0; padding: 10px 2px; display: block; }
+    .nav-dd { margin-left: 0; }
+    .nav-dd-menu { position: static; transform: none; box-shadow: none; border: none; padding: 0 0 4px 14px; min-width: 0; display: flex; }
+    .nav-dd-btn { padding: 10px 2px; width: 100%; justify-content: space-between; }
+    .nav-toggle { display: block; }
+  }
+  .a11y-bar { display: flex; justify-content: center; gap: 10px; padding: 14px 0 0; }
+  .a11y-bar button { background: #fff; border: 2px solid var(--sprout); color: var(--sprout-dark); border-radius: 20px; padding: 7px 16px; font-weight: 800; font-size: 13.5px; cursor: pointer; font-family: inherit; }
+  .a11y-bar button[aria-pressed="true"] { background: var(--sprout); color: #fff; }
+  body.easyread { letter-spacing: .04em; word-spacing: .14em; }
+  body.easyread p, body.easyread li { line-height: 1.9; }
 
   .head { text-align:center; padding:52px 0 26px; }
   .head .eyebrow { display:inline-block; background:var(--sky); color:var(--sky-deep); font-weight:800; font-size:13px; letter-spacing:1px; text-transform:uppercase; padding:7px 16px; border-radius:50px; margin-bottom:16px; }
@@ -54,7 +79,13 @@
   .section-title:first-child { margin-top:0; }
 
   .post-list { display:flex; flex-direction:column; gap:12px; }
-  .post-card { background:#fff; border:1px solid var(--paper-line); border-radius:16px; padding:18px 20px; box-shadow:0 3px 10px rgba(54,64,44,.05); }
+  .post-card { background:#fff; border:1px solid var(--paper-line); border-radius:16px; padding:18px 20px; box-shadow:0 3px 10px rgba(54,64,44,.05); display:flex; gap:14px; }
+  .post-icon { flex-shrink:0; width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:18px; }
+  .post-icon.event { background:var(--sky); }
+  .post-icon.article { background:#FCE0EE; }
+  .post-icon.group { background:var(--cream-deep); }
+  .post-icon.other { background:#EDEAE0; }
+  .post-body { min-width:0; flex:1; }
   .post-tag { display:inline-block; font-size:11px; font-weight:800; letter-spacing:.4px; text-transform:uppercase;
     padding:3px 10px; border-radius:50px; margin-bottom:8px; }
   .post-tag.event { background:var(--sky); color:var(--sky-deep); }
@@ -113,13 +144,28 @@
       </svg>
       LittleSprout
     </a>
-    <div class="nav-links">
+    <div class="nav-links" id="navLinks">
       <a href="index.html#library">Books</a>
       <a href="shop.html">Shop</a>
+      <div class="nav-dd">
+        <button type="button" class="nav-dd-btn" aria-expanded="false">For Families <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3l4 4 4-4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="nav-dd-menu">
+          <a href="resources.html">Family Resources</a>
+          <a href="grants.html">Grants &amp; Funding</a>
+          <a href="board.html" class="current" aria-current="page">Community Board</a>
+        </div>
+      </div>
       <a href="privacy.html">Privacy</a>
     </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#36402C" stroke-width="2.5" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
   </div>
 </nav>
+
+<div class="wrap a11y-bar">
+  <button type="button" id="easyBtn" onclick="toggleEasy()" aria-pressed="false" title="Easier-to-read spacing">Aa Easier to read</button>
+</div>
 
 <header class="head">
   <div class="wrap">
@@ -144,7 +190,27 @@
   </div>
 </footer>
 
+<script src="nav.js" defer></script>
 <script>
+  /* ---------- easier-to-read toggle (same 'littlesprout' localStorage
+     key/field as index.html, so the setting carries across pages) ---------- */
+  function loadA11yProgress() {
+    try { return JSON.parse(localStorage.getItem('littlesprout') || '{}'); }
+    catch (e) { return {}; }
+  }
+  function saveA11yProgress(d) {
+    try { localStorage.setItem('littlesprout', JSON.stringify(d)); } catch (e) {}
+  }
+  function toggleEasy() {
+    var on = document.body.classList.toggle('easyread');
+    document.getElementById('easyBtn').setAttribute('aria-pressed', on ? 'true' : 'false');
+    var d = loadA11yProgress(); d.easyread = on; saveA11yProgress(d);
+  }
+  if (loadA11yProgress().easyread) {
+    document.body.classList.add('easyread');
+    document.getElementById('easyBtn').setAttribute('aria-pressed', 'true');
+  }
+
   // TODO: swap in the real deployed backend URL once Render deployment is
   // live -- see LittleSprout-Rewards/README.md.
   const API_BASE = 'https://littlesprout-rewards.onrender.com/api';
@@ -153,6 +219,7 @@
   const submitApp = document.getElementById('submitApp');
 
   const CATEGORY_LABELS = { event: 'Event', article: 'Article', group: 'Group', other: 'Other' };
+  const CATEGORY_ICONS = { event: '\u{1F5D3}\u{FE0F}', article: '\u{1F4F0}', group: '\u{1F465}', other: '\u{1F4CC}' };
 
   function el(html) {
     const div = document.createElement('div');
@@ -174,15 +241,19 @@
 
   function postCardHtml(p) {
     const tag = CATEGORY_LABELS[p.category] || 'Other';
+    const icon = CATEGORY_ICONS[p.category] || CATEGORY_ICONS.other;
     const dateLine = p.event_date ? `<div class="post-date">${formatDate(p.event_date)}</div>` : '';
     const link = p.url ? `<a class="post-link" href="${escapeHtml(p.url)}" target="_blank" rel="noopener">Learn more &#8594;</a>` : '';
     return `
       <div class="post-card">
-        <span class="post-tag ${p.category}">${tag}</span>
-        ${dateLine}
-        <h3>${escapeHtml(p.title)}</h3>
-        <p>${escapeHtml(p.description)}</p>
-        ${link}
+        <span class="post-icon ${p.category}" aria-hidden="true">${icon}</span>
+        <div class="post-body">
+          <span class="post-tag ${p.category}">${tag}</span>
+          ${dateLine}
+          <h3>${escapeHtml(p.title)}</h3>
+          <p>${escapeHtml(p.description)}</p>
+          ${link}
+        </div>
       </div>
     `;
   }

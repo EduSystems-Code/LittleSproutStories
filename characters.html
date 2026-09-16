@@ -86,8 +86,24 @@
   .footer a { color: #A8AE9C; font-weight: 600; font-size: 14px; margin-right: 18px; }
   .footer a:hover { color: var(--sun); }
 
+  .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
+  .nav-toggle svg { width: 26px; height: 26px; }
+  .nav-dd { position: relative; }
+  .nav-dd-btn { background: none; border: none; cursor: pointer; font: inherit; font-weight: 700; font-size: 15px; color: var(--bark-soft); padding: 0; display: inline-flex; align-items: center; gap: 5px; }
+  .nav-dd-btn:hover { color: var(--sprout-dark); }
+  .nav-dd-btn svg { transition: transform .15s; }
+  .nav-dd.open .nav-dd-btn svg { transform: rotate(180deg); }
+  .nav-dd-menu { position: absolute; top: calc(100% + 16px); left: 50%; transform: translateX(-50%); background: #fff; border: 1px solid var(--paper-line); border-radius: 14px; box-shadow: 0 10px 30px rgba(54,64,44,.14); padding: 8px; min-width: 200px; display: none; flex-direction: column; z-index: 60; }
+  .nav-dd-menu a { display: block; padding: 9px 12px; border-radius: 8px; font-size: 14.5px; font-weight: 700; color: var(--bark-soft); white-space: nowrap; }
+  .nav-dd-menu a:hover, .nav-dd-menu a.current { background: var(--cream-deep); color: var(--sprout-dark); }
+  .nav-dd.open .nav-dd-menu { display: flex; }
   @media (max-width: 780px) {
-    .nav-links { display: none; }
+    .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; background: var(--cream); border-bottom: 1px solid var(--paper-line); flex-direction: column; align-items: stretch; gap: 2px; padding: 10px 20px 20px; box-shadow: 0 12px 24px rgba(54,64,44,.1); }
+    .nav-links.open { display: flex; }
+    .nav-links a { padding: 10px 2px; }
+    .nav-dd-menu { position: static; transform: none; box-shadow: none; border: none; padding: 0 0 4px 14px; min-width: 0; display: flex; }
+    .nav-dd-btn { padding: 10px 2px; width: 100%; justify-content: space-between; }
+    .nav-toggle { display: block; }
     .friend-inner { grid-template-columns: 1fr; gap: 20px; }
     .friend-portrait { max-width: 220px; margin: 0 auto; }
   }
@@ -108,13 +124,23 @@
       </svg>
       LittleSprout
     </a>
-    <div class="nav-links">
+    <div class="nav-links" id="navLinks">
       <a href="index.html#library">Books</a>
       <a href="index.html#games">Games</a>
       <a href="characters.html">Meet the Friends</a>
-      <a href="resources.html">Family Resources</a>
+      <div class="nav-dd">
+        <button type="button" class="nav-dd-btn" aria-expanded="false">For Families <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3l4 4 4-4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="nav-dd-menu">
+          <a href="resources.html">Family Resources</a>
+          <a href="grants.html">Grants &amp; Funding</a>
+          <a href="board.html">Community Board</a>
+        </div>
+      </div>
       <a href="index.html#library" class="nav-cta">Start playing</a>
     </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#36402C" stroke-width="2.5" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
   </div>
 </nav>
 
@@ -256,6 +282,7 @@
   </div>
 </footer>
 
+<script src="nav.js" defer></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 try { if (JSON.parse(localStorage.getItem('littlesprout')||'{}').easyread) document.body.style.letterSpacing='.04em'; } catch(e){}
