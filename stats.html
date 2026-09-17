@@ -60,6 +60,13 @@
   .placeholder { background: repeating-linear-gradient(45deg, #FFF9EC, #FFF9EC 12px, #FDF2D6 12px, #FDF2D6 24px); border-style: dashed; border-color: var(--sun-deep); }
   .badge { display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase; color: #8A6A00; background: var(--sun); padding: 2px 8px; border-radius: 50px; }
   .disclaimer { font-size: 12.5px; color: var(--bark-soft); font-weight: 600; text-align: center; margin-top: 30px; opacity: 0.85; }
+  .crosswalk { width: 100%; border-collapse: collapse; background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 14px rgba(54,64,44,0.06); font-size: 14px; }
+  .crosswalk th, .crosswalk td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--paper-line); }
+  .crosswalk th { background: var(--cream-deep); font-family: 'Fredoka', sans-serif; font-size: 13px; }
+  .crosswalk tr:last-child td { border-bottom: none; }
+  .crosswalk td.level { white-space: nowrap; }
+  .level-chip { display: inline-block; font-size: 11px; font-weight: 800; padding: 3px 9px; border-radius: 50px; background: var(--sky); color: var(--sky-deep); }
+  .crosswalk-wrap { overflow-x: auto; }
   .footer { background: var(--bark); color: #D9DDD0; padding: 40px 0; text-align: center; margin-top: 40px; }
   .footer a { color: #A8AE9C; font-weight: 700; text-decoration: none; margin: 0 10px; }
   .footer a:hover { color: var(--sun); }
@@ -140,6 +147,37 @@
       </div>
     </div>
     <p class="disclaimer">We will never post a statistic here we can't point to a real source for &mdash; house rule, not just a slogan.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <h2>Standards alignment, book by book</h2>
+    <p class="lede">Every book already ends with a real "For Grown-Ups" panel &mdash; a feeling/skill focus, a discussion question, a home activity, and its Common Core codes &mdash; but that only ever showed up one book at a time, after finishing it. This is the same real data pulled into one table, generated from the books' own specs (never hand-typed, so it can't drift from what's actually in the app), plus a reading-level rating computed from each book's actual decodable-text complexity, not the numbered story order.</p>
+    <div class="crosswalk-wrap">
+      <table class="crosswalk">
+        <thead>
+          <tr><th>Book</th><th>Title</th><th>Reading level</th><th>Common Core codes</th></tr>
+        </thead>
+        <tbody>
+      <tr><td>Book 1</td><td>Maya &amp; Marcus Visit the Fire Station</td><td class="level"><span class="level-chip">Level 2</span></td><td>RL.K.1, SL.K.3</td></tr>
+      <tr><td>Book 2</td><td>Sophie &amp; James Visit the Police Station</td><td class="level"><span class="level-chip">Level 1</span></td><td>RI.K.3, W.K.2</td></tr>
+      <tr><td>Book 3</td><td>Maya &amp; Sophie Visit the Library</td><td class="level"><span class="level-chip">Level 3</span></td><td>RL.K.5, RL.K.6</td></tr>
+      <tr><td>Book 4</td><td>Marcus &amp; James Visit the Doctor</td><td class="level"><span class="level-chip">Level 4</span></td><td>L.K.1.d, SL.K.2</td></tr>
+      <tr><td>Book 5</td><td>All Four Visit the Elementary School</td><td class="level"><span class="level-chip">Level 3</span></td><td>RL.K.9, SL.K.4</td></tr>
+      <tr><td>Book 6</td><td>Marcus &amp; Sophie Visit the Barbershop</td><td class="level"><span class="level-chip">Level 1</span></td><td>L.K.1.b, L.K.5.b</td></tr>
+      <tr><td>Book 7</td><td>Maya &amp; James Visit the Bakery</td><td class="level"><span class="level-chip">Level 2</span></td><td>W.K.3</td></tr>
+      <tr><td>Book 8</td><td>Sophie &amp; Marcus Visit the Garden</td><td class="level"><span class="level-chip">Level 1</span></td><td>L.K.5.a, L.K.5.c</td></tr>
+      <tr><td>Book 9</td><td>Maya &amp; Marcus Visit the Post Office</td><td class="level"><span class="level-chip">Level 1</span></td><td>W.K.1, L.K.2.a</td></tr>
+      <tr><td>Book 10</td><td>Sophie &amp; James Visit the Repair Shop</td><td class="level"><span class="level-chip">Level 4</span></td><td>RI.K.8, L.K.4.a</td></tr>
+      <tr><td>Book 11</td><td>All Four Visit the Community Center</td><td class="level"><span class="level-chip">Level 4</span></td><td>SL.K.1.a</td></tr>
+      <tr><td>Book 12</td><td>Marcus &amp; James Revisit the Fire Station</td><td class="level"><span class="level-chip">Level 2</span></td><td>RL.K.7</td></tr>
+      <tr><td>Book 14</td><td>All Four Help in the Garden</td><td class="level"><span class="level-chip">Level 3</span></td><td>W.K.7</td></tr>
+      <tr><td>Book 15</td><td>We Are Community Helpers Too</td><td class="level"><span class="level-chip">Level 3</span></td><td>W.K.8, RL.K.2</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Codes are Common Core English Language Arts (Kindergarten): RL = Reading Literature, RI = Reading Informational Text, W = Writing, SL = Speaking &amp; Listening, L = Language. Reading levels are relative to these 14 books &mdash; based on how many blend/digraph/multi-syllable words each book's decodable line actually uses (<code>scripts/analyze_decodability.py</code>) &mdash; not an external grade-level claim.</p>
   </div>
 </section>
 

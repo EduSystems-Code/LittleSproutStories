@@ -242,6 +242,14 @@
     "feeling": "Embarrassment eases with self-acceptance and a friend&rsquo;s help.",
     "ask": "Is there a way you like to do something that is different from your friends?",
     "try_this": "Let your child choose how they sit and read tonight.",
-    "standards": "RL.K.5, RL.K.6"
-  }
+    "standards": "RL.K.5, RL.K.6",
+    "practice_words": [
+      "read",
+      "feel",
+      "show",
+      "reader",
+      "check"
+    ]
+  },
+  "reading_level": 3
 }

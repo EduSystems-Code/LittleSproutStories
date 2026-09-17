@@ -239,6 +239,12 @@
     "feeling": "Fear of the unknown eases when a trusted peer goes first.",
     "ask": "Has a friend ever helped you feel brave about something new?",
     "try_this": "Let an older sibling or friend &ldquo;go first&rdquo; for a new experience this week.",
-    "standards": "L.K.1.b, L.K.5.b"
-  }
+    "standards": "L.K.1.b, L.K.5.b",
+    "practice_words": [
+      "feel",
+      "first",
+      "still"
+    ]
+  },
+  "reading_level": 1
 }

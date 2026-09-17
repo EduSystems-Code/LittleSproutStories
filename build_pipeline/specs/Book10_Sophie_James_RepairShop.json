@@ -244,6 +244,14 @@
     "feeling": "Small grief eases when a repaired thing is seen as changed, not ruined.",
     "ask": "Has something you loved ever broken and gotten fixed?",
     "try_this": "Fix something small together and talk about its new marks.",
-    "standards": "RI.K.8, L.K.4.a"
-  }
+    "standards": "RI.K.8, L.K.4.a",
+    "practice_words": [
+      "feel",
+      "fixed",
+      "thing",
+      "fixes",
+      "thank"
+    ]
+  },
+  "reading_level": 4
 }

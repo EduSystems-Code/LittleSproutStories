@@ -1,20 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="icon" type="image/png" href="../assets/icons/icon-192.png">
-<link rel="canonical" href="https://edusystems-code.github.io/LittleSproutStories/books/Book10_Sophie_James_RepairShop.html">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="LittleSprout">
-<meta property="og:title" content="Sophie &amp; James Visit the Repair Shop | Little Sprout Stories">
-<meta property="og:description" content="Interactive phonics storybooks and feelings games for early readers ages 4–7, starring Maya, Marcus, Sophie, and James.">
-<meta property="og:url" content="https://edusystems-code.github.io/LittleSproutStories/books/Book10_Sophie_James_RepairShop.html">
-<meta property="og:image" content="https://edusystems-code.github.io/LittleSproutStories/assets/og-share.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Sophie &amp; James Visit the Repair Shop | Little Sprout Stories">
-<meta name="twitter:description" content="Interactive phonics storybooks and feelings games for early readers ages 4–7, starring Maya, Marcus, Sophie, and James.">
-<meta name="twitter:image" content="https://edusystems-code.github.io/LittleSproutStories/assets/og-share.png">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#5BA672">
@@ -80,7 +66,11 @@ img.char { height:220px; object-fit:contain; }
 .readaloud[hidden] { display:none; }
 
 .text-a { font-size:18px; line-height:1.6; margin-top:12px; }
-.text-b { font-size:20px; font-weight:bold; background:#eaf7ee; border-left:5px solid var(--sprout); padding:10px 14px; border-radius:8px; margin-top:10px; }
+.text-b-row { display:flex; align-items:center; gap:10px; margin-top:10px; }
+.text-b { font-size:20px; font-weight:bold; background:#eaf7ee; border-left:5px solid var(--sprout); padding:10px 14px; border-radius:8px; flex:1; }
+.readaloud-hint { margin-top:0; padding:6px 12px; font-size:13px; border-color:#ccc; color:#666; flex-shrink:0; }
+.readaloud-hint .ra-icon { font-size:14px; }
+.readaloud-hint:hover { background:#f7f7f7; }
 .w.spoken { background:#FFE9A3; border-radius:4px; }
 
 .quiz { margin-top:16px; background:#fff8e6; border-radius:12px; padding:14px; text-align:center; }
@@ -109,6 +99,8 @@ img.char { height:220px; object-fit:contain; }
 .guide summary { font-weight:bold; cursor:pointer; font-size:17px; }
 .guide p { margin:10px 0 0; }
 .standards { font-size:12px; color:#666; }
+.practice-note { font-size:12px; color:#666; font-weight:normal; }
+.level-tag { display:inline-block; background:#fff; border:2px solid var(--sprout); color:var(--sprout-dark); border-radius:20px; padding:4px 14px; font-size:13px; font-weight:bold; margin-bottom:10px; margin-left:8px; }
 
 /* ---------- juice: page turns, taps, celebrations ---------- */
 .page-wrap.turn-in .page { animation: pageTurnIn .32s cubic-bezier(.2,.8,.3,1) both; }
@@ -153,7 +145,7 @@ img.char { height:220px; object-fit:contain; }
 <main id="bookMain">
 <div class="page-wrap" id="p0" style="display:block">
 <section class="page cover">
-  <div class="banner">Little Sprout Stories</div>
+  <div class="banner">Little Sprout Stories</div><span class="level-tag" title="Relative to the other 13 Little Sprout books, based on how many blend/digraph/multi-syllable words this book actually uses — not an outside grade standard.">Level 4 — Confident reader</span>
   <h1>Sophie &amp; James<br>Visit the Repair Shop</h1>
   <div class="stage backdrop-repair">
     <img class="char" src="../assets/sprites/sophie_happy_waving.png" alt="Sophie" loading="lazy">
@@ -168,11 +160,16 @@ img.char { height:220px; object-fit:contain; }
     <img class="char" src="../assets/sprites/sophie_neutral_walking.png" alt="Sophie" loading="lazy">
     <button class="hotspot right" onclick="pulse(this)" aria-label="Tap to play" type="button">&#129302;</button>
   </div>
-  <button class="readaloud" type="button" onclick="readPage(this)" aria-label="Read this page out loud">
-    <span class="ra-icon" aria-hidden="true">&#128266;</span><span class="ra-label">Read to me</span>
+  <button class="readaloud" type="button" onclick="readBlock(this,&#39;a&#39;)" data-label="Read the story to me" aria-label="Read the story to me">
+    <span class="ra-icon" aria-hidden="true">&#128266;</span><span class="ra-label">Read the story to me</span>
   </button>
   <div class="text-a">James&rsquo;s favorite toy robot had a broken arm, and today David the repair helper would try to fix it.</div>
-  <div class="text-b">James&rsquo;s robot will not go.</div>
+  <div class="text-b-row">
+    <div class="text-b">James&rsquo;s robot will not go.</div>
+    <button class="readaloud readaloud-hint" type="button" onclick="readBlock(this,&#39;b&#39;)" data-label="Hint" aria-label="Read this practice line out loud, if you get stuck">
+      <span class="ra-icon" aria-hidden="true">&#128264;</span><span class="ra-label">Hint</span>
+    </button>
+  </div>
 </section></div>
 <div class="page-wrap" id="p2" style="display:none">
 <section class="page">
@@ -180,11 +177,16 @@ img.char { height:220px; object-fit:contain; }
     <img class="char" src="../assets/sprites/james_sad_looking.png" alt="James" loading="lazy">
     <div class="helper-slot" role="img" aria-label="David">&#128104;&#8205;&#128295;<div class="helper-label">David</div></div>
   </div>
-  <button class="readaloud" type="button" onclick="readPage(this)" aria-label="Read this page out loud">
-    <span class="ra-icon" aria-hidden="true">&#128266;</span><span class="ra-label">Read to me</span>
+  <button class="readaloud" type="button" onclick="readBlock(this,&#39;a&#39;)" data-label="Read the story to me" aria-label="Read the story to me">
+    <span class="ra-icon" aria-hidden="true">&#128266;</span><span class="ra-label">Read the story to me</span>
   </button>
   <div class="text-a">&ldquo;Will it be exactly like before?&rdquo; James asked, worried.</div>
-  <div class="text-b">James is sad.</div>
+  <div class="text-b-row">
+    <div class="text-b">James is sad.</div>
+    <button class="readaloud readaloud-hint" type="button" onclick="readBlock(this,&#39;b&#39;)" data-label="Hint" aria-label="Read this practice line out loud, if you get stuck">
+      <span class="ra-icon" aria-hidden="true">&#128264;</span><span class="ra-label">Hint</span>
+    </button>
+  </div>
 </section></div>
 <div class="page-wrap" id="p3" style="display:none">
 <section class="page">
@@ -193,11 +195,16 @@ img.char { height:220px; object-fit:contain; }
     <div class="helper-slot" role="img" aria-label="David">&#128104;&#8205;&#128295;<div class="helper-label">David</div></div>
     <img class="char" src="../assets/sprites/sophie_neutral_looking.png" alt="Sophie" loading="lazy">
   </div>
-  <button class="readaloud" type="button" onclick="readPage(this)" aria-label="Read this page out loud">
-    <span class="ra-icon" aria-hidden="true">&#128266;</span><span class="ra-label">Read to me</span>
+  <button class="readaloud" type="button" onclick="readBlock(this,&#39;a&#39;)" data-label="Read the story to me" aria-label="Read the story to me">
+    <span class="ra-icon" aria-hidden="true">&#128266;</span><span class="ra-label">Read the story to me</span>
   </button>
   <div class="text-a">David looked closely at the robot. &ldquo;I can fix it, but you might still see the repair line,&rdquo; he said honestly.</div>
-  <div class="text-b">James feels bad too.</div>
+  <div class="text-b-row">
+    <div class="text-b">James feels bad too.</div>
+    <button class="readaloud readaloud-hint" type="button" onclick="readBlock(this,&#39;b&#39;)" data-label="Hint" aria-label="Read this practice line out loud, if you get stuck">
+      <span class="ra-icon" aria-hidden="true">&#128264;</span><span class="ra-label">Hint</span>
+    </button>
+  </div>
   <div class="quiz" data-answer="1" role="group" aria-label="Question">
     <p class="quiz-q">How does James feel?</p>
     <div class="quiz-opts">
@@ -214,11 +221,16 @@ img.char { height:220px; object-fit:contain; }
     <img class="char" src="../assets/sprites/sophie_neutral_reaching.png" alt="Sophie" loading="lazy">
     <img class="char" src="../assets/sprites/james_sad_standing.png" alt="James" loading="lazy">
   </div>
-  <button class="readaloud" type="button" onclick="readPage(this)" aria-label="Read this page out loud">
-    <span class="ra-icon" aria-hidden="true">&#128266;</span><span class="ra-label">Read to me</span>
+  <button class="readaloud" type="button" onclick="readBlock(this,&#39;a&#39;)" data-label="Read the story to me" aria-label="Read the story to me">
+    <span class="ra-icon" aria-hidden="true">&#128266;</span><span class="ra-label">Read the story to me</span>
   </button>
   <div class="text-a">Sophie squeezed his hand. &ldquo;Sometimes fixed things get a new kind of special,&rdquo; she said.</div>
-  <div class="text-b">Fixed things feel good.</div>
+  <div class="text-b-row">
+    <div class="text-b">Fixed things feel good.</div>
+    <button class="readaloud readaloud-hint" type="button" onclick="readBlock(this,&#39;b&#39;)" data-label="Hint" aria-label="Read this practice line out loud, if you get stuck">
+      <span class="ra-icon" aria-hidden="true">&#128264;</span><span class="ra-label">Hint</span>
+    </button>
+  </div>
 </section></div>
 <div class="page-wrap" id="p5" style="display:none">
 <section class="page">
@@ -227,11 +239,16 @@ img.char { height:220px; object-fit:contain; }
     <div class="helper-slot" role="img" aria-label="David">&#128104;&#8205;&#128295;<div class="helper-label">David</div></div>
     <button class="hotspot right2" onclick="pulse(this)" aria-label="Tap to play" type="button">&#128295;</button>
   </div>
-  <button class="readaloud" type="button" onclick="readPage(this)" aria-label="Read this page out loud">
-    <span class="ra-icon" aria-hidden="true">&#128266;</span><span class="ra-label">Read to me</span>
+  <button class="readaloud" type="button" onclick="readBlock(this,&#39;a&#39;)" data-label="Read the story to me" aria-label="Read the story to me">
+    <span class="ra-icon" aria-hidden="true">&#128266;</span><span class="ra-label">Read the story to me</span>
   </button>
   <div class="text-a">David carefully glued and reinforced the little arm while James watched every step.</div>
-  <div class="text-b">David fixes the arm.</div>
+  <div class="text-b-row">
+    <div class="text-b">David fixes the arm.</div>
+    <button class="readaloud readaloud-hint" type="button" onclick="readBlock(this,&#39;b&#39;)" data-label="Hint" aria-label="Read this practice line out loud, if you get stuck">
+      <span class="ra-icon" aria-hidden="true">&#128264;</span><span class="ra-label">Hint</span>
+    </button>
+  </div>
 </section></div>
 <div class="page-wrap" id="p6" style="display:none">
 <section class="page">
@@ -240,11 +257,16 @@ img.char { height:220px; object-fit:contain; }
     <img class="char" src="../assets/sprites/sophie_neutral_pointing.png" alt="Sophie" loading="lazy">
     <button class="hotspot mid" onclick="pulse(this)" aria-label="Tap to play" type="button">&#129302;</button>
   </div>
-  <button class="readaloud" type="button" onclick="readPage(this)" aria-label="Read this page out loud">
-    <span class="ra-icon" aria-hidden="true">&#128266;</span><span class="ra-label">Read to me</span>
+  <button class="readaloud" type="button" onclick="readBlock(this,&#39;a&#39;)" data-label="Read the story to me" aria-label="Read the story to me">
+    <span class="ra-icon" aria-hidden="true">&#128266;</span><span class="ra-label">Read the story to me</span>
   </button>
   <div class="text-a">When it was done, a thin seam ran across the robot&rsquo;s shoulder &mdash; but the arm moved just fine.</div>
-  <div class="text-b">David can fix it.</div>
+  <div class="text-b-row">
+    <div class="text-b">David can fix it.</div>
+    <button class="readaloud readaloud-hint" type="button" onclick="readBlock(this,&#39;b&#39;)" data-label="Hint" aria-label="Read this practice line out loud, if you get stuck">
+      <span class="ra-icon" aria-hidden="true">&#128264;</span><span class="ra-label">Hint</span>
+    </button>
+  </div>
 </section></div>
 <div class="page-wrap" id="p7" style="display:none">
 <section class="page">
@@ -252,11 +274,16 @@ img.char { height:220px; object-fit:contain; }
     <img class="char" src="../assets/sprites/james_happy_standing.png" alt="James" loading="lazy">
     <img class="char" src="../assets/sprites/sophie_happy_giving.png" alt="Sophie" loading="lazy">
   </div>
-  <button class="readaloud" type="button" onclick="readPage(this)" aria-label="Read this page out loud">
-    <span class="ra-icon" aria-hidden="true">&#128266;</span><span class="ra-label">Read to me</span>
+  <button class="readaloud" type="button" onclick="readBlock(this,&#39;a&#39;)" data-label="Read the story to me" aria-label="Read the story to me">
+    <span class="ra-icon" aria-hidden="true">&#128266;</span><span class="ra-label">Read the story to me</span>
   </button>
   <div class="text-a">James looked at the seam for a long moment, then grinned. &ldquo;That&rsquo;s his battle scar now,&rdquo; he said proudly.</div>
-  <div class="text-b">James feels glad.</div>
+  <div class="text-b-row">
+    <div class="text-b">James feels glad.</div>
+    <button class="readaloud readaloud-hint" type="button" onclick="readBlock(this,&#39;b&#39;)" data-label="Hint" aria-label="Read this practice line out loud, if you get stuck">
+      <span class="ra-icon" aria-hidden="true">&#128264;</span><span class="ra-label">Hint</span>
+    </button>
+  </div>
   <div class="quiz" data-answer="1" role="group" aria-label="Question">
     <p class="quiz-q">How does James feel about the seam by the end?</p>
     <div class="quiz-opts">
@@ -274,11 +301,16 @@ img.char { height:220px; object-fit:contain; }
     <img class="char" src="../assets/sprites/james_happy_waving.png" alt="James" loading="lazy">
     <div class="helper-slot" role="img" aria-label="David">&#128104;&#8205;&#128295;<div class="helper-label">David</div></div>
   </div>
-  <button class="readaloud" type="button" onclick="readPage(this)" aria-label="Read this page out loud">
-    <span class="ra-icon" aria-hidden="true">&#128266;</span><span class="ra-label">Read to me</span>
+  <button class="readaloud" type="button" onclick="readBlock(this,&#39;a&#39;)" data-label="Read the story to me" aria-label="Read the story to me">
+    <span class="ra-icon" aria-hidden="true">&#128266;</span><span class="ra-label">Read the story to me</span>
   </button>
   <div class="text-a">Sophie and James thanked David and promised to bring anything else that broke straight to him.</div>
-  <div class="text-b">They thank David.</div>
+  <div class="text-b-row">
+    <div class="text-b">They thank David.</div>
+    <button class="readaloud readaloud-hint" type="button" onclick="readBlock(this,&#39;b&#39;)" data-label="Hint" aria-label="Read this practice line out loud, if you get stuck">
+      <span class="ra-icon" aria-hidden="true">&#128264;</span><span class="ra-label">Hint</span>
+    </button>
+  </div>
 </section></div>
 <div class="page-wrap" id="p9" style="display:none">
 <section class="page end-screen">
@@ -290,6 +322,7 @@ img.char { height:220px; object-fit:contain; }
     <p><b>Feeling/skill:</b> Small grief eases when a repaired thing is seen as changed, not ruined.</p>
     <p><b>Ask your child:</b> Has something you loved ever broken and gotten fixed?</p>
     <p><b>Try this:</b> Fix something small together and talk about its new marks.</p>
+    <p><b>Practice these words:</b> feel, fixed, thing, fixes, thank <span class="practice-note">(the trickier words from this book’s practice lines)</span></p>
     <p class="standards">Standards: RI.K.8, L.K.4.a</p>
   </details>
   <div class="end-btns">
@@ -516,55 +549,54 @@ function stopSpeech() {
   if (activeBtn) {
     activeBtn.classList.remove('speaking');
     var lbl = activeBtn.querySelector('.ra-label');
-    if (lbl) lbl.textContent = 'Read to me';
+    if (lbl && activeBtn.dataset.label) lbl.textContent = activeBtn.dataset.label;
     activeBtn = null;
   }
 }
 
-function readPage(btn) {
+/* Reads exactly one block (the story, OR the practice line -- never both
+   in one tap). Splitting these was a deliberate fix: one shared button
+   used to read the practice line for the child by default, which is the
+   one line in the book meant for THEM to sound out -- the easiest path
+   was also the one that skipped the actual phonics practice. The story
+   button stays prominent; the practice-line button is a smaller, opt-in
+   "stuck? tap for a hint" control instead of the default. */
+function readBlock(btn, which) {
   if (!SPEECH_OK) return;
   if (activeBtn === btn) { stopSpeech(); return; }
   stopSpeech();
 
   const page = btn.closest('.page');
-  const blocks = [page.querySelector('.text-a'), page.querySelector('.text-b')].filter(Boolean);
-  blocks.forEach(wrapWords);
+  const el = page.querySelector('.text-' + which);
+  if (!el) return;
+  wrapWords(el);
 
   activeBtn = btn;
   btn.classList.add('speaking');
   var lbl = btn.querySelector('.ra-label');
   if (lbl) lbl.textContent = 'Stop';
 
-  var queue = blocks.slice();
-  function speakBlock() {
-    if (!queue.length) { stopSpeech(); return; }
-    var el = queue.shift();
-    var spans = [].slice.call(el.querySelectorAll('.w'));
-    var plain = el.textContent;
-    var offsets = []; var cursor = 0;
-    spans.forEach(function(s) {
-      var idx = plain.indexOf(s.textContent, cursor);
-      offsets.push(idx); cursor = idx + s.textContent.length;
-    });
+  var spans = [].slice.call(el.querySelectorAll('.w'));
+  var plain = el.textContent;
+  var offsets = []; var cursor = 0;
+  spans.forEach(function(s) {
+    var idx = plain.indexOf(s.textContent, cursor);
+    offsets.push(idx); cursor = idx + s.textContent.length;
+  });
 
-    var u = new SpeechSynthesisUtterance(plain);
-    var v = pickVoice(); if (v) u.voice = v;
-    u.rate = 0.85; u.pitch = 1.05;
-    u.onboundary = function(ev) {
-      if (ev.name && ev.name !== 'word') return;
-      var hit = -1;
-      for (var i=0;i<offsets.length;i++) { if (offsets[i] <= ev.charIndex) hit = i; else break; }
-      spans.forEach(function(s) { s.classList.remove('spoken'); });
-      if (hit >= 0 && spans[hit]) spans[hit].classList.add('spoken');
-    };
-    u.onend = function() {
-      spans.forEach(function(s) { s.classList.remove('spoken'); });
-      if (activeBtn === btn) speakBlock();
-    };
-    u.onerror = function() { stopSpeech(); };
-    speechSynthesis.speak(u);
-  }
-  speakBlock();
+  var u = new SpeechSynthesisUtterance(plain);
+  var v = pickVoice(); if (v) u.voice = v;
+  u.rate = 0.85; u.pitch = 1.05;
+  u.onboundary = function(ev) {
+    if (ev.name && ev.name !== 'word') return;
+    var hit = -1;
+    for (var i=0;i<offsets.length;i++) { if (offsets[i] <= ev.charIndex) hit = i; else break; }
+    spans.forEach(function(s) { s.classList.remove('spoken'); });
+    if (hit >= 0 && spans[hit]) spans[hit].classList.add('spoken');
+  };
+  u.onend = function() { stopSpeech(); };
+  u.onerror = function() { stopSpeech(); };
+  speechSynthesis.speak(u);
 }
 
 if (SPEECH_OK) { speechSynthesis.onvoiceschanged = function() {}; }

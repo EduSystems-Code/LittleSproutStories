@@ -58,16 +58,46 @@ A line that needs more nuance than one of those six words gives builds it from
 sight words instead of reaching for a bigger feeling word: *"Sophie feels a bit sad"*
 rather than *"Sophie feels impatient."*
 
+**(g) A small, fixed set of high-frequency "heart words"** — real vowel-team or
+silent-e words that don't fit the CVC/sight-word rule above but are too functionally
+essential to write around: `feel, wait, take, real, read, mean, count, done, same,
+bake, your, paint`. Found by building the automated screen below and running it
+against the real 14 books for the first time (2026-09-17) — every one of these was
+already in use, unflagged, under the original hand screen. Rather than rewrite around
+them, this makes that an explicit, bounded, documented exception instead of a silent
+gap — the same "heart words" approach real Science-of-Reading decodable-reader
+programs use for irregular high-frequency words (taught by sight, in a small curated
+set, not by CVC decoding). Any word outside (a)-(g) is still a real screen failure,
+not a judgment call.
+
 ## What's explicitly still banned
 
 Multisyllable abstract/Latinate words (`different, favorite, special, remembers,
 disagree, understands`), any word requiring silent-e or vowel-team knowledge a
-kindergartner hasn't been taught yet outside the (b)/(d)/(f) exceptions above, and any
-feeling word outside the six listed above.
+kindergartner hasn't been taught yet outside the (b)/(d)/(f)/(g) exceptions above, and
+any feeling word outside the six listed above.
 
 ## Acceptance
 
-Every rewritten line in `books/*.html` was screened by hand against this list. A
-future script can automate the screen: strip character names and punctuation, split
-on whitespace, and flag anything not in (a)+(b)+(e) unless it appears at most once per
-line and matches (d) or (f) by inspection.
+Every rewritten line in `books/*.html` was screened by hand, once, in August 2026.
+**Automated now (2026-09-17):** `scripts/analyze_decodability.py` re-screens every
+book's Stream B text on every push (wired into the `pre-push` hook alongside
+`cache_bump_guard.py`/`link_check.py`) — strips character names/possessives/plurals/
+verb inflections, checks the root against categories (a)-(g), and fails the push if
+anything doesn't match. Run it by hand any time with `python
+scripts/analyze_decodability.py`.
+
+## Reading levels (2026-09-17)
+
+The 14 books were never ordered by decoding difficulty — the numbering is the
+community-helper story sequence, not a difficulty ramp, and a real word-by-word audit
+confirms blends/digraphs already appear as early as Book 1 (`truck`, `clap`). Rather
+than rewrite already-published, tested text to force an artificial book-1-easiest
+ordering, `analyze_decodability.py` scores each book's *actual* Stream B complexity —
+the real share of words that are a blend, digraph, or multi-syllable build, category
+(a)/(f) above — and ranks all 14 books into four reading levels (1 = simplest, 4 =
+most complex) from that real data, not a guess. The result is written into each
+book's spec as `reading_level` and shown on the homepage's book cards and the badge
+shelf's reading plan, so a family or teacher gets an honest easier-to-harder path
+without any of the existing story content changing. Re-run with `--write` after any
+Stream B text edit to keep the levels current.

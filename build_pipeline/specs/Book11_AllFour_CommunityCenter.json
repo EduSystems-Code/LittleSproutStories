@@ -272,6 +272,14 @@
     "feeling": "Impatience eases when waiting is made visible and fair.",
     "ask": "What helps you wait for your turn?",
     "try_this": "Use a visible timer for turn-taking at home this week.",
-    "standards": "SL.K.1.a"
-  }
+    "standards": "SL.K.1.a",
+    "practice_words": [
+      "feel",
+      "wait",
+      "long",
+      "tick",
+      "watch"
+    ]
+  },
+  "reading_level": 4
 }

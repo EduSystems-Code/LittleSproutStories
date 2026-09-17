@@ -237,6 +237,14 @@
     "feeling": "Passing a coping trick to a friend builds confidence in both children.",
     "ask": "Have you ever helped a friend the way someone once helped you?",
     "try_this": "Ask your child to teach a younger sibling one calming trick.",
-    "standards": "RL.K.7"
-  }
+    "standards": "RL.K.7",
+    "practice_words": [
+      "bring",
+      "feel",
+      "cover",
+      "your",
+      "count"
+    ]
+  },
+  "reading_level": 2
 }

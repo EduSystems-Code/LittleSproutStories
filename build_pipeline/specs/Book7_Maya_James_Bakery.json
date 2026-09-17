@@ -263,6 +263,13 @@
     "feeling": "Fear of mistakes eases when a mistake becomes something new.",
     "ask": "Tell me about a mistake that turned into something good.",
     "try_this": "Bake something together and let a &ldquo;mistake&rdquo; become part of the recipe.",
-    "standards": "W.K.3"
-  }
+    "standards": "W.K.3",
+    "practice_words": [
+      "bake",
+      "feel",
+      "best",
+      "both"
+    ]
+  },
+  "reading_level": 2
 }
