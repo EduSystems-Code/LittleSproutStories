@@ -230,6 +230,13 @@
     "feeling": "Anxiety eases when a child is offered a small, real choice.",
     "ask": "What is one choice that would help you feel ready for something new?",
     "try_this": "Offer two small choices before your child&rsquo;s next appointment.",
-    "standards": "L.K.1.d, SL.K.2"
-  }
+    "standards": "L.K.1.d, SL.K.2",
+    "practice_words": [
+      "feel",
+      "pick",
+      "first",
+      "ask"
+    ]
+  },
+  "reading_level": 4
 }

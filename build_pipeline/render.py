@@ -86,7 +86,11 @@ img.char {{ height:220px; object-fit:contain; }}
 .readaloud[hidden] {{ display:none; }}
 
 .text-a {{ font-size:18px; line-height:1.6; margin-top:12px; }}
-.text-b {{ font-size:20px; font-weight:bold; background:#eaf7ee; border-left:5px solid var(--sprout); padding:10px 14px; border-radius:8px; margin-top:10px; }}
+.text-b-row {{ display:flex; align-items:center; gap:10px; margin-top:10px; }}
+.text-b {{ font-size:20px; font-weight:bold; background:#eaf7ee; border-left:5px solid var(--sprout); padding:10px 14px; border-radius:8px; flex:1; }}
+.readaloud-hint {{ margin-top:0; padding:6px 12px; font-size:13px; border-color:#ccc; color:#666; flex-shrink:0; }}
+.readaloud-hint .ra-icon {{ font-size:14px; }}
+.readaloud-hint:hover {{ background:#f7f7f7; }}
 .w.spoken {{ background:#FFE9A3; border-radius:4px; }}
 
 .quiz {{ margin-top:16px; background:#fff8e6; border-radius:12px; padding:14px; text-align:center; }}
@@ -115,6 +119,8 @@ img.char {{ height:220px; object-fit:contain; }}
 .guide summary {{ font-weight:bold; cursor:pointer; font-size:17px; }}
 .guide p {{ margin:10px 0 0; }}
 .standards {{ font-size:12px; color:#666; }}
+.practice-note {{ font-size:12px; color:#666; font-weight:normal; }}
+.level-tag {{ display:inline-block; background:#fff; border:2px solid var(--sprout); color:var(--sprout-dark); border-radius:20px; padding:4px 14px; font-size:13px; font-weight:bold; margin-bottom:10px; margin-left:8px; }}
 
 /* ---------- juice: page turns, taps, celebrations ---------- */
 .page-wrap.turn-in .page {{ animation: pageTurnIn .32s cubic-bezier(.2,.8,.3,1) both; }}
@@ -378,55 +384,54 @@ function stopSpeech() {{
   if (activeBtn) {{
     activeBtn.classList.remove('speaking');
     var lbl = activeBtn.querySelector('.ra-label');
-    if (lbl) lbl.textContent = 'Read to me';
+    if (lbl && activeBtn.dataset.label) lbl.textContent = activeBtn.dataset.label;
     activeBtn = null;
   }}
 }}
 
-function readPage(btn) {{
+/* Reads exactly one block (the story, OR the practice line -- never both
+   in one tap). Splitting these was a deliberate fix: one shared button
+   used to read the practice line for the child by default, which is the
+   one line in the book meant for THEM to sound out -- the easiest path
+   was also the one that skipped the actual phonics practice. The story
+   button stays prominent; the practice-line button is a smaller, opt-in
+   "stuck? tap for a hint" control instead of the default. */
+function readBlock(btn, which) {{
   if (!SPEECH_OK) return;
   if (activeBtn === btn) {{ stopSpeech(); return; }}
   stopSpeech();
 
   const page = btn.closest('.page');
-  const blocks = [page.querySelector('.text-a'), page.querySelector('.text-b')].filter(Boolean);
-  blocks.forEach(wrapWords);
+  const el = page.querySelector('.text-' + which);
+  if (!el) return;
+  wrapWords(el);
 
   activeBtn = btn;
   btn.classList.add('speaking');
   var lbl = btn.querySelector('.ra-label');
   if (lbl) lbl.textContent = 'Stop';
 
-  var queue = blocks.slice();
-  function speakBlock() {{
-    if (!queue.length) {{ stopSpeech(); return; }}
-    var el = queue.shift();
-    var spans = [].slice.call(el.querySelectorAll('.w'));
-    var plain = el.textContent;
-    var offsets = []; var cursor = 0;
-    spans.forEach(function(s) {{
-      var idx = plain.indexOf(s.textContent, cursor);
-      offsets.push(idx); cursor = idx + s.textContent.length;
-    }});
+  var spans = [].slice.call(el.querySelectorAll('.w'));
+  var plain = el.textContent;
+  var offsets = []; var cursor = 0;
+  spans.forEach(function(s) {{
+    var idx = plain.indexOf(s.textContent, cursor);
+    offsets.push(idx); cursor = idx + s.textContent.length;
+  }});
 
-    var u = new SpeechSynthesisUtterance(plain);
-    var v = pickVoice(); if (v) u.voice = v;
-    u.rate = 0.85; u.pitch = 1.05;
-    u.onboundary = function(ev) {{
-      if (ev.name && ev.name !== 'word') return;
-      var hit = -1;
-      for (var i=0;i<offsets.length;i++) {{ if (offsets[i] <= ev.charIndex) hit = i; else break; }}
-      spans.forEach(function(s) {{ s.classList.remove('spoken'); }});
-      if (hit >= 0 && spans[hit]) spans[hit].classList.add('spoken');
-    }};
-    u.onend = function() {{
-      spans.forEach(function(s) {{ s.classList.remove('spoken'); }});
-      if (activeBtn === btn) speakBlock();
-    }};
-    u.onerror = function() {{ stopSpeech(); }};
-    speechSynthesis.speak(u);
-  }}
-  speakBlock();
+  var u = new SpeechSynthesisUtterance(plain);
+  var v = pickVoice(); if (v) u.voice = v;
+  u.rate = 0.85; u.pitch = 1.05;
+  u.onboundary = function(ev) {{
+    if (ev.name && ev.name !== 'word') return;
+    var hit = -1;
+    for (var i=0;i<offsets.length;i++) {{ if (offsets[i] <= ev.charIndex) hit = i; else break; }}
+    spans.forEach(function(s) {{ s.classList.remove('spoken'); }});
+    if (hit >= 0 && spans[hit]) spans[hit].classList.add('spoken');
+  }};
+  u.onend = function() {{ stopSpeech(); }};
+  u.onerror = function() {{ stopSpeech(); }};
+  speechSynthesis.speak(u);
 }}
 
 if (SPEECH_OK) {{ speechSynthesis.onvoiceschanged = function() {{}}; }}
@@ -488,21 +493,41 @@ def render_page(page: dict) -> str:
         f'<div class="page-wrap" id="p{page["index"]}" style="display:none">\n'
         f'<section class="page">\n'
         f'  {render_stage(page["stage"])}\n'
-        f'  <button class="readaloud" type="button" onclick="readPage(this)" aria-label="Read this page out loud">\n'
-        f'    <span class="ra-icon" aria-hidden="true">&#128266;</span><span class="ra-label">Read to me</span>\n'
+        f'  <button class="readaloud" type="button" onclick="readBlock(this,&#39;a&#39;)" data-label="Read the story to me" aria-label="Read the story to me">\n'
+        f'    <span class="ra-icon" aria-hidden="true">&#128266;</span><span class="ra-label">Read the story to me</span>\n'
         f'  </button>\n'
         f'  <div class="text-a">{page["text_a"]}</div>\n'
-        f'  <div class="text-b">{page["text_b"]}</div>{quiz_block}\n'
+        f'  <div class="text-b-row">\n'
+        f'    <div class="text-b">{page["text_b"]}</div>\n'
+        f'    <button class="readaloud readaloud-hint" type="button" onclick="readBlock(this,&#39;b&#39;)" data-label="Hint" aria-label="Read this practice line out loud, if you get stuck">\n'
+        f'      <span class="ra-icon" aria-hidden="true">&#128264;</span><span class="ra-label">Hint</span>\n'
+        f'    </button>\n'
+        f'  </div>{quiz_block}\n'
         f'</section></div>\n'
     )
 
 
+LEVEL_LABELS = {
+    1: "Level 1 — Just starting out",
+    2: "Level 2 — Building confidence",
+    3: "Level 3 — Getting stronger",
+    4: "Level 4 — Confident reader",
+}
+
+
 def render_cover(spec: dict) -> str:
     cover = spec["cover"]
+    level = spec.get("reading_level")
+    level_html = (
+        f'<span class="level-tag" title="Relative to the other 13 Little Sprout books, based on how many '
+        f'blend/digraph/multi-syllable words this book actually uses — not an outside grade standard.">'
+        f'{LEVEL_LABELS.get(level, f"Level {level}")}</span>'
+        if level else ""
+    )
     return (
         f'<div class="page-wrap" id="p0" style="display:block">\n'
         f'<section class="page cover">\n'
-        f'  <div class="banner">Little Sprout Stories</div>\n'
+        f'  <div class="banner">Little Sprout Stories</div>{level_html}\n'
         f'  <h1>{cover["h1_html"]}</h1>\n'
         f'  {render_stage(cover["stage"])}\n'
         f'  <button class="start-btn" type="button" onclick="nextPage()">Start Reading &#9654;</button>\n'
@@ -512,6 +537,12 @@ def render_cover(spec: dict) -> str:
 
 def render_end(spec: dict, end_index: int) -> str:
     e = spec["end_screen"]
+    words = e.get("practice_words") or []
+    practice_html = (
+        f'    <p><b>Practice these words:</b> {", ".join(words)} '
+        f'<span class="practice-note">(the trickier words from this book’s practice lines)</span></p>\n'
+        if words else ""
+    )
     return (
         f'<div class="page-wrap" id="p{end_index}" style="display:none">\n'
         f'<section class="page end-screen">\n'
@@ -523,6 +554,7 @@ def render_end(spec: dict, end_index: int) -> str:
         f'    <p><b>Feeling/skill:</b> {e["feeling"]}</p>\n'
         f'    <p><b>Ask your child:</b> {e["ask"]}</p>\n'
         f'    <p><b>Try this:</b> {e["try_this"]}</p>\n'
+        f'{practice_html}'
         f'    <p class="standards">Standards: {e["standards"]}</p>\n'
         f'  </details>\n'
         f'  <div class="end-btns">\n'

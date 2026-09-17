@@ -256,6 +256,13 @@
     "feeling": "Frustration eases when a plan is allowed to flex.",
     "ask": "What do you do when your plan does not go the way you hoped?",
     "try_this": "Let your child help set tonight&rsquo;s plan, then bend it together if something changes.",
-    "standards": "RI.K.3, W.K.2"
-  }
+    "standards": "RI.K.3, W.K.2",
+    "practice_words": [
+      "feel",
+      "wait",
+      "pick",
+      "thing"
+    ]
+  },
+  "reading_level": 1
 }

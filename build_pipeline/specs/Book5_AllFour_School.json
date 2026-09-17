@@ -284,6 +284,14 @@
     "feeling": "Separation worry eases with the certainty of reuniting.",
     "ask": "What is something fun that happened when we were apart today?",
     "try_this": "Talk through the day&rsquo;s schedule together before drop-off.",
-    "standards": "RL.K.9, SL.K.4"
-  }
+    "standards": "RL.K.9, SL.K.4",
+    "practice_words": [
+      "visit",
+      "pick",
+      "feel",
+      "paint",
+      "about"
+    ]
+  },
+  "reading_level": 3
 }
