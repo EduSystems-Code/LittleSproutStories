@@ -1,0 +1,203 @@
+<!DOCTYPE html><html lang="en"><head>
+<link rel="icon" type="image/png" href="../assets/icons/icon-192.png">
+<link rel="canonical" href="https://edusystems-code.github.io/LittleSproutStories/games/helper_detective.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="LittleSprout">
+<meta property="og:title" content="Helper Detective — LittleSprout">
+<meta property="og:description" content="Interactive phonics storybooks and feelings games for early readers ages 4–7, starring Maya, Marcus, Sophie, and James.">
+<meta property="og:url" content="https://edusystems-code.github.io/LittleSproutStories/games/helper_detective.html">
+<meta property="og:image" content="https://edusystems-code.github.io/LittleSproutStories/assets/og-share.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Helper Detective — LittleSprout">
+<meta name="twitter:description" content="Interactive phonics storybooks and feelings games for early readers ages 4–7, starring Maya, Marcus, Sophie, and James.">
+<meta name="twitter:image" content="https://edusystems-code.github.io/LittleSproutStories/assets/og-share.png"><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Helper Detective — LittleSprout</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--sprout:#5BA672;--sprout-dark:#3C7A52;--sprout-deep:#2C5C3D;--cream:#FBF6EC;--cream-deep:#F3EAD6;
+--paper-line:#E7DCC4;--sky:#BFE3FA;--sky-deep:#185FA5;--sun:#FFD24A;--sun-deep:#E1A400;--berry:#B0488C;
+--bark:#36402C;--bark-soft:#5E6650;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',sans-serif;color:var(--bark);min-height:100vh;
+ background-color:var(--cream);
+ background-image:linear-gradient(rgba(251,246,236,.7),rgba(251,246,236,.7)),url('../assets/backgrounds/center.jpg');
+ background-size:cover;background-position:center;background-repeat:no-repeat;
+ display:flex;flex-direction:column;align-items:center;padding:18px;line-height:1.5}
+h1,h2,h3,button{font-family:'Fredoka',sans-serif;font-weight:600}
+.topbar{width:100%;max-width:860px;display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.back{font-family:'Fredoka',sans-serif;font-weight:600;font-size:15px;color:var(--sprout-dark);
+ background:#fff;border:2px solid var(--paper-line);border-radius:50px;padding:9px 18px;text-decoration:none}
+.back:hover{border-color:var(--sprout)}
+.stars{font-size:22px;letter-spacing:2px;min-height:28px}
+.title{text-align:center;margin-bottom:6px;font-size:clamp(26px,5vw,38px);color:var(--bark)}
+.sub{text-align:center;color:var(--bark-soft);font-weight:700;margin-bottom:22px;font-size:16px}
+.panel{background:#fff;border:1px solid var(--paper-line);border-radius:26px;padding:26px;
+ box-shadow:0 8px 26px rgba(54,64,44,.08);width:100%;max-width:860px}
+.btn{background:var(--sun);color:#5A4200;border:none;border-radius:50px;padding:14px 30px;font-size:18px;
+ box-shadow:0 5px 0 var(--sun-deep);cursor:pointer;transition:transform .12s,box-shadow .12s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 7px 0 var(--sun-deep)}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 var(--sun-deep)}
+.btn.green{background:var(--sprout);color:#fff;box-shadow:0 5px 0 var(--sprout-dark)}
+.btn.green:hover{box-shadow:0 7px 0 var(--sprout-dark)}
+.center{text-align:center}
+.row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+:focus-visible{outline:3px solid var(--sky-deep);outline-offset:3px;border-radius:8px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+.play{display:grid;grid-template-columns:190px 1fr;gap:24px;align-items:center}
+@media(max-width:680px){.play{grid-template-columns:1fr}}
+.buddy{text-align:center}
+.buddy img{width:100%;max-width:180px;height:220px;object-fit:contain}
+.buddy b{display:block;font-family:'Fredoka',sans-serif;font-weight:600;color:var(--sprout-deep);font-size:17px}
+.buddy.cheer img{animation:hop .5s ease-in-out 2}
+@keyframes hop{50%{transform:translateY(-16px)}}
+.case{border:2px dashed var(--paper-line);border-radius:18px;padding:16px;margin-bottom:16px;background:var(--cream-deep)}
+.case-photo{width:100%;height:140px;object-fit:cover;border-radius:12px;margin-bottom:10px;background:var(--paper-line)}
+.case-helper{display:flex;align-items:center;gap:12px;justify-content:center;margin-bottom:4px}
+.case-emoji{font-size:44px}
+.case-name{font-family:'Fredoka',sans-serif;font-weight:600;font-size:20px;color:var(--sprout-deep)}
+.case-role{font-size:14px;color:var(--bark-soft);font-weight:700}
+.q{text-align:center;font-family:'Fredoka',sans-serif;font-weight:600;font-size:19px;margin-bottom:14px}
+.opts{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+@media(max-width:520px){.opts{grid-template-columns:1fr}}
+.opt{background:#fff;border:3px solid var(--paper-line);border-radius:16px;padding:10px;cursor:pointer;
+ font-family:'Fredoka',sans-serif;font-weight:600;font-size:15px;color:var(--bark);transition:.15s;text-align:left;
+ display:flex;align-items:center;gap:10px}
+.opt:hover{border-color:var(--sprout);transform:translateY(-2px)}
+.opt img{width:52px;height:40px;object-fit:cover;border-radius:8px;flex-shrink:0}
+.opt .opt-emoji{font-size:30px;flex-shrink:0}
+.opt.right{background:#E8F4DC;border-color:var(--sprout);color:var(--sprout-deep)}
+.opt.wrong{background:#FCE0EE;border-color:var(--berry)}
+.hint{text-align:center;font-family:'Fredoka',sans-serif;font-weight:600;font-size:19px;
+ color:var(--bark-soft);min-height:30px;margin:16px 0 4px}
+.streak{text-align:center;font-size:14px;font-weight:800;color:var(--sun-deep);min-height:20px}
+body.easyread{letter-spacing:.03em;word-spacing:.1em}body.easyread .hint,body.easyread .sub{line-height:1.9}.topbar-right{display:flex;align-items:center;gap:10px}.aa{font-family:'Fredoka',sans-serif;font-weight:600;font-size:15px;color:var(--sprout-dark);background:#fff;border:2px solid var(--paper-line);border-radius:50px;padding:8px 16px;cursor:pointer}.aa[aria-pressed="true"]{background:var(--sprout);color:#fff;border-color:var(--sprout)}.btn,.opt,.aa,.back{transition:transform .12s ease}.btn:active,.opt:not(.locked):active,.aa:active,.back:active{transform:scale(.97)}.confetti-piece{position:fixed;top:-12px;width:10px;height:14px;opacity:.95;pointer-events:none;z-index:999;animation:confettiFall linear forwards}@keyframes confettiFall{to{transform:translateY(110vh) rotate(560deg);opacity:.6}}@media(prefers-reduced-motion:reduce){.btn:active,.opt:active,.aa:active,.back:active{transform:none}.confetti-piece{display:none}}</style></head><body>
+<div class="topbar"><a class="back" href="../index.html">&#8592; Back</a><div class="topbar-right"><button type="button" class="aa" id="easyBtn" onclick="toggleEasy()" aria-pressed="false" title="Easier-to-read spacing">Aa</button><button type="button" class="aa" id="muteBtn" onclick="toggleMute()" aria-pressed="false" title="Sound on/off">🔊</button><div class="stars" id="stars"></div></div></div>
+<h1 class="title">Helper Detective</h1>
+<p class="sub">Real helpers and places from all 14 books &mdash; solve the case.</p>
+<div class="panel">
+ <div class="play">
+  <div class="buddy" id="buddy"></div>
+  <div>
+   <div class="case" id="case"></div>
+   <div class="q" id="q"></div>
+   <div class="opts" id="opts"></div>
+   <div class="hint" id="hint"></div>
+   <div class="streak" id="streak"></div>
+  </div>
+ </div>
+</div>
+<script>
+const SPRITES = {"maya_pointing": "../assets/sprites/maya_happy_pointing.png", "maya_jumping": "../assets/sprites/maya_happy_jumping.png",
+ "marcus_pointing": "../assets/sprites/marcus_happy_pointing.png", "marcus_jumping": "../assets/sprites/marcus_happy_jumping.png",
+ "sophie_pointing": "../assets/sprites/sophie_happy_pointing.png", "sophie_jumping": "../assets/sprites/sophie_happy_jumping.png",
+ "james_pointing": "../assets/sprites/james_happy_pointing.png", "james_jumping": "../assets/sprites/james_happy_jumping.png"};
+const CHARS=[["maya","Maya"],["marcus","Marcus"],["sophie","Sophie"],["james","James"]];
+// Every helper's real name, job, and location -- pulled from the books'
+// own specs (each book's actual text_a lines), not invented.
+const HELPERS=[
+ {name:"Alex",role:"Firefighter",place:"firestation",label:"Fire Station",emoji:"🚒"},
+ {name:"Officer Jasmine",role:"Police Officer",place:"police",label:"Police Station",emoji:"👮"},
+ {name:"Ms. Chen",role:"Librarian",place:"library",label:"Library",emoji:"📚"},
+ {name:"Dr. Patel",role:"Doctor",place:"doctor",label:"Doctor's Office",emoji:"🩺"},
+ {name:"Mr. Rodriguez",role:"Teacher",place:"school",label:"Elementary School",emoji:"🍎"},
+ {name:"Mr. Smith",role:"Barber",place:"barbershop",label:"Barbershop",emoji:"✂️"},
+ {name:"Keisha",role:"Baker",place:"bakery",label:"Bakery",emoji:"🧁"},
+ {name:"Tom",role:"Gardener",place:"garden",label:"Garden",emoji:"🌻"},
+ {name:"Rose",role:"Postal Worker",place:"postoffice",label:"Post Office",emoji:"✉️"},
+ {name:"David",role:"Repair Helper",place:"repair",label:"Repair Shop",emoji:"🔧"},
+ {name:"Nurse Aisha",role:"Nurse",place:"center",label:"Community Center",emoji:"🩹"}
+];
+function bg(place){return '../assets/backgrounds/'+place+'.jpg';}
+
+const caseEl=document.getElementById('case'),qEl=document.getElementById('q'),optsEl=document.getElementById('opts'),
+ hintEl=document.getElementById('hint'),streakEl=document.getElementById('streak'),
+ buddyEl=document.getElementById('buddy'),starEl=document.getElementById('stars');
+let stars=0,buddy,streak=0,lock=false,current,mode,correctIdx;
+
+function say(t,r){try{const u=new SpeechSynthesisUtterance(t);u.rate=r||.85;u.pitch=1.05;speechSynthesis.speak(u);}catch(e){}}
+function drawStars(){starEl.textContent="⭐".repeat(Math.min(stars,10));}
+function drawStreak(){streakEl.textContent = streak>=2 ? '🔍 '+streak+' cases solved in a row!' : '';}
+function setBuddy(pose,cheer){
+ buddyEl.className='buddy'+(cheer?' cheer':'');
+ buddyEl.innerHTML='<img alt="" src="'+SPRITES[buddy[0]+'_'+pose]+'"><b>'+buddy[1]+' the Detective</b>';
+}
+function shuffle(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}return arr;}
+
+function newRound(){
+ lock=false;
+ buddy=CHARS[Math.floor(Math.random()*CHARS.length)];
+ setBuddy('pointing',false);
+ current=HELPERS[Math.floor(Math.random()*HELPERS.length)];
+ mode = Math.random()<0.5 ? 'whoWorksHere' : 'whereDoTheyWork';
+
+ const distractors=shuffle(HELPERS.filter(h=>h!==current)).slice(0,3);
+ const options=shuffle([current].concat(distractors));
+ correctIdx = options.indexOf(current);
+
+ optsEl.innerHTML='';
+ if(mode==='whoWorksHere'){
+  caseEl.innerHTML='<img class="case-photo" alt="" src="'+bg(current.place)+'"><div class="q" style="margin:0">A helper works here.</div>';
+  qEl.textContent='Which helper works at the '+current.label+'?';
+  options.forEach((o,i)=>{
+   const b=document.createElement('button'); b.className='opt';
+   b.innerHTML='<span class="opt-emoji">'+o.emoji+'</span><span>'+o.name+'<br><small style="font-weight:600;color:var(--bark-soft)">'+o.role+'</small></span>';
+   b.onclick=()=>guess(b,i); optsEl.appendChild(b);
+  });
+ } else {
+  caseEl.innerHTML='<div class="case-helper"><span class="case-emoji">'+current.emoji+'</span><div><div class="case-name">'+current.name+'</div><div class="case-role">'+current.role+'</div></div></div>';
+  qEl.textContent='Where does '+current.name+' work?';
+  options.forEach((o,i)=>{
+   const b=document.createElement('button'); b.className='opt';
+   b.innerHTML='<img alt="" src="'+bg(o.place)+'"><span>'+o.label+'</span>';
+   b.onclick=()=>guess(b,i); optsEl.appendChild(b);
+  });
+ }
+ hintEl.textContent='';
+ say(qEl.textContent);
+}
+
+function guess(btn,i){
+ if(lock)return;
+ if(i===correctIdx){
+  lock=true; btn.classList.add('right');
+  stars=Math.min(10,stars+1); streak++; drawStars(); drawStreak(); saveGameStars(stars); sfxSuccess();
+  if(stars%5===0)confettiBurst();
+  setBuddy('jumping',true);
+  const line = mode==='whoWorksHere' ? current.name+' works at the '+current.label+'!' : current.name+' works at the '+current.label+'!';
+  hintEl.textContent=line; say(line);
+  setTimeout(newRound,2400);
+ } else {
+  streak=0; drawStreak();
+  btn.classList.add('wrong'); sfxOops();
+  hintEl.textContent='Not quite — try another.';
+  setTimeout(()=>btn.classList.remove('wrong'),700);
+ }
+}
+drawStars(); newRound();
+
+function loadProgress(){try{return JSON.parse(localStorage.getItem('littlesprout')||'{}');}catch(e){return{};}}
+function saveProgress(d){try{localStorage.setItem('littlesprout',JSON.stringify(d));return true;}catch(e){return false;}}
+function toggleEasy(){const on=document.body.classList.toggle('easyread');document.getElementById('easyBtn').setAttribute('aria-pressed',on?'true':'false');const d=loadProgress();d.easyread=on;saveProgress(d);}
+(function initEasy(){if(loadProgress().easyread){document.body.classList.add('easyread');const b=document.getElementById('easyBtn');if(b)b.setAttribute('aria-pressed','true');}})();
+function saveGameStars(n){const d=loadProgress();d.games=d.games||{};const prev=(d.games['helper_detective']&&d.games['helper_detective'].stars)||0;d.games['helper_detective']={stars:Math.max(prev,n),at:Date.now()};saveProgress(d);}
+if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('../sw.js').catch(function(){});});}
+
+let audioCtx=null;
+function getAudioCtx(){if(!audioCtx){try{audioCtx=new (window.AudioContext||window.webkitAudioContext)();}catch(e){}}return audioCtx;}
+function isMuted(){return !!loadProgress().muted;}
+function tone(freq,dur,type,vol){if(isMuted())return;const ctx=getAudioCtx();if(!ctx)return;try{const o=ctx.createOscillator(),g=ctx.createGain();o.type=type||'sine';o.frequency.value=freq;o.connect(g);g.connect(ctx.destination);g.gain.value=vol||0.1;g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+dur);o.start();o.stop(ctx.currentTime+dur);}catch(e){}}
+function sfxSuccess(){tone(523,.12,'sine',.1);setTimeout(function(){tone(659,.12,'sine',.1);},90);setTimeout(function(){tone(784,.2,'sine',.12);},180);}
+function sfxOops(){tone(220,.18,'sine',.08);}
+function confettiBurst(){
+ if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+ const colors=['#5BA672','#FFD24A','#185FA5','#B0488C','#E8433F'];
+ for(let i=0;i<24;i++){const p=document.createElement('div');p.className='confetti-piece';p.style.left=(Math.random()*100)+'vw';p.style.background=colors[i%colors.length];p.style.animationDuration=(1.4+Math.random()*1.2)+'s';p.style.transform='rotate('+(Math.random()*360)+'deg)';document.body.appendChild(p);setTimeout(function(){p.remove();},3000);}
+}
+function toggleMute(){const d=loadProgress();d.muted=!d.muted;saveProgress(d);const b=document.getElementById('muteBtn');b.textContent=d.muted?'🔇':'🔊';b.setAttribute('aria-pressed',d.muted?'true':'false');}
+(function initMute(){if(loadProgress().muted){const b=document.getElementById('muteBtn');if(b){b.textContent='🔇';b.setAttribute('aria-pressed','true');}}})();
+</script></body></html>
