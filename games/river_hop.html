@@ -1,0 +1,587 @@
+<!DOCTYPE html><html lang="en"><head>
+<link rel="icon" type="image/png" href="../assets/icons/icon-192.png">
+<link rel="canonical" href="https://edusystems-code.github.io/LittleSproutStories/games/river_hop.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="LittleSprout">
+<meta property="og:title" content="River Hop — LittleSprout">
+<meta property="og:description" content="Interactive phonics storybooks and feelings games for early readers ages 4–7, starring Maya, Marcus, Sophie, and James.">
+<meta property="og:url" content="https://edusystems-code.github.io/LittleSproutStories/games/river_hop.html">
+<meta property="og:image" content="https://edusystems-code.github.io/LittleSproutStories/assets/og-share.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="River Hop — LittleSprout">
+<meta name="twitter:description" content="Interactive phonics storybooks and feelings games for early readers ages 4–7, starring Maya, Marcus, Sophie, and James.">
+<meta name="twitter:image" content="https://edusystems-code.github.io/LittleSproutStories/assets/og-share.png"><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>River Hop — LittleSprout</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--sprout:#5BA672;--sprout-dark:#3C7A52;--sprout-deep:#2C5C3D;--cream:#FBF6EC;--cream-deep:#F3EAD6;
+--paper-line:#E7DCC4;--sky:#BFE3FA;--sky-deep:#185FA5;--sun:#FFD24A;--sun-deep:#E1A400;--berry:#B0488C;
+--bark:#36402C;--bark-soft:#5E6650;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',sans-serif;color:var(--bark);min-height:100vh;
+ background-color:var(--cream);
+ background-image:linear-gradient(rgba(251,246,236,.6),rgba(251,246,236,.6)),url('../assets/backgrounds/school_3.jpg');
+ background-size:cover;background-position:center;background-repeat:no-repeat;
+ display:flex;flex-direction:column;align-items:center;padding:18px;line-height:1.5}
+h1,h2,h3,button{font-family:'Fredoka',sans-serif;font-weight:600}
+.topbar{width:100%;max-width:860px;display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.back{font-family:'Fredoka',sans-serif;font-weight:600;font-size:15px;color:var(--sprout-dark);
+ background:#fff;border:2px solid var(--paper-line);border-radius:50px;padding:9px 18px;text-decoration:none}
+.back:hover{border-color:var(--sprout)}
+.stars{font-size:22px;letter-spacing:2px;min-height:28px}
+.title{text-align:center;margin-bottom:6px;font-size:clamp(26px,5vw,38px);color:var(--bark)}
+.sub{text-align:center;color:var(--bark-soft);font-weight:700;margin-bottom:22px;font-size:16px}
+:focus-visible{outline:3px solid var(--sky-deep);outline-offset:3px;border-radius:8px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+.stage{position:relative;width:100%;max-width:800px;aspect-ratio:4/3;border-radius:22px;overflow:hidden;
+ box-shadow:0 12px 34px rgba(54,64,44,.22);background:#1a1a1a;container-type:inline-size}
+.stage canvas{display:block;width:100%;height:100%;touch-action:none;cursor:pointer}
+#ui-layer{position:absolute;inset:0;pointer-events:none;display:flex;flex-direction:column;
+ justify-content:space-between;padding:3cqw}
+.hud-text{color:#fff;font-size:4.75cqw;font-weight:700;font-family:'Fredoka',sans-serif;
+ text-shadow:0 4px 10px rgba(0,0,0,.6),0 1px 3px rgba(0,0,0,.8);transition:transform .1s}
+.top-hud{display:flex;justify-content:space-between;width:100%}
+#overlay{position:absolute;inset:0;background:rgba(0,0,0,.65);display:flex;flex-direction:column;
+ justify-content:center;align-items:center;color:#fff;backdrop-filter:blur(8px);padding:4cqw;text-align:center}
+#overlay h2{font-size:8cqw;margin-bottom:.6cqw;text-shadow:0 5px 15px rgba(0,0,0,.5);color:#4DD0E1}
+#overlay p{font-size:clamp(14px,3.25cqw,26px);margin-bottom:4cqw;text-shadow:0 3px 8px rgba(0,0,0,.5);font-weight:600;color:#f0f0f0}
+.play-btn{padding:2cqw 6cqw;font-size:clamp(18px,3.75cqw,30px);
+ background:linear-gradient(180deg,#26C6DA 0%,#0097A7 100%);color:#fff;border:4px solid #fff;border-radius:50px;cursor:pointer;
+ box-shadow:0 8px 20px rgba(0,0,0,.4),inset 0 2px 5px rgba(255,255,255,.4);transition:all .15s;text-shadow:0 2px 4px rgba(0,0,0,.3)}
+.play-btn:hover{transform:translateY(-3px);box-shadow:0 12px 25px rgba(0,0,0,.5),inset 0 2px 5px rgba(255,255,255,.5)}
+.play-btn:active{transform:translateY(2px);box-shadow:0 4px 10px rgba(0,0,0,.4)}
+.leaderboard{background:rgba(255,255,255,.1);padding:1.8cqw 4.4cqw;border-radius:20px;margin-bottom:3cqw;
+ font-size:clamp(14px,3cqw,24px);font-weight:700;border:1px solid rgba(255,255,255,.2);box-shadow:0 5px 15px rgba(0,0,0,.2)}
+.score-pop{transform:scale(1.2);color:#ffeb3b}
+body.easyread{letter-spacing:.03em;word-spacing:.1em}body.easyread .sub{line-height:1.9}.topbar-right{display:flex;align-items:center;gap:10px}.aa{font-family:'Fredoka',sans-serif;font-weight:600;font-size:15px;color:var(--sprout-dark);background:#fff;border:2px solid var(--paper-line);border-radius:50px;padding:8px 16px;cursor:pointer}.aa[aria-pressed="true"]{background:var(--sprout);color:#fff;border-color:var(--sprout)}.aa,.back{transition:transform .12s ease}.aa:active,.back:active{transform:scale(.93)}.confetti-piece{position:fixed;top:-12px;width:10px;height:14px;opacity:.95;pointer-events:none;z-index:999;animation:confettiFall linear forwards}@keyframes confettiFall{to{transform:translateY(110vh) rotate(560deg);opacity:.6}}@media(prefers-reduced-motion:reduce){.aa:active,.back:active{transform:none}.confetti-piece{display:none}}</style></head><body><div class="topbar"><a class="back" href="../index.html">&#8592; Back</a><div class="topbar-right"><button type="button" class="aa" id="easyBtn" onclick="toggleEasy()" aria-pressed="false" title="Easier-to-read spacing">Aa</button><button type="button" class="aa" id="muteBtn" onclick="toggleMute()" aria-pressed="false" title="Sound on/off">🔊</button><div class="stars" id="stars"></div></div></div>
+<h1 class="title">River Hop</h1>
+<p class="sub">Help James hop down the river. Tap (or press Space) to jump &mdash; tap again in the air to double-jump.</p>
+<div class="stage" id="game-container">
+ <canvas id="gameCanvas" width="800" height="600" aria-label="River Hop: James jumps between lily pads and logs"></canvas>
+ <div id="ui-layer">
+  <div class="top-hud">
+   <div id="score-display" class="hud-text">Distance: 0m</div>
+  </div>
+ </div>
+ <div id="overlay">
+  <h2 id="title-text">James's River Hop</h2>
+  <p id="desc-text" role="status">Tap to jump from pad to pad!<br>Tap twice in the air to double-jump.</p>
+  <div class="leaderboard">Farthest Hop: <span id="high-score">0</span>m</div>
+  <button type="button" class="play-btn" id="start-btn">Play Now</button>
+ </div>
+</div>
+<script>
+const GAME_ID = 'river_hop';
+const assets = {
+    james_idle: { src: "../assets/sprites/james_happy_standing.png", img: null },
+    james_jump: { src: "../assets/sprites/james_happy_jumping.png", img: null },
+    james_surprised: { src: "../assets/sprites/james_surprised_hands.png", img: null }
+};
+
+let assetsReady = false;
+let pendingStart = false;
+
+function loadAssets(onComplete) {
+    const keys = Object.keys(assets);
+    let loadedCount = 0;
+    const done = () => { loadedCount++; if (loadedCount === keys.length) onComplete(); };
+    keys.forEach(key => {
+        const img = new Image();
+        img.onload = () => { assets[key].img = img; done(); };
+        img.onerror = () => { console.warn("Failed to load", assets[key].src); done(); };
+        img.src = assets[key].src;
+    });
+}
+
+const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
+ctx.imageSmoothingEnabled = true;
+const REDUCED_MOTION = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+let gameState = "MENU";
+let score = 0;
+let lastTime = 0;
+let worldSpeed = 250;
+let distanceTraveled = 0;
+
+let highScore = loadBest();
+document.getElementById("high-score").innerText = highScore;
+
+let shakeTime = 0;
+let shakeMag = 0;
+
+let particles = [];
+let ripples = [];
+let platforms = [];
+
+const GRAVITY = 1800;
+const JUMP_FORCE = 750;
+
+const james = {
+    x: 200,
+    y: 400,
+    vy: 0,
+    targetHeight: 140,
+    wobble: 0,
+    grounded: true,
+    doubleJumpUsed: false,
+    state: "idle" // idle, jump, surprised
+};
+
+function triggerShake(magnitude, duration) {
+    if (REDUCED_MOTION) return;
+    shakeMag = magnitude;
+    shakeTime = duration;
+}
+
+function createSplash(x, y) {
+    for(let i=0; i<40; i++) {
+        particles.push({
+            x: x + (Math.random()-0.5)*40,
+            y: y,
+            vx: (Math.random() - 0.5) * 500, vy: -Math.random() * 400 - 100,
+            life: 1.0, color: Math.random() > 0.5 ? "#E0F7FA" : "#4DD0E1", size: Math.random() * 8 + 4
+        });
+    }
+}
+
+function createRipple(x, y, w) {
+    ripples.push({
+        x: x, y: y,
+        w: w, life: 1.0
+    });
+}
+
+function spawnPlatform(xOffset) {
+    const isLog = Math.random() > 0.6;
+    const w = isLog ? 180 : 100;
+    // Keep platforms within reachable jump heights
+    const lastY = platforms.length > 0 ? platforms[platforms.length-1].y : 450;
+    let y = lastY + (Math.random() - 0.4) * 150;
+    if (y < 300) y = 300;
+    if (y > 500) y = 500;
+
+    platforms.push({
+        x: xOffset,
+        y: y,
+        w: w,
+        h: 20,
+        type: isLog ? "log" : "lilypad",
+        passed: false
+    });
+}
+
+// Controls
+canvas.addEventListener("mousedown", handleJump);
+canvas.addEventListener("touchstart", (e) => { e.preventDefault(); handleJump(); }, {passive: false});
+window.addEventListener("keydown", (e) => {
+    if (e.code === "Space" && gameState === "PLAYING") {
+        e.preventDefault();
+        if (!e.repeat) handleJump();
+    }
+});
+
+function handleJump() {
+    if (gameState !== "PLAYING") return;
+
+    if (james.grounded) {
+        james.vy = -JUMP_FORCE;
+        james.grounded = false;
+        james.doubleJumpUsed = false;
+        james.state = "jump";
+        createRipple(james.x, james.y, 40);
+        tone(600, .1, 'sine', .08);
+    } else if (!james.doubleJumpUsed) {
+        james.vy = -JUMP_FORCE * 0.8;
+        james.doubleJumpUsed = true;
+        james.state = "jump";
+        tone(760, .1, 'sine', .08);
+        // Mid-air puff
+        for(let i=0; i<10; i++) {
+            particles.push({
+                x: james.x + (Math.random()-0.5)*20,
+                y: james.y,
+                vx: (Math.random() - 0.5) * 100, vy: (Math.random() - 0.5) * 100,
+                life: 0.6, color: "rgba(255,255,255,0.8)", size: Math.random() * 6 + 2
+            });
+        }
+    }
+}
+
+function gameOver() {
+    gameState = "GAMEOVER";
+    document.getElementById("overlay").style.display = "flex";
+    document.getElementById("title-text").innerText = "Splash!";
+    document.getElementById("title-text").style.color = "#4DD0E1";
+    document.getElementById("desc-text").innerText = `You hopped ${score} meters down the river!`;
+    document.getElementById("start-btn").innerText = "Try Again";
+    sfxOops();
+    if (score > highScore) {
+        highScore = score;
+        document.getElementById("high-score").innerText = highScore;
+        confettiBurst();
+    }
+    if (score > 0) awardStar(score);
+    document.getElementById("start-btn").focus();
+}
+
+function update(dt) {
+    // Ticks even after game over, so the final shake settles instead of running forever.
+    if (shakeTime > 0) shakeTime -= dt;
+
+    if (gameState !== "PLAYING") return;
+
+    // World speed increases slowly over time
+    worldSpeed += 5 * dt;
+    if (worldSpeed > 600) worldSpeed = 600;
+
+    distanceTraveled += worldSpeed * dt;
+    score = Math.floor(distanceTraveled / 100);
+    document.getElementById("score-display").innerText = "Distance: " + score + "m";
+
+    // Physics
+    const previousY = james.y;
+    james.vy += GRAVITY * dt;
+    james.y += james.vy * dt;
+
+    if (!james.grounded) {
+        james.wobble += 10 * dt;
+    } else {
+        james.wobble = Math.sin(performance.now() / 200) * 0.05;
+        james.state = "idle";
+    }
+
+    james.grounded = false; // Assume falling until we hit a platform
+
+    let rightmostX = 0;
+    for (let i = platforms.length - 1; i >= 0; i--) {
+        let p = platforms[i];
+        p.x -= worldSpeed * dt; // Scroll left
+
+        if (p.x + p.w > rightmostX) rightmostX = p.x + p.w;
+
+        // Collision only on the top edge when falling; James's feet hitbox is narrow
+        const jamesLeft = james.x - 20;
+        const jamesRight = james.x + 20;
+
+        if (james.vy >= 0) {
+            // Check if we crossed the platform's Y threshold this frame
+            if (previousY <= p.y + 10 && james.y >= p.y) {
+                if (jamesRight > p.x && jamesLeft < p.x + p.w) {
+                    james.y = p.y;
+                    james.vy = 0;
+                    james.grounded = true;
+                    james.doubleJumpUsed = false;
+
+                    if (!p.passed) {
+                        p.passed = true;
+                        createRipple(james.x, james.y, p.type==="log"?80:40);
+                    }
+                }
+            }
+        }
+
+        // Remove offscreen
+        if (p.x + p.w < -100) {
+            platforms.splice(i, 1);
+        }
+    }
+
+    // Spawn new platforms
+    while (rightmostX < 1200) {
+        // Gap based on speed so it's always jumpable
+        const minGap = 100 + (worldSpeed * 0.3);
+        const maxGap = 200 + (worldSpeed * 0.5);
+        const gap = minGap + Math.random() * (maxGap - minGap);
+        spawnPlatform(rightmostX + gap);
+        rightmostX += gap + platforms[platforms.length-1].w;
+    }
+
+    // Hit water
+    if (james.y > 650) {
+        james.y = 650;
+        james.state = "surprised";
+        createSplash(james.x, 600);
+        triggerShake(15, 0.4);
+        gameOver();
+    }
+
+    for (let i = ripples.length - 1; i >= 0; i--) {
+        let r = ripples[i];
+        r.life -= dt * 1.5;
+        r.w += 40 * dt;
+        if (r.life <= 0) ripples.splice(i, 1);
+    }
+
+    for (let i = particles.length - 1; i >= 0; i--) {
+        let p = particles[i];
+        p.x += p.vx * dt;
+        p.y += p.vy * dt;
+        p.x -= worldSpeed * dt; // Particles scroll with the world
+        p.vy += 800 * dt;
+        p.life -= dt * 1.5;
+        if (p.life <= 0) particles.splice(i, 1);
+    }
+}
+
+// Procedural art
+function drawBackground(ctx) {
+    // Water gradient
+    const bgGradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+    bgGradient.addColorStop(0, "#81D4FA"); // Sky blue
+    bgGradient.addColorStop(0.3, "#4FC3F7"); // Horizon
+    bgGradient.addColorStop(0.31, "#0288D1"); // Deep water
+    bgGradient.addColorStop(1, "#01579B"); // Darkest water
+    ctx.fillStyle = bgGradient;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Riverbank (parallax background)
+    ctx.fillStyle = "#81C784";
+    ctx.beginPath();
+    const bankOffset = (distanceTraveled * 0.2) % 400;
+    ctx.moveTo(0, 200);
+    for (let i = -100; i <= canvas.width + 100; i+= 100) {
+        ctx.lineTo(i - bankOffset, 200 + Math.sin(i * 0.05)*20);
+    }
+    ctx.lineTo(canvas.width, 0);
+    ctx.lineTo(0, 0);
+    ctx.fill();
+
+    // Distant trees
+    ctx.fillStyle = "#388E3C";
+    for(let i=0; i<8; i++) {
+        const tx = (i * 150 - bankOffset * 0.8 + 800) % 900 - 50;
+        ctx.beginPath(); ctx.arc(tx, 150, 40, 0, Math.PI*2); ctx.fill();
+        ctx.beginPath(); ctx.arc(tx-20, 170, 30, 0, Math.PI*2); ctx.fill();
+        ctx.beginPath(); ctx.arc(tx+20, 170, 30, 0, Math.PI*2); ctx.fill();
+    }
+
+    // Water waves (parallax foreground)
+    ctx.strokeStyle = "rgba(255,255,255,0.2)";
+    ctx.lineWidth = 3;
+    const waveOffset = (distanceTraveled * 0.8) % 100;
+    for(let y=250; y<600; y+= 60) {
+        ctx.beginPath();
+        for(let x=-50; x<900; x+=50) {
+            ctx.lineTo(x - waveOffset, y + Math.sin(x*0.05 + y)*10);
+        }
+        ctx.stroke();
+    }
+}
+
+function drawPlatform(ctx, p) {
+    ctx.save();
+    ctx.translate(p.x, p.y);
+
+    // Cast shadow on water
+    ctx.fillStyle = "rgba(0,0,0,0.3)";
+    ctx.beginPath(); ctx.ellipse(p.w/2, 20, p.w/2, 10, 0, 0, Math.PI*2); ctx.fill();
+
+    if (p.type === "lilypad") {
+        ctx.fillStyle = "#4CAF50";
+        ctx.strokeStyle = "#1B5E20";
+        ctx.lineWidth = 4;
+
+        ctx.beginPath();
+        // Lily pad with a slice cut out
+        ctx.arc(p.w/2, 0, p.w/2, 0.2, Math.PI*2 - 0.2);
+        ctx.lineTo(p.w/2, 0);
+        ctx.closePath();
+        ctx.fill(); ctx.stroke();
+
+        // Lily pad veins
+        ctx.strokeStyle = "#388E3C";
+        ctx.lineWidth = 2;
+        for(let i=1; i<5; i++) {
+            ctx.beginPath(); ctx.moveTo(p.w/2, 0);
+            ctx.lineTo(p.w/2 + Math.cos(i*1.2)*p.w*0.4, Math.sin(i*1.2)*p.w*0.4);
+            ctx.stroke();
+        }
+
+    } else if (p.type === "log") {
+        ctx.fillStyle = "#795548";
+        ctx.strokeStyle = "#3E2723";
+        ctx.lineWidth = 4;
+
+        // Log body
+        ctx.beginPath();
+        ctx.roundRect(0, -10, p.w, 20, 10);
+        ctx.fill(); ctx.stroke();
+
+        // Wood grain
+        ctx.strokeStyle = "#5D4037";
+        ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.moveTo(20, -5); ctx.bezierCurveTo(p.w/2, -10, p.w/2, 0, p.w-20, -5); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(10, 5); ctx.bezierCurveTo(p.w/2, 0, p.w/2, 10, p.w-10, 5); ctx.stroke();
+    }
+
+    ctx.restore();
+}
+
+function drawImageUnsquished(ctx, img, x, y, targetHeight) {
+    if (!img || !img.complete || img.height === 0) return;
+    const aspect = img.width / img.height;
+    const w = targetHeight * aspect;
+    ctx.drawImage(img, x - w/2, y - targetHeight/2, w, targetHeight);
+}
+
+function draw() {
+    ctx.save();
+
+    if (shakeTime > 0) {
+        const dx = (Math.random() - 0.5) * shakeMag;
+        const dy = (Math.random() - 0.5) * shakeMag;
+        ctx.translate(dx, dy);
+    }
+
+    drawBackground(ctx);
+
+    // Ripples (under platforms)
+    ripples.forEach(r => {
+        ctx.globalAlpha = Math.max(0, r.life);
+        ctx.strokeStyle = "rgba(255,255,255,0.6)";
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.ellipse(r.x, r.y, r.w, r.w*0.3, 0, 0, Math.PI*2);
+        ctx.stroke();
+    });
+    ctx.globalAlpha = 1.0;
+
+    platforms.forEach(p => drawPlatform(ctx, p));
+
+    // James
+    if (gameState !== "GAMEOVER" || james.y < 650) {
+        ctx.save();
+        ctx.translate(james.x, james.y);
+
+        // Tilt up when rising, down when falling
+        let rot = james.wobble;
+        if (!james.grounded) {
+            rot = james.vy * 0.0005;
+        }
+        ctx.rotate(rot);
+
+        ctx.shadowColor = "rgba(0,0,0,0.5)";
+        ctx.shadowBlur = 15;
+        ctx.shadowOffsetY = 15;
+
+        const spriteKey = "james_" + james.state;
+        if (assets[spriteKey] && assets[spriteKey].img && assets[spriteKey].img.complete) {
+            drawImageUnsquished(ctx, assets[spriteKey].img, 0, -james.targetHeight/2, james.targetHeight);
+        }
+        ctx.restore();
+    }
+
+    particles.forEach(p => {
+        ctx.globalAlpha = Math.max(0, p.life);
+        ctx.fillStyle = p.color;
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI*2); ctx.fill();
+    });
+    ctx.globalAlpha = 1.0;
+
+    // Vignette
+    const gradient = ctx.createRadialGradient(canvas.width/2, canvas.height/2, canvas.width * 0.4, canvas.width/2, canvas.height/2, canvas.width * 0.8);
+    gradient.addColorStop(0, "rgba(0,0,0,0)");
+    gradient.addColorStop(1, "rgba(0,0,0,0.4)");
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.restore();
+}
+
+function gameLoop(timestamp) {
+    let dt = (timestamp - lastTime) / 1000;
+    if (dt > 0.1) dt = 0.1;
+    lastTime = timestamp;
+
+    update(dt);
+    draw();
+
+    requestAnimationFrame(gameLoop);
+}
+
+document.getElementById("start-btn").addEventListener("click", () => {
+    if (!assetsReady) {
+        document.getElementById("start-btn").innerText = "Loading...";
+        pendingStart = true;
+    } else {
+        startGame();
+    }
+});
+
+function startGame() {
+    document.getElementById("overlay").style.display = "none";
+    gameState = "PLAYING";
+
+    worldSpeed = 250;
+    distanceTraveled = 0;
+    score = 0;
+    shakeTime = 0;
+
+    james.y = 400;
+    james.vy = 0;
+    james.grounded = true;
+    james.state = "idle";
+
+    platforms = [];
+    particles = [];
+    ripples = [];
+
+    // Starting platform right under him
+    platforms.push({ x: 100, y: 400, w: 200, h: 20, type: "log", passed: true });
+
+    // Pre-populate some ahead
+    let rx = 400;
+    for(let i=0; i<4; i++) {
+        spawnPlatform(rx);
+        rx += 250;
+    }
+
+    document.getElementById("score-display").innerText = "Distance: 0m";
+    lastTime = performance.now();
+}
+
+// One loop for the page's whole life -- startGame only resets state, so "Try Again"
+// never stacks a second loop on top of the first.
+loadAssets(() => {
+    assetsReady = true;
+    if (pendingStart) startGame();
+});
+// Show James on his starting log behind the menu.
+platforms.push({ x: 100, y: 400, w: 200, h: 20, type: "log", passed: true });
+lastTime = performance.now();
+requestAnimationFrame(gameLoop);
+
+let sessionStars = 0;
+function drawStars(){document.getElementById('stars').textContent="⭐".repeat(Math.min(sessionStars,10));}
+function awardStar(best){sessionStars++;drawStars();saveGameStars(sessionStars,best);}
+drawStars();
+
+function loadProgress(){try{return JSON.parse(localStorage.getItem('littlesprout')||'{}');}catch(e){return{};}}
+function saveProgress(d){try{localStorage.setItem('littlesprout',JSON.stringify(d));return true;}catch(e){return false;}}
+function toggleEasy(){const on=document.body.classList.toggle('easyread');document.getElementById('easyBtn').setAttribute('aria-pressed',on?'true':'false');const d=loadProgress();d.easyread=on;saveProgress(d);}
+(function initEasy(){if(loadProgress().easyread){document.body.classList.add('easyread');const b=document.getElementById('easyBtn');if(b)b.setAttribute('aria-pressed','true');}})();
+function loadBest(){const g=(loadProgress().games||{})[GAME_ID];return (g&&g.best)||0;}
+function saveGameStars(n,best){const d=loadProgress();d.games=d.games||{};const prev=d.games[GAME_ID]||{};d.games[GAME_ID]={stars:Math.max(prev.stars||0,n),best:Math.max(prev.best||0,best||0),at:Date.now()};saveProgress(d);}
+if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('../sw.js').catch(function(){});});}
+
+let audioCtx=null;
+function getAudioCtx(){if(!audioCtx){try{audioCtx=new (window.AudioContext||window.webkitAudioContext)();}catch(e){}}return audioCtx;}
+function isMuted(){return !!loadProgress().muted;}
+function tone(freq,dur,type,vol){if(isMuted())return;const ctx=getAudioCtx();if(!ctx)return;try{const o=ctx.createOscillator(),g=ctx.createGain();o.type=type||'sine';o.frequency.value=freq;o.connect(g);g.connect(ctx.destination);g.gain.value=vol||0.1;g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+dur);o.start();o.stop(ctx.currentTime+dur);}catch(e){}}
+function sfxPop(){tone(520,.12,'sine',.12);}
+function sfxSuccess(){tone(523,.12,'sine',.1);setTimeout(function(){tone(659,.12,'sine',.1);},90);setTimeout(function(){tone(784,.2,'sine',.12);},180);}
+function sfxOops(){tone(220,.18,'sine',.08);}
+function confettiBurst(){
+ if(REDUCED_MOTION)return;
+ const colors=['#5BA672','#FFD24A','#185FA5','#B0488C','#E8433F'];
+ for(let i=0;i<24;i++){const p=document.createElement('div');p.className='confetti-piece';p.style.left=(Math.random()*100)+'vw';p.style.background=colors[i%colors.length];p.style.animationDuration=(1.4+Math.random()*1.2)+'s';p.style.transform='rotate('+(Math.random()*360)+'deg)';document.body.appendChild(p);setTimeout(function(){p.remove();},3000);}
+}
+function toggleMute(){const d=loadProgress();d.muted=!d.muted;saveProgress(d);const b=document.getElementById('muteBtn');b.textContent=d.muted?'🔇':'🔊';b.setAttribute('aria-pressed',d.muted?'true':'false');}
+(function initMute(){if(loadProgress().muted){const b=document.getElementById('muteBtn');if(b){b.textContent='🔇';b.setAttribute('aria-pressed','true');}}})();
+</script></body></html>

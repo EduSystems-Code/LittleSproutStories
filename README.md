@@ -2,7 +2,7 @@
 
 Interactive phonics storybooks for early readers ages 4–7, plus games spanning ages 3–9.
 
-Fourteen storybooks and six games starring Maya, Marcus, Sophie, and James, built on a
+Fourteen storybooks and ten games starring Maya, Marcus, Sophie, and James, built on a
 "Double Engine" model: every page pairs decodable phonics text with a social-emotional
 learning beat.
 
@@ -21,7 +21,7 @@ sw.js               Service worker — offline support
 assets/sprites/     87 character PNGs, shared by every page
 assets/icons/       App icons for installed/home-screen use
 books/              14 storybooks (~23KB each, reference assets/sprites/)
-games/              6 games (ages 3-9, all reference assets/sprites/)
+games/              10 games (ages 3-9, all reference assets/sprites/)
 rewards-api/        FastAPI backend — reward box, Shop, cork board. Deploys
                     separately to Render; GitHub Pages ignores this folder.
 .nojekyll           Tells GitHub Pages to serve files as-is

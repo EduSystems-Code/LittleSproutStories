@@ -552,7 +552,7 @@
     <div class="section-head">
       <span class="section-eyebrow">Play &amp; Practice</span>
       <h2>Games with the same four friends</h2>
-      <p>Short, replayable activities spanning ages 3&ndash;9 &mdash; sounding out words, naming feelings, rhyming, building sentences, and paying close attention.</p>
+      <p>Short, replayable activities spanning ages 3&ndash;9 &mdash; sounding out words, naming feelings, rhyming, building sentences, paying close attention &mdash; plus four quick action games, one starring each friend.</p>
     </div>
     <div class="card-grid">
 
@@ -643,6 +643,66 @@
           <p class="card-desc">Tap scrambled words in order to build a short sentence about the friends. A step up for growing readers.</p>
           <div class="card-meta"><span class="pill">Word order</span><span class="pill">Ages 6&ndash;9</span></div>
           <a class="card-launch" href="games/sentence_builder.html">Play it &#8594;</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-art" style="background:linear-gradient(160deg,#E4F4D2,#A9D98A);">
+          <div class="card-art-chars"><img src="assets/sprites/maya_happy_running.png" alt="Maya" loading="lazy"></div>
+          <span class="card-tag">Ready to play</span>
+        </div>
+        <div class="card-body">
+          <span class="card-kicker">Action &middot; Game</span>
+          <h3>Garden Harvest</h3>
+          <span class="card-hint">Hover to read more &#9662;</span>
+          <p class="card-desc">Run with Maya through the school garden and catch the falling fruit &mdash; but dodge the sour green tomatoes! Builds hand&ndash;eye coordination.</p>
+          <div class="card-meta"><span class="pill">Catching</span><span class="pill">Ages 4&ndash;7</span></div>
+          <a class="card-launch" href="games/garden_harvest.html">Play it &#8594;</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-art" style="background:linear-gradient(160deg,#FFE9C7,#F7C58B);">
+          <div class="card-art-chars"><img src="assets/sprites/marcus_happy_jumping.png" alt="Marcus" loading="lazy"></div>
+          <span class="card-tag">Ready to play</span>
+        </div>
+        <div class="card-body">
+          <span class="card-kicker">Timing &middot; Game</span>
+          <h3>Block Balance</h3>
+          <span class="card-hint">Hover to read more &#9662;</span>
+          <p class="card-desc">Marcus&rsquo;s crane swings a block back and forth. Tap to drop it and stack the tallest tower you can. Practises timing and patience.</p>
+          <div class="card-meta"><span class="pill">Stacking</span><span class="pill">Ages 5&ndash;9</span></div>
+          <a class="card-launch" href="games/block_balance.html">Play it &#8594;</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-art" style="background:linear-gradient(160deg,#E8DCCB,#C9A98A);">
+          <div class="card-art-chars"><img src="assets/sprites/sophie_happy_pointing.png" alt="Sophie" loading="lazy"></div>
+          <span class="card-tag">Ready to play</span>
+        </div>
+        <div class="card-body">
+          <span class="card-kicker">Turn-taking &middot; Game</span>
+          <h3>Bug Safari</h3>
+          <span class="card-hint">Hover to read more &#9662;</span>
+          <p class="card-desc">Take turns with Sophie rubbing away the dirt to dig up hidden bugs. Whoever finds more wins &mdash; and a tie is fine too.</p>
+          <div class="card-meta"><span class="pill">Taking turns</span><span class="pill">Ages 4&ndash;7</span></div>
+          <a class="card-launch" href="games/bug_safari.html">Play it &#8594;</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-art" style="background:linear-gradient(160deg,#D3F1F6,#8FD3E3);">
+          <div class="card-art-chars"><img src="assets/sprites/james_happy_jumping.png" alt="James" loading="lazy"></div>
+          <span class="card-tag">Ready to play</span>
+        </div>
+        <div class="card-body">
+          <span class="card-kicker">Action &middot; Game</span>
+          <h3>River Hop</h3>
+          <span class="card-hint">Hover to read more &#9662;</span>
+          <p class="card-desc">Hop James from lily pad to log down the river. Tap to jump, tap again in the air to double-jump. How far can you go?</p>
+          <div class="card-meta"><span class="pill">Jumping</span><span class="pill">Ages 5&ndash;9</span></div>
+          <a class="card-launch" href="games/river_hop.html">Play it &#8594;</a>
         </div>
       </article>
 
@@ -807,7 +867,8 @@
   }
 
   var GAME_TITLES = { sound_it_out: 'Sound It Out', whos_missing: 'Who\u2019s Missing?', pose_parade: 'Pose Parade',
-    feelings_faces: 'Feelings Faces', rhyme_time: 'Rhyme Time', sentence_builder: 'Sentence Builder' };
+    feelings_faces: 'Feelings Faces', rhyme_time: 'Rhyme Time', sentence_builder: 'Sentence Builder',
+    garden_harvest: 'Garden Harvest', block_balance: 'Block Balance', bug_safari: 'Bug Safari', river_hop: 'River Hop' };
 
   // Source of truth for "every badge that can be earned" -- matches the
   // library order on this page (Book1-12, 14, 15; Book13 was scrapped).
@@ -828,7 +889,8 @@
     { id: 'Book14_AllFour_Garden', badge: 'Garden Helper', title: 'All Four Help in the Garden' },
     { id: 'Book15_AllFour_Finale', badge: 'Community Helper Series Complete!', title: 'We Are Community Helpers Too' },
   ];
-  var ALL_GAME_IDS = ['sound_it_out', 'whos_missing', 'pose_parade', 'feelings_faces', 'rhyme_time', 'sentence_builder'];
+  var ALL_GAME_IDS = ['sound_it_out', 'whos_missing', 'pose_parade', 'feelings_faces', 'rhyme_time', 'sentence_builder',
+    'garden_harvest', 'block_balance', 'bug_safari', 'river_hop'];
 
   // A suggested pace through the 14 books, grouped into 5 stages of ~3
   // books each in library order -- purely a display/motivation aid, not
