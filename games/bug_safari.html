@@ -1,0 +1,624 @@
+<!DOCTYPE html><html lang="en"><head>
+<link rel="icon" type="image/png" href="../assets/icons/icon-192.png">
+<link rel="canonical" href="https://edusystems-code.github.io/LittleSproutStories/games/bug_safari.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="LittleSprout">
+<meta property="og:title" content="Bug Safari — LittleSprout">
+<meta property="og:description" content="Interactive phonics storybooks and feelings games for early readers ages 4–7, starring Maya, Marcus, Sophie, and James.">
+<meta property="og:url" content="https://edusystems-code.github.io/LittleSproutStories/games/bug_safari.html">
+<meta property="og:image" content="https://edusystems-code.github.io/LittleSproutStories/assets/og-share.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Bug Safari — LittleSprout">
+<meta name="twitter:description" content="Interactive phonics storybooks and feelings games for early readers ages 4–7, starring Maya, Marcus, Sophie, and James.">
+<meta name="twitter:image" content="https://edusystems-code.github.io/LittleSproutStories/assets/og-share.png"><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bug Safari — LittleSprout</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--sprout:#5BA672;--sprout-dark:#3C7A52;--sprout-deep:#2C5C3D;--cream:#FBF6EC;--cream-deep:#F3EAD6;
+--paper-line:#E7DCC4;--sky:#BFE3FA;--sky-deep:#185FA5;--sun:#FFD24A;--sun-deep:#E1A400;--berry:#B0488C;
+--bark:#36402C;--bark-soft:#5E6650;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',sans-serif;color:var(--bark);min-height:100vh;
+ background-color:var(--cream);
+ background-image:linear-gradient(rgba(251,246,236,.6),rgba(251,246,236,.6)),url('../assets/backgrounds/garden_4.jpg');
+ background-size:cover;background-position:center;background-repeat:no-repeat;
+ display:flex;flex-direction:column;align-items:center;padding:18px;line-height:1.5}
+h1,h2,h3,button{font-family:'Fredoka',sans-serif;font-weight:600}
+.topbar{width:100%;max-width:860px;display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.back{font-family:'Fredoka',sans-serif;font-weight:600;font-size:15px;color:var(--sprout-dark);
+ background:#fff;border:2px solid var(--paper-line);border-radius:50px;padding:9px 18px;text-decoration:none}
+.back:hover{border-color:var(--sprout)}
+.stars{font-size:22px;letter-spacing:2px;min-height:28px}
+.title{text-align:center;margin-bottom:6px;font-size:clamp(26px,5vw,38px);color:var(--bark)}
+.sub{text-align:center;color:var(--bark-soft);font-weight:700;margin-bottom:22px;font-size:16px}
+:focus-visible{outline:3px solid var(--sky-deep);outline-offset:3px;border-radius:8px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+.stage{position:relative;width:100%;max-width:800px;aspect-ratio:4/3;border-radius:22px;overflow:hidden;
+ box-shadow:0 12px 34px rgba(54,64,44,.22);background:#1a1a1a;container-type:inline-size}
+.stage canvas{display:block;width:100%;height:100%;touch-action:none;cursor:pointer}
+#ui-layer{position:absolute;inset:0;pointer-events:none;display:flex;flex-direction:column;
+ justify-content:space-between;padding:3cqw}
+.hud-text{color:#fff;font-size:4.75cqw;font-weight:700;font-family:'Fredoka',sans-serif;
+ text-shadow:0 4px 10px rgba(0,0,0,.6),0 1px 3px rgba(0,0,0,.8);transition:transform .1s}
+.top-hud{display:flex;justify-content:space-between;width:100%}
+#overlay{position:absolute;inset:0;background:rgba(0,0,0,.65);display:flex;flex-direction:column;
+ justify-content:center;align-items:center;color:#fff;backdrop-filter:blur(8px);padding:4cqw;text-align:center}
+#overlay h2{font-size:8cqw;margin-bottom:.6cqw;text-shadow:0 5px 15px rgba(0,0,0,.5);color:#64B5F6}
+#overlay p{font-size:clamp(14px,3.25cqw,26px);margin-bottom:4cqw;text-shadow:0 3px 8px rgba(0,0,0,.5);font-weight:600;color:#f0f0f0}
+.play-btn{padding:2cqw 6cqw;font-size:clamp(18px,3.75cqw,30px);
+ background:linear-gradient(180deg,#4FC3F7 0%,#0288D1 100%);color:#fff;border:4px solid #fff;border-radius:50px;cursor:pointer;
+ box-shadow:0 8px 20px rgba(0,0,0,.4),inset 0 2px 5px rgba(255,255,255,.4);transition:all .15s;text-shadow:0 2px 4px rgba(0,0,0,.3)}
+.play-btn:hover{transform:translateY(-3px);box-shadow:0 12px 25px rgba(0,0,0,.5),inset 0 2px 5px rgba(255,255,255,.5)}
+.play-btn:active{transform:translateY(2px);box-shadow:0 4px 10px rgba(0,0,0,.4)}
+.leaderboard{background:rgba(255,255,255,.1);padding:1.8cqw 4.4cqw;border-radius:20px;margin-bottom:3cqw;
+ font-size:clamp(14px,3cqw,24px);font-weight:700;border:1px solid rgba(255,255,255,.2);box-shadow:0 5px 15px rgba(0,0,0,.2)}
+#turn-banner{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,.6);padding:1.25cqw 5cqw;border-radius:50px;font-size:6cqw;font-family:'Fredoka',sans-serif;font-weight:700;white-space:nowrap;color:#ffeb3b;text-shadow:0 4px 8px rgba(0,0,0,.5);opacity:0;transition:opacity .3s;pointer-events:none}
+.score-pop{transform:scale(1.2);color:#ffeb3b}
+body.easyread{letter-spacing:.03em;word-spacing:.1em}body.easyread .sub{line-height:1.9}.topbar-right{display:flex;align-items:center;gap:10px}.aa{font-family:'Fredoka',sans-serif;font-weight:600;font-size:15px;color:var(--sprout-dark);background:#fff;border:2px solid var(--paper-line);border-radius:50px;padding:8px 16px;cursor:pointer}.aa[aria-pressed="true"]{background:var(--sprout);color:#fff;border-color:var(--sprout)}.aa,.back{transition:transform .12s ease}.aa:active,.back:active{transform:scale(.93)}.confetti-piece{position:fixed;top:-12px;width:10px;height:14px;opacity:.95;pointer-events:none;z-index:999;animation:confettiFall linear forwards}@keyframes confettiFall{to{transform:translateY(110vh) rotate(560deg);opacity:.6}}@media(prefers-reduced-motion:reduce){.aa:active,.back:active{transform:none}.confetti-piece{display:none}}</style></head><body><div class="topbar"><a class="back" href="../index.html">&#8592; Back</a><div class="topbar-right"><button type="button" class="aa" id="easyBtn" onclick="toggleEasy()" aria-pressed="false" title="Easier-to-read spacing">Aa</button><button type="button" class="aa" id="muteBtn" onclick="toggleMute()" aria-pressed="false" title="Sound on/off">🔊</button><div class="stars" id="stars"></div></div></div>
+<h1 class="title">Bug Safari</h1>
+<p class="sub">Take turns with Sophie. Rub the dirt to dig up bugs &mdash; who finds more?</p>
+<div class="stage" id="game-container">
+ <canvas id="gameCanvas" width="800" height="600" aria-label="Bug Safari: take turns with Sophie scratching dirt tiles to find bugs"></canvas>
+ <div id="ui-layer">
+  <div class="top-hud">
+   <div id="score-you" class="hud-text">You: 0</div>
+   <div id="score-sophie" class="hud-text">Sophie: 0</div>
+  </div>
+  <div id="turn-banner" aria-live="polite">Your Turn!</div>
+ </div>
+ <div id="overlay">
+  <h2 id="title-text">Sophie's Bug Safari</h2>
+  <p id="desc-text" role="status">Drag to scratch the dirt and find bugs!<br>Can you find more than Sophie?</p>
+  <div class="leaderboard">Most Bugs Found: <span id="high-score">0</span></div>
+  <button type="button" class="play-btn" id="start-btn">Play Now</button>
+ </div>
+</div>
+<script>
+const GAME_ID = 'bug_safari';
+const assets = {
+    sophie_idle: { src: "../assets/sprites/sophie_happy_standing.png", img: null },
+    sophie_point: { src: "../assets/sprites/sophie_happy_pointing.png", img: null },
+    sophie_surprised: { src: "../assets/sprites/sophie_surprised_looking.png", img: null },
+    sophie_cheer: { src: "../assets/sprites/sophie_happy_jumping.png", img: null }
+};
+
+let assetsReady = false;
+let pendingStart = false;
+
+function loadAssets(onComplete) {
+    const keys = Object.keys(assets);
+    let loadedCount = 0;
+    const done = () => { loadedCount++; if (loadedCount === keys.length) onComplete(); };
+    keys.forEach(key => {
+        const img = new Image();
+        img.onload = () => { assets[key].img = img; done(); };
+        img.onerror = () => { console.warn("Failed to load", assets[key].src); done(); };
+        img.src = assets[key].src;
+    });
+}
+
+const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
+ctx.imageSmoothingEnabled = true;
+const REDUCED_MOTION = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+// Grid settings
+const COLS = 5;
+const ROWS = 4;
+const TILE_SIZE = 95;
+const GAP = 12;
+const OFFSET_X = 50;
+const OFFSET_Y = 100;
+
+let gameState = "MENU"; // MENU, PLAYER_TURN, SOPHIE_TURN, WAIT, GAMEOVER
+let playerScore = 0;
+let sophieScore = 0;
+let lastTime = 0;
+
+let highScore = loadBest();
+document.getElementById("high-score").innerText = highScore;
+
+let mouseX = 0;
+let mouseY = 0;
+let isDragging = false;
+
+let grid = [];
+let totalBugs = 8;
+let revealedCount = 0;
+
+let particles = [];
+let floatingTexts = [];
+
+const sophie = {
+    x: 650,
+    y: 400,
+    targetHeight: 220,
+    state: "idle",
+    stateTime: 0,
+    wobble: 0
+};
+
+let sophieTimer = 0;
+let sophieTargetTile = null;
+
+function setSophieState(state, duration) {
+    sophie.state = state;
+    sophie.stateTime = duration;
+}
+
+function createParticles(x, y, color, count=15) {
+    for(let i=0; i<count; i++) {
+        particles.push({
+            x: x + (Math.random()-0.5)*40,
+            y: y + (Math.random()-0.5)*40,
+            vx: (Math.random() - 0.5) * 300, vy: (Math.random() - 1) * 300,
+            life: 1.0, color: color, size: Math.random() * 6 + 3
+        });
+    }
+}
+
+function createFloatingText(x, y, text, color) {
+    floatingTexts.push({ x, y, text, color, life: 1.2, vy: -40 });
+}
+
+let bannerTimer = null;
+function showBanner(text, duration) {
+    const banner = document.getElementById("turn-banner");
+    banner.innerText = text;
+    banner.style.opacity = 1;
+    clearTimeout(bannerTimer);
+    bannerTimer = setTimeout(() => { banner.style.opacity = 0; }, duration);
+}
+
+function initGrid() {
+    grid = [];
+    let items = [];
+    for (let i=0; i < totalBugs; i++) items.push("bug");
+    for (let i=0; i < (COLS*ROWS - totalBugs); i++) items.push("dirt");
+
+    // Fisher-Yates shuffle
+    for (let i = items.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [items[i], items[j]] = [items[j], items[i]];
+    }
+
+    let idx = 0;
+    for (let r=0; r<ROWS; r++) {
+        for (let c=0; c<COLS; c++) {
+            const types = ["ladybug", "caterpillar", "butterfly"];
+            grid.push({
+                c, r,
+                x: OFFSET_X + c * (TILE_SIZE + GAP),
+                y: OFFSET_Y + r * (TILE_SIZE + GAP),
+                type: items[idx] === "bug" ? types[Math.floor(Math.random()*types.length)] : "empty",
+                cover: 1.0,
+                revealed: false,
+                scratchNoise: Math.random() * 100 // Seed for procedural dirt rendering
+            });
+            idx++;
+        }
+    }
+}
+
+function getTileAtCoords(x, y) {
+    for (let tile of grid) {
+        if (x >= tile.x && x <= tile.x + TILE_SIZE && y >= tile.y && y <= tile.y + TILE_SIZE) {
+            return tile;
+        }
+    }
+    return null;
+}
+
+canvas.addEventListener("mousedown", (e) => {
+    isDragging = true;
+    updateMousePos(e);
+});
+canvas.addEventListener("mousemove", updateMousePos);
+window.addEventListener("mouseup", () => { isDragging = false; });
+
+canvas.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    isDragging = true;
+    updateMousePos(e.touches[0]);
+}, {passive: false});
+canvas.addEventListener("touchmove", (e) => {
+    e.preventDefault();
+    updateMousePos(e.touches[0]);
+}, {passive: false});
+window.addEventListener("touchend", () => { isDragging = false; });
+
+// Converts a screen point to canvas coordinates -- the canvas is CSS-scaled to fit the page.
+function updateMousePos(e) {
+    const rect = canvas.getBoundingClientRect();
+    mouseX = (e.clientX - rect.left) * canvas.width / rect.width;
+    mouseY = (e.clientY - rect.top) * canvas.height / rect.height;
+}
+
+function revealTile(tile, isPlayer) {
+    tile.cover = 0;
+    tile.revealed = true;
+    revealedCount++;
+
+    if (tile.type !== "empty") {
+        if (isPlayer) {
+            playerScore++;
+            document.getElementById("score-you").innerText = "You: " + playerScore;
+            document.getElementById("score-you").className = "hud-text score-pop";
+            setTimeout(() => { document.getElementById("score-you").className = "hud-text"; }, 150);
+            createFloatingText(tile.x + TILE_SIZE/2, tile.y - 20, "+1 Bug!", "#81C784");
+            setSophieState("surprised", 1.5); // Oh wow, you found one!
+            sfxSuccess();
+        } else {
+            sophieScore++;
+            document.getElementById("score-sophie").innerText = "Sophie: " + sophieScore;
+            document.getElementById("score-sophie").className = "hud-text score-pop";
+            setTimeout(() => { document.getElementById("score-sophie").className = "hud-text"; }, 150);
+            createFloatingText(tile.x + TILE_SIZE/2, tile.y - 20, "Found One!", "#4FC3F7");
+            setSophieState("cheer", 2.0); // Yay!
+            sfxPop();
+        }
+        createParticles(tile.x + TILE_SIZE/2, tile.y + TILE_SIZE/2, "#FFD700", 20);
+    } else {
+        if (isPlayer) {
+            createFloatingText(tile.x + TILE_SIZE/2, tile.y - 20, "Empty...", "#BCAAA4");
+        } else {
+            setSophieState("surprised", 1.0); // Oh, nothing here.
+            createFloatingText(tile.x + TILE_SIZE/2, tile.y - 20, "Aw, dirt.", "#BCAAA4");
+        }
+    }
+
+    if (revealedCount >= COLS * ROWS) {
+        gameState = "WAIT";
+        setTimeout(endGame, 1500);
+    } else {
+        gameState = "WAIT";
+        setTimeout(() => {
+            if (gameState === "GAMEOVER") return;
+            if (isPlayer) {
+                gameState = "SOPHIE_TURN";
+                sophieTimer = 0.5; // Think for 0.5s before picking
+                showBanner("Sophie's Turn", 1000);
+            } else {
+                gameState = "PLAYER_TURN";
+                showBanner("Your Turn!", 1000);
+            }
+        }, 1500);
+    }
+}
+
+function endGame() {
+    gameState = "GAMEOVER";
+    document.getElementById("overlay").style.display = "flex";
+    const title = document.getElementById("title-text");
+
+    if (playerScore > sophieScore) {
+        title.innerText = "You Win!";
+        title.style.color = "#81C784";
+        setSophieState("surprised", 99);
+    } else if (sophieScore > playerScore) {
+        title.innerText = "Sophie Wins!";
+        title.style.color = "#4FC3F7";
+        setSophieState("cheer", 99);
+    } else {
+        title.innerText = "It's a Tie!";
+        title.style.color = "#FFD700";
+        setSophieState("idle", 99);
+    }
+
+    document.getElementById("desc-text").innerText = `You found ${playerScore} bugs. Sophie found ${sophieScore} bugs.`;
+    document.getElementById("start-btn").innerText = "Play Again";
+    if (playerScore > highScore) {
+        highScore = playerScore;
+        document.getElementById("high-score").innerText = highScore;
+    }
+    // A finished safari always earns a star -- digging counts, even on a round Sophie wins.
+    awardStar(playerScore);
+    sfxSuccess();
+    if (playerScore > sophieScore) confettiBurst();
+    document.getElementById("start-btn").focus();
+}
+
+function update(dt) {
+    if (gameState === "MENU" || gameState === "GAMEOVER") return;
+
+    if (sophie.stateTime > 0) {
+        sophie.stateTime -= dt;
+        if (sophie.stateTime <= 0) sophie.state = "idle";
+    }
+
+    sophie.wobble = Math.sin(performance.now() / 300) * 0.03;
+
+    if (gameState === "PLAYER_TURN") {
+        if (isDragging) {
+            const tile = getTileAtCoords(mouseX, mouseY);
+            if (tile && !tile.revealed) {
+                tile.cover -= dt * 2.5; // Takes ~0.4s of rubbing to reveal
+                createParticles(mouseX, mouseY, "#5D4037", 2); // Dirt particles
+
+                if (tile.cover <= 0.2) {
+                    revealTile(tile, true);
+                    isDragging = false;
+                }
+            }
+        }
+    }
+    else if (gameState === "SOPHIE_TURN") {
+        if (sophieTimer > 0) {
+            sophieTimer -= dt;
+            if (sophieTimer <= 0) {
+                // Pick a tile
+                const hiddenTiles = grid.filter(t => !t.revealed);
+                if (hiddenTiles.length > 0) {
+                    sophieTargetTile = hiddenTiles[Math.floor(Math.random() * hiddenTiles.length)];
+                    setSophieState("point", 2.0);
+                }
+            }
+        } else if (sophieTargetTile && !sophieTargetTile.revealed) {
+            // Sophie is "scratching" it
+            sophieTargetTile.cover -= dt * 1.5;
+
+            if (Math.random() > 0.5) {
+                createParticles(sophieTargetTile.x + TILE_SIZE/2, sophieTargetTile.y + TILE_SIZE/2, "#5D4037", 2);
+            }
+
+            if (sophieTargetTile.cover <= 0.2) {
+                revealTile(sophieTargetTile, false);
+                sophieTargetTile = null;
+            }
+        }
+    }
+
+    for (let i = floatingTexts.length - 1; i >= 0; i--) {
+        let ft = floatingTexts[i];
+        ft.y += ft.vy * dt;
+        ft.life -= dt * 1.5;
+        if (ft.life <= 0) floatingTexts.splice(i, 1);
+    }
+
+    for (let i = particles.length - 1; i >= 0; i--) {
+        let p = particles[i];
+        p.x += p.vx * dt;
+        p.y += p.vy * dt;
+        p.vy += 800 * dt; // Gravity
+        p.life -= dt * 2;
+        if (p.life <= 0) particles.splice(i, 1);
+    }
+}
+
+// Procedural art functions
+function drawLadybug(ctx, x, y, scale) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.scale(scale, scale);
+    ctx.fillStyle = "#E63946";
+    ctx.beginPath(); ctx.arc(0, 0, 20, 0, Math.PI, true); ctx.fill();
+    ctx.lineWidth = 3; ctx.strokeStyle = "#1a1a1a"; ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(0,0); ctx.lineTo(0,-20); ctx.stroke();
+    ctx.fillStyle = "#1a1a1a";
+    ctx.beginPath(); ctx.arc(-8, -8, 4, 0, Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.arc(8, -12, 3, 0, Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.arc(5, -5, 4, 0, Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.arc(0, 2, 10, 0, Math.PI*2); ctx.fill();
+    ctx.fillStyle = "white";
+    ctx.beginPath(); ctx.arc(-4, 4, 3, 0, Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.arc(4, 4, 3, 0, Math.PI*2); ctx.fill();
+    ctx.fillStyle = "black";
+    ctx.beginPath(); ctx.arc(-4, 5, 1.5, 0, Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.arc(4, 5, 1.5, 0, Math.PI*2); ctx.fill();
+    ctx.restore();
+}
+
+function drawButterfly(ctx, x, y, scale) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.scale(scale, scale);
+    ctx.fillStyle = "#4FC3F7"; ctx.strokeStyle = "#0288D1"; ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.moveTo(0,0); ctx.bezierCurveTo(-30, -30, -20, 30, 0, 10); ctx.fill(); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(0,0); ctx.bezierCurveTo(30, -30, 20, 30, 0, 10); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = "#37474F"; ctx.beginPath(); ctx.ellipse(0, 5, 4, 15, 0, 0, Math.PI*2); ctx.fill();
+    ctx.restore();
+}
+
+function drawCaterpillar(ctx, x, y, scale) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.scale(scale, scale);
+    ctx.fillStyle = "#A2D149"; ctx.strokeStyle = "#33691E"; ctx.lineWidth = 2;
+    for(let i=0; i<4; i++) {
+        ctx.beginPath(); ctx.arc(0, -i*15, 12, 0, Math.PI*2); ctx.fill(); ctx.stroke();
+    }
+    const headY = -45;
+    ctx.fillStyle = "white";
+    ctx.beginPath(); ctx.arc(-5, headY-3, 3, 0, Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.arc(5, headY-3, 3, 0, Math.PI*2); ctx.fill();
+    ctx.fillStyle = "black";
+    ctx.beginPath(); ctx.arc(-5, headY-3, 1.5, 0, Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.arc(5, headY-3, 1.5, 0, Math.PI*2); ctx.fill();
+    ctx.restore();
+}
+
+function drawImageUnsquished(ctx, img, x, y, targetHeight) {
+    if (!img || !img.complete || img.height === 0) return;
+    const aspect = img.width / img.height;
+    const w = targetHeight * aspect;
+    ctx.drawImage(img, x - w/2, y - targetHeight/2, w, targetHeight);
+}
+
+function draw() {
+    ctx.clearRect(0,0,canvas.width, canvas.height);
+
+    // Deep soil background
+    ctx.fillStyle = "#3E2723";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Procedural roots/rocks in the background
+    ctx.strokeStyle = "#4E342E";
+    ctx.lineWidth = 8;
+    ctx.beginPath(); ctx.moveTo(0, 100); ctx.bezierCurveTo(200, 150, 400, 50, 800, 200); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(0, 400); ctx.bezierCurveTo(300, 500, 600, 300, 800, 500); ctx.stroke();
+
+    grid.forEach(tile => {
+        // Tile base (the hole)
+        ctx.fillStyle = "#2D1B15";
+        ctx.beginPath(); ctx.roundRect(tile.x, tile.y, TILE_SIZE, TILE_SIZE, 8); ctx.fill();
+
+        // The hidden item
+        const centerX = tile.x + TILE_SIZE/2;
+        const centerY = tile.y + TILE_SIZE/2 + 10;
+        if (tile.type === "ladybug") drawLadybug(ctx, centerX, centerY, 1.2);
+        if (tile.type === "butterfly") drawButterfly(ctx, centerX, centerY, 1.2);
+        if (tile.type === "caterpillar") drawCaterpillar(ctx, centerX, centerY, 1.0);
+
+        // The dirt cover (procedural scratch-off)
+        if (tile.cover > 0) {
+            ctx.save();
+            ctx.beginPath(); ctx.roundRect(tile.x, tile.y, TILE_SIZE, TILE_SIZE, 8);
+            ctx.clip(); // Keep dirt inside the tile bounds
+
+            // Scratching is simulated by shrinking overlapping circles based on the cover percentage.
+            ctx.fillStyle = "#8D6E63"; // Top soil
+
+            // Background fill representing remaining cover
+            ctx.globalAlpha = Math.min(1.0, tile.cover * 2);
+            ctx.fillRect(tile.x, tile.y, TILE_SIZE, TILE_SIZE);
+
+            // Procedural dirt clods
+            ctx.fillStyle = "#795548";
+            const clods = 12;
+            for(let i=0; i<clods; i++) {
+                const cx = tile.x + TILE_SIZE/2 + Math.sin(tile.scratchNoise * i) * (TILE_SIZE/2.5);
+                const cy = tile.y + TILE_SIZE/2 + Math.cos(tile.scratchNoise * i) * (TILE_SIZE/2.5);
+                const r = 10 + Math.abs(Math.sin(i * tile.scratchNoise)) * 15;
+                ctx.beginPath(); ctx.arc(cx, cy, r * tile.cover, 0, Math.PI*2); ctx.fill();
+            }
+
+            ctx.restore();
+
+            // Thick border so it looks like a distinct block
+            ctx.strokeStyle = "#5D4037";
+            ctx.lineWidth = 4;
+            ctx.globalAlpha = tile.cover;
+            ctx.beginPath(); ctx.roundRect(tile.x, tile.y, TILE_SIZE, TILE_SIZE, 8); ctx.stroke();
+            ctx.globalAlpha = 1.0;
+        }
+    });
+
+    // Sophie
+    ctx.save();
+    ctx.translate(sophie.x, sophie.y);
+    ctx.rotate(sophie.wobble);
+
+    ctx.shadowColor = "rgba(0,0,0,0.5)";
+    ctx.shadowBlur = 15;
+    ctx.shadowOffsetY = 8;
+
+    // Face her towards the grid (left)
+    ctx.scale(-1, 1);
+
+    const spriteKey = "sophie_" + sophie.state;
+    if (assets[spriteKey] && assets[spriteKey].img && assets[spriteKey].img.complete) {
+        drawImageUnsquished(ctx, assets[spriteKey].img, 0, -sophie.targetHeight/2, sophie.targetHeight);
+    }
+    ctx.restore();
+
+    floatingTexts.forEach(ft => {
+        ctx.globalAlpha = Math.max(0, ft.life);
+        ctx.fillStyle = ft.color;
+        ctx.font = "bold 34px Fredoka";
+        ctx.textAlign = "center";
+        ctx.strokeStyle = "white";
+        ctx.lineWidth = 5;
+        ctx.strokeText(ft.text, ft.x, ft.y);
+        ctx.fillText(ft.text, ft.x, ft.y);
+    });
+    ctx.globalAlpha = 1.0;
+
+    particles.forEach(p => {
+        ctx.globalAlpha = Math.max(0, p.life);
+        ctx.fillStyle = p.color;
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI*2); ctx.fill();
+    });
+    ctx.globalAlpha = 1.0;
+}
+
+function gameLoop(timestamp) {
+    let dt = (timestamp - lastTime) / 1000;
+    if (dt > 0.1) dt = 0.1;
+    lastTime = timestamp;
+
+    update(dt);
+    draw();
+
+    requestAnimationFrame(gameLoop);
+}
+
+document.getElementById("start-btn").addEventListener("click", () => {
+    if (!assetsReady) {
+        document.getElementById("start-btn").innerText = "Loading...";
+        pendingStart = true;
+    } else {
+        startGame();
+    }
+});
+
+function startGame() {
+    document.getElementById("overlay").style.display = "none";
+    document.getElementById("title-text").style.color = "";
+
+    initGrid();
+    playerScore = 0; sophieScore = 0; revealedCount = 0;
+    sophieTimer = 0; sophieTargetTile = null; isDragging = false;
+    setSophieState("idle", 0);
+    document.getElementById("score-you").innerText = "You: 0";
+    document.getElementById("score-sophie").innerText = "Sophie: 0";
+
+    particles = []; floatingTexts = [];
+
+    gameState = "PLAYER_TURN";
+    showBanner("Your Turn!", 1500);
+
+    lastTime = performance.now();
+}
+
+// One loop for the page's whole life -- startGame only resets state, so "Play Again"
+// never stacks a second loop on top of the first.
+loadAssets(() => {
+    assetsReady = true;
+    if (pendingStart) startGame();
+});
+lastTime = performance.now();
+requestAnimationFrame(gameLoop);
+
+let sessionStars = 0;
+function drawStars(){document.getElementById('stars').textContent="⭐".repeat(Math.min(sessionStars,10));}
+function awardStar(best){sessionStars++;drawStars();saveGameStars(sessionStars,best);}
+drawStars();
+
+function loadProgress(){try{return JSON.parse(localStorage.getItem('littlesprout')||'{}');}catch(e){return{};}}
+function saveProgress(d){try{localStorage.setItem('littlesprout',JSON.stringify(d));return true;}catch(e){return false;}}
+function toggleEasy(){const on=document.body.classList.toggle('easyread');document.getElementById('easyBtn').setAttribute('aria-pressed',on?'true':'false');const d=loadProgress();d.easyread=on;saveProgress(d);}
+(function initEasy(){if(loadProgress().easyread){document.body.classList.add('easyread');const b=document.getElementById('easyBtn');if(b)b.setAttribute('aria-pressed','true');}})();
+function loadBest(){const g=(loadProgress().games||{})[GAME_ID];return (g&&g.best)||0;}
+function saveGameStars(n,best){const d=loadProgress();d.games=d.games||{};const prev=d.games[GAME_ID]||{};d.games[GAME_ID]={stars:Math.max(prev.stars||0,n),best:Math.max(prev.best||0,best||0),at:Date.now()};saveProgress(d);}
+if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('../sw.js').catch(function(){});});}
+
+let audioCtx=null;
+function getAudioCtx(){if(!audioCtx){try{audioCtx=new (window.AudioContext||window.webkitAudioContext)();}catch(e){}}return audioCtx;}
+function isMuted(){return !!loadProgress().muted;}
+function tone(freq,dur,type,vol){if(isMuted())return;const ctx=getAudioCtx();if(!ctx)return;try{const o=ctx.createOscillator(),g=ctx.createGain();o.type=type||'sine';o.frequency.value=freq;o.connect(g);g.connect(ctx.destination);g.gain.value=vol||0.1;g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+dur);o.start();o.stop(ctx.currentTime+dur);}catch(e){}}
+function sfxPop(){tone(520,.12,'sine',.12);}
+function sfxSuccess(){tone(523,.12,'sine',.1);setTimeout(function(){tone(659,.12,'sine',.1);},90);setTimeout(function(){tone(784,.2,'sine',.12);},180);}
+function sfxOops(){tone(220,.18,'sine',.08);}
+function confettiBurst(){
+ if(REDUCED_MOTION)return;
+ const colors=['#5BA672','#FFD24A','#185FA5','#B0488C','#E8433F'];
+ for(let i=0;i<24;i++){const p=document.createElement('div');p.className='confetti-piece';p.style.left=(Math.random()*100)+'vw';p.style.background=colors[i%colors.length];p.style.animationDuration=(1.4+Math.random()*1.2)+'s';p.style.transform='rotate('+(Math.random()*360)+'deg)';document.body.appendChild(p);setTimeout(function(){p.remove();},3000);}
+}
+function toggleMute(){const d=loadProgress();d.muted=!d.muted;saveProgress(d);const b=document.getElementById('muteBtn');b.textContent=d.muted?'🔇':'🔊';b.setAttribute('aria-pressed',d.muted?'true':'false');}
+(function initMute(){if(loadProgress().muted){const b=document.getElementById('muteBtn');if(b){b.textContent='🔇';b.setAttribute('aria-pressed','true');}}})();
+</script></body></html>

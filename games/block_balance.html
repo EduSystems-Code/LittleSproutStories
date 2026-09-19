@@ -1,0 +1,712 @@
+<!DOCTYPE html><html lang="en"><head>
+<link rel="icon" type="image/png" href="../assets/icons/icon-192.png">
+<link rel="canonical" href="https://edusystems-code.github.io/LittleSproutStories/games/block_balance.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="LittleSprout">
+<meta property="og:title" content="Block Balance — LittleSprout">
+<meta property="og:description" content="Interactive phonics storybooks and feelings games for early readers ages 4–7, starring Maya, Marcus, Sophie, and James.">
+<meta property="og:url" content="https://edusystems-code.github.io/LittleSproutStories/games/block_balance.html">
+<meta property="og:image" content="https://edusystems-code.github.io/LittleSproutStories/assets/og-share.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Block Balance — LittleSprout">
+<meta name="twitter:description" content="Interactive phonics storybooks and feelings games for early readers ages 4–7, starring Maya, Marcus, Sophie, and James.">
+<meta name="twitter:image" content="https://edusystems-code.github.io/LittleSproutStories/assets/og-share.png"><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Block Balance — LittleSprout</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--sprout:#5BA672;--sprout-dark:#3C7A52;--sprout-deep:#2C5C3D;--cream:#FBF6EC;--cream-deep:#F3EAD6;
+--paper-line:#E7DCC4;--sky:#BFE3FA;--sky-deep:#185FA5;--sun:#FFD24A;--sun-deep:#E1A400;--berry:#B0488C;
+--bark:#36402C;--bark-soft:#5E6650;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',sans-serif;color:var(--bark);min-height:100vh;
+ background-color:var(--cream);
+ background-image:linear-gradient(rgba(251,246,236,.6),rgba(251,246,236,.6)),url('../assets/backgrounds/classroom_3.jpg');
+ background-size:cover;background-position:center;background-repeat:no-repeat;
+ display:flex;flex-direction:column;align-items:center;padding:18px;line-height:1.5}
+h1,h2,h3,button{font-family:'Fredoka',sans-serif;font-weight:600}
+.topbar{width:100%;max-width:860px;display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.back{font-family:'Fredoka',sans-serif;font-weight:600;font-size:15px;color:var(--sprout-dark);
+ background:#fff;border:2px solid var(--paper-line);border-radius:50px;padding:9px 18px;text-decoration:none}
+.back:hover{border-color:var(--sprout)}
+.stars{font-size:22px;letter-spacing:2px;min-height:28px}
+.title{text-align:center;margin-bottom:6px;font-size:clamp(26px,5vw,38px);color:var(--bark)}
+.sub{text-align:center;color:var(--bark-soft);font-weight:700;margin-bottom:22px;font-size:16px}
+:focus-visible{outline:3px solid var(--sky-deep);outline-offset:3px;border-radius:8px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+.stage{position:relative;width:100%;max-width:800px;aspect-ratio:4/3;border-radius:22px;overflow:hidden;
+ box-shadow:0 12px 34px rgba(54,64,44,.22);background:#1a1a1a;container-type:inline-size}
+.stage canvas{display:block;width:100%;height:100%;touch-action:none;cursor:pointer}
+#ui-layer{position:absolute;inset:0;pointer-events:none;display:flex;flex-direction:column;
+ justify-content:space-between;padding:3cqw}
+.hud-text{color:#fff;font-size:4.75cqw;font-weight:700;font-family:'Fredoka',sans-serif;
+ text-shadow:0 4px 10px rgba(0,0,0,.6),0 1px 3px rgba(0,0,0,.8);transition:transform .1s}
+.top-hud{display:flex;justify-content:space-between;width:100%}
+#overlay{position:absolute;inset:0;background:rgba(0,0,0,.65);display:flex;flex-direction:column;
+ justify-content:center;align-items:center;color:#fff;backdrop-filter:blur(8px);padding:4cqw;text-align:center}
+#overlay h2{font-size:8cqw;margin-bottom:.6cqw;text-shadow:0 5px 15px rgba(0,0,0,.5);color:#4CAF50}
+#overlay p{font-size:clamp(14px,3.25cqw,26px);margin-bottom:4cqw;text-shadow:0 3px 8px rgba(0,0,0,.5);font-weight:600;color:#f0f0f0}
+.play-btn{padding:2cqw 6cqw;font-size:clamp(18px,3.75cqw,30px);
+ background:linear-gradient(180deg,#4CAF50 0%,#388E3C 100%);color:#fff;border:4px solid #fff;border-radius:50px;cursor:pointer;
+ box-shadow:0 8px 20px rgba(0,0,0,.4),inset 0 2px 5px rgba(255,255,255,.4);transition:all .15s;text-shadow:0 2px 4px rgba(0,0,0,.3)}
+.play-btn:hover{transform:translateY(-3px);box-shadow:0 12px 25px rgba(0,0,0,.5),inset 0 2px 5px rgba(255,255,255,.5)}
+.play-btn:active{transform:translateY(2px);box-shadow:0 4px 10px rgba(0,0,0,.4)}
+.leaderboard{background:rgba(255,255,255,.1);padding:1.8cqw 4.4cqw;border-radius:20px;margin-bottom:3cqw;
+ font-size:clamp(14px,3cqw,24px);font-weight:700;border:1px solid rgba(255,255,255,.2);box-shadow:0 5px 15px rgba(0,0,0,.2)}
+body.easyread{letter-spacing:.03em;word-spacing:.1em}body.easyread .sub{line-height:1.9}.topbar-right{display:flex;align-items:center;gap:10px}.aa{font-family:'Fredoka',sans-serif;font-weight:600;font-size:15px;color:var(--sprout-dark);background:#fff;border:2px solid var(--paper-line);border-radius:50px;padding:8px 16px;cursor:pointer}.aa[aria-pressed="true"]{background:var(--sprout);color:#fff;border-color:var(--sprout)}.aa,.back{transition:transform .12s ease}.aa:active,.back:active{transform:scale(.93)}.confetti-piece{position:fixed;top:-12px;width:10px;height:14px;opacity:.95;pointer-events:none;z-index:999;animation:confettiFall linear forwards}@keyframes confettiFall{to{transform:translateY(110vh) rotate(560deg);opacity:.6}}@media(prefers-reduced-motion:reduce){.aa:active,.back:active{transform:none}.confetti-piece{display:none}}</style></head><body>
+<div class="topbar"><a class="back" href="../index.html">&#8592; Back</a><div class="topbar-right"><button type="button" class="aa" id="easyBtn" onclick="toggleEasy()" aria-pressed="false" title="Easier-to-read spacing">Aa</button><button type="button" class="aa" id="muteBtn" onclick="toggleMute()" aria-pressed="false" title="Sound on/off">🔊</button><div class="stars" id="stars"></div></div></div>
+<h1 class="title">Block Balance</h1>
+<p class="sub">Help Marcus build a tall tower. Tap (or press Space) to drop each block.</p>
+<div class="stage" id="game-container">
+ <canvas id="gameCanvas" width="800" height="600" aria-label="Block Balance: drop swinging blocks to stack a tower with Marcus"></canvas>
+ <div id="ui-layer">
+  <div class="top-hud">
+   <div id="score-display" class="hud-text">Tower Height: 0</div>
+  </div>
+ </div>
+ <div id="overlay">
+  <h2 id="title-text">Marcus's Blocks</h2>
+  <p id="desc-text" role="status">Tap the screen to drop a block.<br>Build the tallest tower you can!</p>
+  <div class="leaderboard">Tallest Tower: <span id="high-score">0</span></div>
+  <button type="button" class="play-btn" id="start-btn">Play Now</button>
+ </div>
+</div>
+<script>
+const GAME_ID = 'block_balance';
+const assets = {
+    marcus_idle: { src: "../assets/sprites/marcus_happy_standing.png", img: null },
+    marcus_cheer: { src: "../assets/sprites/marcus_happy_jumping.png", img: null },
+    marcus_surprised: { src: "../assets/sprites/marcus_surprised_standing.png", img: null },
+    marcus_reaching: { src: "../assets/sprites/marcus_happy_reaching.png", img: null },
+    marcus_hands: { src: "../assets/sprites/marcus_happy_hands.png", img: null }
+};
+
+let assetsReady = false;
+let pendingStart = false;
+
+function loadAssets(onComplete) {
+    const keys = Object.keys(assets);
+    let loadedCount = 0;
+    const done = () => { loadedCount++; if (loadedCount === keys.length) onComplete(); };
+    keys.forEach(key => {
+        const img = new Image();
+        img.onload = () => { assets[key].img = img; done(); };
+        img.onerror = () => { console.warn("Failed to load", assets[key].src); done(); };
+        img.src = assets[key].src;
+    });
+}
+
+const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
+ctx.imageSmoothingEnabled = true;
+ctx.imageSmoothingQuality = 'high';
+const REDUCED_MOTION = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+let gameState = "MENU";
+let score = 0;
+let lastTime = 0;
+let cameraY = 0;
+let targetCameraY = 0;
+
+let highScore = loadBest();
+document.getElementById("high-score").innerText = highScore;
+
+let shakeTime = 0;
+let shakeMag = 0;
+
+let particles = [];
+let floatingTexts = [];
+let placedBlocks = [];
+
+let crane = {
+    angle: 0,
+    speed: 2,
+    length: 200,
+    x: 400,
+    y: -50
+};
+
+let activeBlock = null;
+const blockColors = ["#E63946", "#F4A261", "#E9C46A", "#2A9D8F", "#264653", "#9D4EDD"];
+
+const marcus = {
+    x: 120,
+    y: 500,
+    targetHeight: 180,
+    state: "idle",
+    stateTime: 0,
+    wobble: 0
+};
+
+// Intro animation variables
+let introPhase = 0;
+let introTimer = 0;
+let ropeY = 0;
+let hoistY = 0;
+
+function triggerShake(magnitude, duration) {
+    if (REDUCED_MOTION) return;
+    shakeMag = magnitude;
+    shakeTime = duration;
+}
+
+function createParticles(x, y, color) {
+    for(let i=0; i<30; i++) {
+        particles.push({
+            x: x + (Math.random()-0.5)*40,
+            y: y,
+            vx: (Math.random() - 0.5) * 400, vy: -Math.random() * 400,
+            life: 1.0, color: color, size: Math.random() * 8 + 4
+        });
+    }
+}
+
+function createFloatingText(x, y, text, color) {
+    floatingTexts.push({
+        x: x, y: y, text: text, color: color, life: 1.0, vy: -40
+    });
+}
+
+function setMarcusState(state, duration) {
+    marcus.state = state;
+    marcus.stateTime = duration;
+}
+
+function getNextBlock() {
+    return {
+        w: 120, h: 80,
+        color: blockColors[Math.floor(Math.random() * blockColors.length)],
+        isFalling: false,
+        x: 0, y: 0, vy: 0,
+        grainSeed: Math.random() * 100
+    };
+}
+
+canvas.addEventListener("mousedown", handleDrop);
+canvas.addEventListener("touchstart", (e) => { e.preventDefault(); handleDrop(); }, {passive: false});
+window.addEventListener("keydown", (e) => {
+    if ((e.code === "Space" || e.code === "Enter") && (gameState === "PLAYING" || gameState === "INTRO")) {
+        e.preventDefault();
+        if (!e.repeat) handleDrop();
+    }
+});
+
+function handleDrop() {
+    if (gameState === "INTRO") {
+        // Skip intro if tapped
+        introPhase = 3;
+        introTimer = 999;
+        return;
+    }
+    if (gameState !== "PLAYING") return;
+    if (activeBlock && !activeBlock.isFalling) {
+        activeBlock.isFalling = true;
+    }
+}
+
+function gameOver() {
+    gameState = "GAMEOVER";
+    document.getElementById("overlay").style.display = "flex";
+    document.getElementById("title-text").innerText = "Oops!";
+    document.getElementById("title-text").style.color = "#ff5252";
+    document.getElementById("desc-text").innerText = `The tower fell! You placed ${score} blocks.`;
+    document.getElementById("start-btn").innerText = "Try Again";
+    sfxOops();
+    if (score > highScore) {
+        highScore = score;
+        document.getElementById("high-score").innerText = highScore;
+        confettiBurst();
+    }
+    if (score > 0) awardStar(score);
+    document.getElementById("start-btn").focus();
+}
+
+function update(dt) {
+    // Ticks even after game over, so a final shake settles instead of running forever.
+    if (shakeTime > 0) shakeTime -= dt;
+
+    if (gameState === "INTRO") {
+        introTimer += dt;
+        marcus.wobble = Math.sin(performance.now() / 300) * 0.05;
+
+        if (introPhase === 1) {
+            marcus.state = "reaching";
+            let progress = introTimer / 0.6; // 0.6s throw rope
+            if (progress >= 1) {
+                progress = 1;
+                introPhase = 2;
+                introTimer = 0;
+            }
+            // Marcus's hand is roughly at y=450. Hook is at hoistY
+            ropeY = 450 - (450 - hoistY) * progress;
+            crane.y = hoistY;
+        }
+        else if (introPhase === 2) {
+            let progress = introTimer / 1.8; // 1.8s hoisting
+
+            if (Math.floor(introTimer / 0.25) % 2 === 0) {
+                marcus.state = "hands";
+            } else {
+                marcus.state = "reaching";
+            }
+
+            // Ease out cubic
+            const easeOut = 1 - Math.pow(1 - progress, 3);
+            hoistY = 250 - (250 - (-50)) * easeOut;
+            crane.y = hoistY;
+
+            if (progress >= 1) {
+                introPhase = 3;
+            }
+        }
+        else if (introPhase === 3) {
+            gameState = "PLAYING";
+            marcus.state = "idle";
+            crane.speed = 2;
+            crane.y = -50;
+            if(!activeBlock) activeBlock = getNextBlock();
+            activeBlock.isFalling = false;
+        }
+        return; // Skip rest of update during intro
+    }
+
+    if (gameState !== "PLAYING") return;
+
+    if (marcus.stateTime > 0) {
+        marcus.stateTime -= dt;
+        if (marcus.stateTime <= 0) marcus.state = "idle";
+    }
+
+    marcus.wobble = Math.sin(performance.now() / 300) * 0.05;
+
+    let highestY = 560;
+    if (placedBlocks.length > 0) {
+        highestY = placedBlocks[placedBlocks.length - 1].y;
+    }
+
+    let desiredCamera = (600 - highestY) - 150;
+    if (desiredCamera < 0) desiredCamera = 0;
+    targetCameraY = desiredCamera;
+
+    cameraY += (targetCameraY - cameraY) * 5 * dt;
+
+    crane.angle += crane.speed * dt;
+    const swingRange = Math.PI / 4;
+    const currentAngle = Math.sin(crane.angle) * swingRange;
+
+    const hookX = crane.x + Math.sin(currentAngle) * crane.length;
+    const hookY = crane.y + cameraY + Math.cos(currentAngle) * crane.length;
+
+    if (!activeBlock) activeBlock = getNextBlock();
+
+    if (!activeBlock.isFalling) {
+        activeBlock.x = hookX;
+        activeBlock.y = hookY;
+    } else {
+        activeBlock.vy += 1800 * dt;
+        activeBlock.y += activeBlock.vy * dt;
+
+        let hit = false;
+        let surfaceY = 550;
+        let surfaceW = 400;
+        let surfaceX = 400;
+
+        if (placedBlocks.length > 0) {
+            const topBlock = placedBlocks[placedBlocks.length - 1];
+            surfaceY = topBlock.y - topBlock.h/2;
+            surfaceW = topBlock.w;
+            surfaceX = topBlock.x;
+        }
+
+        if (activeBlock.y + activeBlock.h/2 >= surfaceY) {
+            const overlapX = Math.abs(activeBlock.x - surfaceX);
+
+            if (overlapX < (activeBlock.w/2 + surfaceW/2)) {
+                activeBlock.y = surfaceY - activeBlock.h/2;
+                activeBlock.isFalling = false;
+
+                const diff = activeBlock.x - surfaceX;
+                if (Math.abs(diff) > 5) {
+                    const newW = activeBlock.w - Math.abs(diff);
+                    if (newW <= 10) {
+                        hit = "miss";
+                    } else {
+                        activeBlock.w = newW;
+                        activeBlock.x = surfaceX + diff/2;
+                        hit = "land";
+                    }
+                } else {
+                    hit = "perfect";
+                    activeBlock.x = surfaceX;
+                }
+            } else {
+                hit = "miss";
+            }
+        }
+
+        if (hit === "perfect") {
+            placedBlocks.push({...activeBlock});
+            score++;
+            document.getElementById("score-display").innerText = "Tower Height: " + score;
+            createParticles(activeBlock.x, activeBlock.y + activeBlock.h/2, "#FFD700");
+            createFloatingText(activeBlock.x, activeBlock.y - 20, "Perfect!", "#FFD700");
+            setMarcusState("cheer", 1.0);
+            triggerShake(4, 0.1);
+            sfxSuccess();
+            activeBlock = null;
+            crane.speed += 0.15;
+        } else if (hit === "land") {
+            placedBlocks.push({...activeBlock});
+            score++;
+            document.getElementById("score-display").innerText = "Tower Height: " + score;
+            createParticles(activeBlock.x, activeBlock.y + activeBlock.h/2, "#FFFFFF");
+            triggerShake(8, 0.15);
+            sfxPop();
+            activeBlock = null;
+            crane.speed += 0.15;
+        } else if (hit === "miss" || activeBlock.y > 800) {
+            triggerShake(20, 0.5);
+            setMarcusState("surprised", 2.0);
+            gameOver();
+        }
+    }
+
+    for (let i = floatingTexts.length - 1; i >= 0; i--) {
+        let ft = floatingTexts[i];
+        ft.y += ft.vy * dt;
+        ft.life -= dt * 1.5;
+        if (ft.life <= 0) floatingTexts.splice(i, 1);
+    }
+
+    for (let i = particles.length - 1; i >= 0; i--) {
+        let p = particles[i];
+        p.x += p.vx * dt;
+        p.y += p.vy * dt;
+        p.vy += 1200 * dt;
+        p.life -= dt * 2;
+        if (p.life <= 0) particles.splice(i, 1);
+    }
+}
+
+// Procedural art functions
+function drawRoundedRect(ctx, x, y, width, height, radius) {
+    ctx.beginPath();
+    ctx.moveTo(x - width/2 + radius, y - height/2);
+    ctx.lineTo(x + width/2 - radius, y - height/2);
+    ctx.quadraticCurveTo(x + width/2, y - height/2, x + width/2, y - height/2 + radius);
+    ctx.lineTo(x + width/2, y + height/2 - radius);
+    ctx.quadraticCurveTo(x + width/2, y + height/2, x + width/2 - radius, y + height/2);
+    ctx.lineTo(x - width/2 + radius, y + height/2);
+    ctx.quadraticCurveTo(x - width/2, y + height/2, x - width/2, y + height/2 - radius);
+    ctx.lineTo(x - width/2, y - height/2 + radius);
+    ctx.quadraticCurveTo(x - width/2, y - height/2, x - width/2 + radius, y - height/2);
+    ctx.closePath();
+}
+
+function drawWoodBlock(ctx, block) {
+    ctx.save();
+
+    ctx.shadowColor = "rgba(0,0,0,0.4)";
+    ctx.shadowBlur = 8;
+    ctx.shadowOffsetY = 6;
+
+    ctx.fillStyle = block.color;
+    drawRoundedRect(ctx, block.x, block.y, block.w, block.h, 6);
+    ctx.fill();
+
+    ctx.shadowColor = "transparent";
+
+    ctx.save();
+    drawRoundedRect(ctx, block.x, block.y, block.w, block.h, 6);
+    ctx.clip();
+
+    ctx.strokeStyle = "rgba(0,0,0,0.15)";
+    ctx.lineWidth = 2;
+    for (let i = -block.h/2; i < block.h/2; i += 8) {
+        ctx.beginPath();
+        let yOffset = block.y + i;
+        ctx.moveTo(block.x - block.w/2, yOffset + Math.sin(block.grainSeed)*3);
+        ctx.bezierCurveTo(
+            block.x - block.w/4, yOffset + Math.cos(i + block.grainSeed)*5,
+            block.x + block.w/4, yOffset - Math.sin(i - block.grainSeed)*5,
+            block.x + block.w/2, yOffset + Math.cos(block.grainSeed)*3
+        );
+        ctx.stroke();
+    }
+    ctx.restore();
+
+    ctx.strokeStyle = "rgba(255,255,255,0.4)";
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(block.x - block.w/2 + 2, block.y + block.h/2 - 2);
+    ctx.lineTo(block.x - block.w/2 + 2, block.y - block.h/2 + 2);
+    ctx.lineTo(block.x + block.w/2 - 2, block.y - block.h/2 + 2);
+    ctx.stroke();
+
+    ctx.strokeStyle = "rgba(0,0,0,0.25)";
+    ctx.beginPath();
+    ctx.moveTo(block.x + block.w/2 - 2, block.y - block.h/2 + 2);
+    ctx.lineTo(block.x + block.w/2 - 2, block.y + block.h/2 - 2);
+    ctx.lineTo(block.x - block.w/2 + 2, block.y + block.h/2 - 2);
+    ctx.stroke();
+
+    ctx.strokeStyle = "#3e2723";
+    ctx.lineWidth = 3;
+    drawRoundedRect(ctx, block.x, block.y, block.w, block.h, 6);
+    ctx.stroke();
+
+    ctx.restore();
+}
+
+function drawBackground(ctx) {
+    const wallGradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+    wallGradient.addColorStop(0, "#ffe0b2");
+    wallGradient.addColorStop(1, "#ffcc80");
+    ctx.fillStyle = wallGradient;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = "rgba(255, 255, 255, 0.4)";
+    for (let x = 50; x < canvas.width; x += 150) {
+        for (let y = 50; y < canvas.height + cameraY; y += 150) {
+            const py = (y + cameraY * 0.3) % (canvas.height + 150) - 50;
+            ctx.save();
+            ctx.translate(x, py);
+            ctx.beginPath();
+            for(let i=0; i<5; i++) {
+                ctx.lineTo(Math.cos((18+i*72)*Math.PI/180)*15, -Math.sin((18+i*72)*Math.PI/180)*15);
+                ctx.lineTo(Math.cos((54+i*72)*Math.PI/180)*6, -Math.sin((54+i*72)*Math.PI/180)*6);
+            }
+            ctx.closePath();
+            ctx.fill();
+            ctx.restore();
+        }
+    }
+
+    ctx.save();
+    ctx.translate(0, cameraY);
+
+    ctx.fillStyle = "#FFFFFF";
+    ctx.fillRect(0, 500, canvas.width, 30);
+    ctx.fillStyle = "#e0e0e0";
+    ctx.fillRect(0, 525, canvas.width, 5);
+
+    ctx.fillStyle = "#8D6E63";
+    ctx.fillRect(0, 530, canvas.width, 100);
+
+    ctx.strokeStyle = "#795548";
+    ctx.lineWidth = 2;
+    for (let i = -200; i < canvas.width + 200; i += 80) {
+        ctx.beginPath();
+        ctx.moveTo(i, 530);
+        ctx.lineTo(i + (i - canvas.width/2)*0.5, 650);
+        ctx.stroke();
+    }
+
+    ctx.strokeStyle = "#4e342e";
+    ctx.lineWidth = 4;
+    ctx.beginPath(); ctx.moveTo(0, 530); ctx.lineTo(canvas.width, 530); ctx.stroke();
+
+    drawWoodBlock(ctx, { x: 400, y: 560, w: 400, h: 40, color: "#81c341", grainSeed: 42 });
+
+    ctx.restore();
+}
+
+function drawImageUnsquished(ctx, img, x, y, targetHeight) {
+    if (!img || !img.complete || img.height === 0) return;
+    const aspect = img.width / img.height;
+    const w = targetHeight * aspect;
+    ctx.drawImage(img, x - w/2, y - targetHeight/2, w, targetHeight);
+}
+
+function draw() {
+    ctx.save();
+
+    if (shakeTime > 0) {
+        const dx = (Math.random() - 0.5) * shakeMag;
+        const dy = (Math.random() - 0.5) * shakeMag;
+        ctx.translate(dx, dy);
+    }
+
+    drawBackground(ctx);
+
+    ctx.save();
+    ctx.translate(0, cameraY);
+    placedBlocks.forEach(b => drawWoodBlock(ctx, b));
+    if (activeBlock && activeBlock.isFalling) {
+        drawWoodBlock(ctx, activeBlock);
+    }
+    ctx.restore();
+
+    const swingRange = Math.PI / 4;
+    const currentAngle = Math.sin(crane.angle) * swingRange;
+    const hookX = crane.x + Math.sin(currentAngle) * crane.length;
+    const hookY = crane.y + Math.cos(currentAngle) * crane.length;
+
+    // Crane and hook
+    ctx.lineWidth = 5;
+    ctx.strokeStyle = "#37474F";
+    ctx.beginPath();
+    ctx.moveTo(crane.x, crane.y);
+    ctx.lineTo(hookX, hookY);
+    ctx.stroke();
+
+    ctx.fillStyle = "#FFC107";
+    ctx.beginPath(); ctx.arc(hookX, hookY, 12, 0, Math.PI*2); ctx.fill();
+    ctx.lineWidth = 3; ctx.strokeStyle = "#2b2b2b"; ctx.stroke();
+
+    if (activeBlock && !activeBlock.isFalling) {
+        const visualBlock = {...activeBlock, y: activeBlock.y - cameraY};
+        // In intro, the block hangs at hoistY, so update it directly
+        if(gameState === "INTRO") visualBlock.y = hookY - cameraY;
+        drawWoodBlock(ctx, visualBlock);
+    }
+
+    // Intro animation: the throwing rope
+    if (gameState === "INTRO") {
+        ctx.save();
+        ctx.strokeStyle = "#D7CCC8";
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        const handX = marcus.x + 20;
+        const handY = marcus.y - 70;
+        ctx.moveTo(handX, handY);
+
+        if (introPhase === 1) {
+            ctx.lineTo(hookX, ropeY);
+        } else if (introPhase === 2) {
+            ctx.lineTo(hookX, hoistY);
+        }
+        ctx.stroke();
+        ctx.restore();
+    }
+
+    // Screen-space rendering
+    ctx.save();
+    ctx.translate(marcus.x, marcus.y);
+    ctx.rotate(marcus.wobble);
+
+    ctx.shadowColor = "rgba(0,0,0,0.4)";
+    ctx.shadowBlur = 12;
+    ctx.shadowOffsetY = 5;
+
+    const spriteKey = "marcus_" + marcus.state;
+    if (assets[spriteKey] && assets[spriteKey].img && assets[spriteKey].img.complete) {
+        drawImageUnsquished(ctx, assets[spriteKey].img, 0, -marcus.targetHeight/2, marcus.targetHeight);
+    }
+    ctx.restore();
+
+    floatingTexts.forEach(ft => {
+        const screenY = ft.y + cameraY;
+        ctx.globalAlpha = Math.max(0, ft.life);
+        ctx.fillStyle = ft.color;
+        ctx.font = "bold 44px Fredoka";
+        ctx.textAlign = "center";
+        ctx.strokeStyle = "white";
+        ctx.lineWidth = 6;
+        ctx.strokeText(ft.text, ft.x, screenY);
+        ctx.fillText(ft.text, ft.x, screenY);
+    });
+    ctx.globalAlpha = 1.0;
+
+    ctx.save();
+    ctx.translate(0, cameraY);
+    particles.forEach(p => {
+        ctx.globalAlpha = Math.max(0, p.life);
+        ctx.fillStyle = p.color;
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI*2); ctx.fill();
+    });
+    ctx.restore();
+    ctx.globalAlpha = 1.0;
+
+    const gradient = ctx.createRadialGradient(canvas.width/2, canvas.height/2, canvas.width * 0.4, canvas.width/2, canvas.height/2, canvas.width * 0.8);
+    gradient.addColorStop(0, "rgba(0,0,0,0)");
+    gradient.addColorStop(1, "rgba(0,0,0,0.3)");
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.restore();
+}
+
+function gameLoop(timestamp) {
+    let dt = (timestamp - lastTime) / 1000;
+    if (dt > 0.1) dt = 0.1;
+    lastTime = timestamp;
+
+    update(dt);
+    draw();
+
+    requestAnimationFrame(gameLoop);
+}
+
+document.getElementById("start-btn").addEventListener("click", () => {
+    if (!assetsReady) {
+        document.getElementById("start-btn").innerText = "Loading...";
+        pendingStart = true;
+    } else {
+        startGame();
+    }
+});
+
+function startGame() {
+    document.getElementById("overlay").style.display = "none";
+    document.getElementById("title-text").style.color = "";
+    gameState = "INTRO";
+    introPhase = 1;
+    introTimer = 0;
+    hoistY = 250; // Start crane low
+    crane.y = hoistY;
+    crane.angle = 0;
+    crane.speed = 0;
+
+    score = 0; cameraY = 0; targetCameraY = 0;
+    placedBlocks = []; particles = []; floatingTexts = [];
+    shakeTime = 0;
+    setMarcusState("idle", 0);
+    activeBlock = getNextBlock();
+    activeBlock.isFalling = false;
+
+    document.getElementById("score-display").innerText = "Tower Height: 0";
+    lastTime = performance.now();
+}
+
+// One loop for the page's whole life -- startGame only resets state, so "Try Again"
+// never stacks a second loop on top of the first.
+loadAssets(() => {
+    assetsReady = true;
+    if (pendingStart) startGame();
+});
+lastTime = performance.now();
+requestAnimationFrame(gameLoop);
+
+let sessionStars = 0;
+function drawStars(){document.getElementById('stars').textContent="⭐".repeat(Math.min(sessionStars,10));}
+function awardStar(best){sessionStars++;drawStars();saveGameStars(sessionStars,best);}
+drawStars();
+
+function loadProgress(){try{return JSON.parse(localStorage.getItem('littlesprout')||'{}');}catch(e){return{};}}
+function saveProgress(d){try{localStorage.setItem('littlesprout',JSON.stringify(d));return true;}catch(e){return false;}}
+function toggleEasy(){const on=document.body.classList.toggle('easyread');document.getElementById('easyBtn').setAttribute('aria-pressed',on?'true':'false');const d=loadProgress();d.easyread=on;saveProgress(d);}
+(function initEasy(){if(loadProgress().easyread){document.body.classList.add('easyread');const b=document.getElementById('easyBtn');if(b)b.setAttribute('aria-pressed','true');}})();
+function loadBest(){const g=(loadProgress().games||{})[GAME_ID];return (g&&g.best)||0;}
+function saveGameStars(n,best){const d=loadProgress();d.games=d.games||{};const prev=d.games[GAME_ID]||{};d.games[GAME_ID]={stars:Math.max(prev.stars||0,n),best:Math.max(prev.best||0,best||0),at:Date.now()};saveProgress(d);}
+if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('../sw.js').catch(function(){});});}
+
+let audioCtx=null;
+function getAudioCtx(){if(!audioCtx){try{audioCtx=new (window.AudioContext||window.webkitAudioContext)();}catch(e){}}return audioCtx;}
+function isMuted(){return !!loadProgress().muted;}
+function tone(freq,dur,type,vol){if(isMuted())return;const ctx=getAudioCtx();if(!ctx)return;try{const o=ctx.createOscillator(),g=ctx.createGain();o.type=type||'sine';o.frequency.value=freq;o.connect(g);g.connect(ctx.destination);g.gain.value=vol||0.1;g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+dur);o.start();o.stop(ctx.currentTime+dur);}catch(e){}}
+function sfxPop(){tone(520,.12,'sine',.12);}
+function sfxSuccess(){tone(523,.12,'sine',.1);setTimeout(function(){tone(659,.12,'sine',.1);},90);setTimeout(function(){tone(784,.2,'sine',.12);},180);}
+function sfxOops(){tone(220,.18,'sine',.08);}
+function confettiBurst(){
+ if(REDUCED_MOTION)return;
+ const colors=['#5BA672','#FFD24A','#185FA5','#B0488C','#E8433F'];
+ for(let i=0;i<24;i++){const p=document.createElement('div');p.className='confetti-piece';p.style.left=(Math.random()*100)+'vw';p.style.background=colors[i%colors.length];p.style.animationDuration=(1.4+Math.random()*1.2)+'s';p.style.transform='rotate('+(Math.random()*360)+'deg)';document.body.appendChild(p);setTimeout(function(){p.remove();},3000);}
+}
+function toggleMute(){const d=loadProgress();d.muted=!d.muted;saveProgress(d);const b=document.getElementById('muteBtn');b.textContent=d.muted?'🔇':'🔊';b.setAttribute('aria-pressed',d.muted?'true':'false');}
+(function initMute(){if(loadProgress().muted){const b=document.getElementById('muteBtn');if(b){b.textContent='🔇';b.setAttribute('aria-pressed','true');}}})();
+</script></body></html>
